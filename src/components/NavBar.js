@@ -4,12 +4,12 @@ import Button from 'react-bootstrap/Button'
 const NavBar = () => {
     return (
         <nav className="nav-bar">
-            <div className="nav-bar-item">Project List</div>
-            <div className="nav-bar-item">Create New Project</div>
-            <div className="nav-bar-item">Phone Log</div>
-            <div className="nav-bar-item">To Be Invoiced</div>
-            <div className="nav-bar-item">Weekly Report</div>
-            <div>{<Button>This is a button</Button>}</div>
+            <a href='/' className="nav-bar-item">Project List</a>
+            <a href='/#' className="nav-bar-item">Create New Project</a>
+            <a href='/phone-log' className="nav-bar-item">Phone Log</a>
+            <a href='/#' className="nav-bar-item">To Be Invoiced</a>
+            <a href='/#' className="nav-bar-item">Weekly Report</a>
+            <div>{<Button>Add New Project</Button>}</div>
         </nav>
     )
 }

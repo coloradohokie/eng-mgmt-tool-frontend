@@ -26,9 +26,14 @@ body {
 }
 
 h1 {
-
   margin: 10px;
   font-size: 20px;
+}
+
+main {
+  width: 90%;
+  min-width: 1000px;
+  margin: auto;
 }
 
 .nav-bar {
@@ -55,4 +60,10 @@ h1 {
   height: 50px;
   width: 90%;
   margin: auto;
+}
+
+.item-card {
+  width: 90%;
+  margin: auto;
+  cursor: pointer;
 }
