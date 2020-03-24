@@ -1,4 +1,5 @@
 import React from 'react'
+import Button from 'react-bootstrap/Button'
 
 const NavBar = () => {
     return (
@@ -8,6 +9,7 @@ const NavBar = () => {
             <div className="nav-bar-item">Phone Log</div>
             <div className="nav-bar-item">To Be Invoiced</div>
             <div className="nav-bar-item">Weekly Report</div>
+            <div>{<Button>This is a button</Button>}</div>
         </nav>
     )
 }
