@@ -20,6 +20,7 @@ const ProjectItem = (props) => {
                 <Card.Body>
                     <Card.Title>{project.address1}, {project.city}</Card.Title>
                     <Card.Text>{project.project_description}</Card.Text>
+                    <Card.Text>{project.status_value.value}</Card.Text>
                 </Card.Body>
             </Card>
     )
