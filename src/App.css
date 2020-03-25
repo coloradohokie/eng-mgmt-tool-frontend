@@ -66,4 +66,14 @@ main {
   width: 90%;
   margin: auto;
   cursor: pointer;
+  background-color: ivory;
+  margin-bottom: 15px;
+}
+
+a {
+  color: black;
+}
+
+a:hover {
+  color: green;
 }

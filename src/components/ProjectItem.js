@@ -1,24 +1,20 @@
 import React from 'react'
 import Card from 'react-bootstrap/Card'
 
-import ItemDetails from './ItemDetails'
 
 const ProjectItem = (props) => {
     console.log("project item", props)
     const project = {...props.project}
     console.log(project)
 
-    const handleClick = (event) => {
-        console.log(`${project.id} got clicked`)
-        return (<ItemDetails project={project} />)
 
-    }
+    const detailLink = `/item-details/${project.id}`
 
 
     return(
-            <Card className="item-card" onClick={handleClick}>
+            <Card className="item-card">
                 <Card.Body>
-                    <Card.Title>{project.address1}, {project.city}</Card.Title>
+                    <Card.Title> <a href={detailLink}> {project.address1}, {project.city} </a> </Card.Title>
                     <Card.Text>{project.project_description}</Card.Text>
                     <Card.Text>{project.status_value.value}</Card.Text>
                 </Card.Body>
