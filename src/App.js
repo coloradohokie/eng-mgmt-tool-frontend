@@ -39,23 +39,23 @@ export default class App extends React.Component {
     this.fetchActivities()
   }
 
-  // addProject = (newProject) => {
-  //   const projects = [...this.state.projects, newProject]
-  //   this.setState({projects: projects})
-  //   fetch(`BASE_URL`, {
-  //     method: 'POST',
-  //     headers: {"Content-Type": "application/json"},
-  //     body: JSON.stringify(newProject)})
-  //   .then(response => response.json())
-  //   .then(todo => {this.setState([...this.state.todos, todo])})
-  // }
+  addProject = (newProject) => {
+    fetch(BASE_URL.concat("projects"), {
+        method: 'POST',
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(newProject)
+      })
+      .then(response => response.json())
+      .then(project => console.log("response from server: ", project))
+      .then(project => {this.setState([...this.state.projects, project])})
+    window.location.href = "/"
+  }
 
 
   getProject = (id) => {
     const project = this.state.projects.find(id)
     console.log(project)
     return project 
-    // this.state.projects.find(id)
   }
   
   render() {
@@ -75,7 +75,7 @@ export default class App extends React.Component {
               />
 
               <Route exact path='/create-new-project'>
-                <CreateNewProject />
+                <CreateNewProject addProject={this.addProject} />
               </Route>
                 
 
