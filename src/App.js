@@ -39,6 +39,18 @@ export default class App extends React.Component {
     this.fetchActivities()
   }
 
+  // addProject = (newProject) => {
+  //   const projects = [...this.state.projects, newProject]
+  //   this.setState({projects: projects})
+  //   fetch(`BASE_URL`, {
+  //     method: 'POST',
+  //     headers: {"Content-Type": "application/json"},
+  //     body: JSON.stringify(newProject)})
+  //   .then(response => response.json())
+  //   .then(todo => {this.setState([...this.state.todos, todo])})
+  // }
+
+
   getProject = (id) => {
     const project = this.state.projects.find(id)
     console.log(project)
