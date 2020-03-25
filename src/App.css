@@ -152,3 +152,8 @@ h2 {
   display: flex;
   justify-content: space-between;
 }
+
+.activity-log-table {
+  width: 90%;
+  background-color: #FFF;
+}

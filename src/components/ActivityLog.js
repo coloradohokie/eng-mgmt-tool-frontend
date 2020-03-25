@@ -12,7 +12,7 @@ export default function ActivityLog(props) {
     return (
         <div>
             <h1>Phone Log</h1>
-            <Table striped bordered hover>
+            <Table striped bordered hover className="activity-log-table">
                 <thead>
                     <tr>
                     <th>Activity</th>

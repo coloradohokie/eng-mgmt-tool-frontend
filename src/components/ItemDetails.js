@@ -2,23 +2,51 @@ import React from 'react'
 import Table from 'react-bootstrap/Table'
 import Badge from 'react-bootstrap/Badge'
 import TaskItem from './TaskItem'
+import ActivityItem from './ActivityItem'
 
 export default function ItemDetails(props) {
-
     const showTask = (task) => {
-        console.log(task)
+        // console.log(task)
         return( <TaskItem key={task.id} {...task} /> )
     }
 
+    const showActivities = (id) => { 
+        return (
+            props.activities.map(activity => activity.project_id === id ? 
+                 <ActivityItem key={activity.id} activity={activity} /> : null
+            )                
+        )
+    }
+    
     const showInvoiceBadge = (ready_to_be_invoiced) => {
-        if (!ready_to_be_invoiced) {
+        if (ready_to_be_invoiced) {
             return <h3><Badge variant="secondary">Ready to Be Invoiced</Badge></h3>
         }
     }
 
+    const displayCategoryTable = (category_id, tasks) => {
+        console.log(category_id)
+        return (
+            <div>
+                <h2>Task Category {category_id}</h2>
+                <Table hover size="sm" className="item-details-table">
+                    <tbody>
+                        {tasks.map(task => task.task_category_id === category_id ? showTask(task):null)}
+                    </tbody>
+                </Table>
+            </div>
+        )
+    }
+
+    const displayTaskTables = (tasks) => {
+        const categories = [...new Set(tasks.map(task => task.task_category_id ))]
+        return categories.map(category => displayCategoryTable(category, tasks))
+    }
+    
     const project = props.projects.find(element => element.id === parseInt(props.match.params.id))
     if (project) {
         const {
+            id,
             job_number, 
             address1, 
             address2,
@@ -37,9 +65,9 @@ export default function ItemDetails(props) {
             created_at,
             updated_at,
             tasks} = (project)
-        console.log("project = ", project )
-    
-        return (
+            
+            
+            return (
             <div className="item-details">
                 <div className="item-details-header">
                     <div className="item-details-header-top-line">
@@ -105,21 +133,26 @@ export default function ItemDetails(props) {
 
                     </tbody>
                 </Table>
+                
+                {displayTaskTables(tasks)}
+
 
                 <h2>Activity Log</h2>
-                <Table striped bordered hover size="sm" className="item-details-table">
+                <Table striped bordered hover size="sm" className="activity-log-table">
+                    <thead>
+                        <tr>
+                            <th>Activity</th>
+                            <th>Date</th>
+                            <th>Project</th>
+                            <th>Notes</th>
+                        </tr>
+                    </thead>
+
                     <tbody>
-                        
+                        {showActivities(id)}
                     </tbody>
                 </Table>
 
-                <h2>Tasks</h2>
-                <Table hover size="sm" className="item-details-table">
-                    <tbody>
-                        {tasks.map(task => showTask(task))}
-                    </tbody>
-                </Table>
-                
 
 
                 <footer className="item-details-footer">

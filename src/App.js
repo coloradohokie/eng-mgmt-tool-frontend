@@ -71,7 +71,7 @@ export default class App extends React.Component {
 
               <Route 
                 path='/item-details/:id' 
-                render={(props) => <ItemDetails {...props} projects={(this.state.projects)} />} 
+                render={(props) => <ItemDetails {...props} projects={(this.state.projects)} activities={this.state.activities} />} 
               />
 
               <Route exact path='/create-new-project'>

@@ -1,7 +1,7 @@
 import React from 'react'
 
 export default function TaskItem(props) {
-    console.log(props.name)
+    console.log(props)
     return (
         <tr>
             <td><input type="checkbox" /></td>
