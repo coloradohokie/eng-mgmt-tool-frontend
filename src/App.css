@@ -77,3 +77,20 @@ a {
 a:hover {
   color: green;
 }
+
+.create-new-project-form {
+  display: flex;
+  flex-direction: column;
+  width: 750px;
+  border: 1px solid #AAA;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 10px 10px 20px gray;
+  margin-bottom: 20px;
+}
+
+.create-new-project-form-row {
+  display: flex;
+  justify-content: space-between;
+}
+

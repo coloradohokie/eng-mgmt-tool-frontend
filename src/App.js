@@ -8,6 +8,8 @@ import ProjectList from './components/ProjectList'
 import ItemDetails from './components/ItemDetails'
 import ActivityLog from './components/ActivityLog'
 import CreateNewProject from './components/CreateNewProject'
+import ToBeInvoiced from './components/ToBeInvoiced'
+import WeeklyReport from './components/WeeklyReport'
 
 const BASE_URL = `http://localhost:3000/`
 
@@ -68,6 +70,16 @@ export default class App extends React.Component {
               <Route exact path='/phone-log'>
                 <ActivityLog activities={this.state.activities}/>
               </Route>
+
+              <Route exact path='/to-be-invoiced'>
+                <ToBeInvoiced projects={this.state.projects} />
+              </Route>
+
+              <Route exact path='/weekly-report'>
+                <WeeklyReport />
+              </Route>
+
+
             </main>
           </div>
         {/* </Switch> */}
