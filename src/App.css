@@ -75,7 +75,7 @@ main {
   width: 90%;
   margin: auto;
   cursor: pointer;
-  background-color: ivory;
+  background-color: hsl(240, 20%, 90%);
   margin-bottom: 15px;
   box-shadow: 5px 5px 10px gray;
 }
@@ -85,7 +85,7 @@ a {
 }
 
 a:hover {
-  color: green;
+  color: black;
 }
 
 .create-new-project-form {
@@ -123,7 +123,7 @@ h2 {
 .item-details {
   width: 90%;
   max-width: 1200px;
-  background-color: hsl(240, 20%, 80%);
+  background-color: hsl(240, 20%, 90%);
   margin-top: 2rem;
   box-shadow: 5px 5px 10px gray;
   margin-bottom: 2rem;

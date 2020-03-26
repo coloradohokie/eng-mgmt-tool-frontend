@@ -10,6 +10,7 @@ import ActivityLog from './components/ActivityLog'
 import CreateNewProject from './components/CreateNewProject'
 import ToBeInvoiced from './components/ToBeInvoiced'
 import WeeklyReport from './components/WeeklyReport'
+import Admin from './components/Admin'
 
 const BASE_URL = `http://localhost:3000/`
 
@@ -19,7 +20,8 @@ export default class App extends React.Component {
   state = {
     projects: [],
     activities: [],
-    taskCategories: []
+    taskCategories: [],
+    projectTasks: []
   }
 
 
@@ -40,11 +42,18 @@ export default class App extends React.Component {
     .then(response => response.json())
     .then(task_categories => this.setState({taskCategories: task_categories}))
   }
+
+  fetchProjectTasks = () => {
+    fetch(BASE_URL.concat('project_tasks'))
+    .then(response => response.json())
+    .then(project_tasks => this.setState({projectTasks: project_tasks}))
+  }
   
   componentDidMount = () => {
     this.fetchProjects()
     this.fetchActivities()
     this.fetchTaskCategories()
+    this.fetchProjectTasks()
   }
 
   addProject = (newProject) => {
@@ -83,7 +92,8 @@ export default class App extends React.Component {
                   {...props} 
                   projects={(this.state.projects)} 
                   activities={this.state.activities} 
-                  taskCategories={this.state.taskCategories} 
+                  taskCategories={this.state.taskCategories}
+                  projectTasks={this.state.projectTasks} 
                 />} 
               />
 
@@ -102,6 +112,10 @@ export default class App extends React.Component {
 
               <Route exact path='/weekly-report'>
                 <WeeklyReport />
+              </Route>
+
+              <Route exact path='/admin'>
+                <Admin />
               </Route>
 
 

@@ -4,6 +4,7 @@ import Badge from 'react-bootstrap/Badge'
 import TaskItem from './TaskItem'
 import ActivityItem from './ActivityItem'
 
+
 export default function ItemDetails(props) {
     const showTask = (task) => {
         // console.log(task)
@@ -66,6 +67,8 @@ export default function ItemDetails(props) {
             created_at,
             updated_at,
             tasks} = (project)
+
+            console.log(props.projectTasks)
             
             
             return (
