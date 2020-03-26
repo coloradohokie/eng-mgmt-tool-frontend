@@ -85,15 +85,22 @@ export default class App extends React.Component {
   }
 
 
-  getProject = (id) => {
-    const project = this.state.projects.find(id)
-    console.log(project)
-    return project 
+  // getProject = (id) => {
+  //   const project = this.state.projects.find(id) //this doesnt' work!!! see ex in toggleTaskCompleted
+  //   return project 
+  // }
+  
+  toggleTaskCompleted = (task_id) => {
+    const projectTask = this.state.projectTasks.find(element => element.id === task_id)
+    projectTask.completed === true ? 
+      projectTask.completed = false : projectTask.completed = true
+    this.setState(projectTask) 
   }
   
   render() {
     return (
       <Router>
+      {/* {console.log("Project Tasks", this.state.projectTasks)} */}
         <div className="App">
           <NavBar />
           <main>
@@ -109,7 +116,8 @@ export default class App extends React.Component {
                 activities={this.state.activities} 
                 taskCategories={this.state.taskCategories}
                 projectTasks={this.state.projectTasks} 
-                // tasks={this.state.tasks}
+                tasks={this.state.tasks}
+                toggleTaskCompleted={this.toggleTaskCompleted}
               />} 
             />
 

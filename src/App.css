@@ -196,5 +196,8 @@ h3 {
 .item-details-section-header {
   display: flex;
   justify-content: space-between;
+}
 
+.done {
+  text-decoration: line-through;
 }

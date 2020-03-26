@@ -3,22 +3,25 @@ import unchecked from '../images/unchecked_box.png'
 import checked from '../images/checked_box.png'
 
 export default function TaskItem(props) {
-    console.log(props)
-
-    const showCheckbox = () => {
-        return (
-            <img src={unchecked} height="24" width="24" alt="" />
-        )
-    }
 
     const handleClick = (event) => {
-        console.log(`${props.name} got clicked`)
+        props.toggleTaskCompleted(props.id)
     }
 
-    return (
-        <tr onClick={handleClick}>
-            <td>{showCheckbox()}</td>
-            <td className="task-item">{props.name}</td>
-        </tr>
-    )
+    if (props.completed) {
+        return (
+            <tr onClick={handleClick}>
+                <td>{ <img src={checked} height="24" width="24" alt="" />}</td>
+                <td className="task-item done">{props.task.name}</td>
+            </tr>
+        )
+    }
+    else {
+        return(
+            <tr onClick={handleClick}>
+                <td><img src={unchecked} height="24" width="24" alt="" /></td>
+                <td className="task-item">{props.task.name}</td>
+            </tr>
+        )
+    }
 }

@@ -3,7 +3,7 @@ import React from 'react'
 
 export default function ActivityItem(props) {
 
-    console.log(props)
+    // console.log(props)
     return (
         <tr>
             <td>{props.activity.activity_value.value}</td>

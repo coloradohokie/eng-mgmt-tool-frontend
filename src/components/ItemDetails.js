@@ -7,9 +7,23 @@ import ActivityItem from './ActivityItem'
 
 
 export default function ItemDetails(props) {
-    const showTask = (task) => {
-        // console.log(task)
-        return( <TaskItem key={task.id} {...task} /> )
+    // console.log("Item Details Props", props)
+
+    const showTask = (filteredTask) => {
+        // console.log("showTask: ", filteredTask)
+        return( <TaskItem key={filteredTask.id} {...filteredTask} toggleTaskCompleted={props.toggleTaskCompleted} /> )
+    }
+
+    const showTasks = (project_id) => {
+        const filteredList = props.projectTasks.filter(projectTask => (projectTask.project_id === project_id))
+        // console.log("filtered list:", filteredList)
+        return(
+            <Table striped hover borderless>
+                <tbody>
+                    {filteredList.map(projectTask => showTask(projectTask))}
+                </tbody>
+            </Table>
+        )
     }
 
     const showActivities = (id) => { 
@@ -26,25 +40,25 @@ export default function ItemDetails(props) {
         }
     }
 
-    const displayTaskCategoryTable = (category_id, tasks) => {
-        console.log(props.taskCategories)
-        const selectedCategory = props.taskCategories.find(cat => cat.id === category_id)
-        return (
-            <div>
-                <h2>{selectedCategory.value}</h2>
-                <Table hover size="sm" className="item-details-table">
-                    <tbody>
-                        {tasks.map(task => task.task_category_id === category_id ? showTask(task):null)}
-                    </tbody>
-                </Table>
-            </div>
-        )
-    }
+    // const displayTaskCategoryTable = (category_id, tasks) => {
+    //     console.log(props.taskCategories)
+    //     const selectedCategory = props.taskCategories.find(cat => cat.id === category_id)
+    //     return (
+    //         <div>
+    //             <h2>{selectedCategory.value}</h2>
+    //             <Table hover size="sm" className="item-details-table">
+    //                 <tbody>
+    //                     {tasks.map(task => task.task_category_id === category_id ? showTask(task):null)}
+    //                 </tbody>
+    //             </Table>
+    //         </div>
+    //     )
+    // }
 
-    const displayTaskTables = (tasks) => {
-        const categories = [...new Set(tasks.map(task => task.task_category_id ))]
-        return categories.map(category => displayTaskCategoryTable(category, tasks))
-    }
+    // const displayTaskTables = (tasks) => {
+    //     const categories = [...new Set(tasks.map(task => task.task_category_id ))]
+    //     return categories.map(category => displayTaskCategoryTable(category, tasks))
+    // }
     
     const project = props.projects.find(element => element.id === parseInt(props.match.params.id))
     if (project) {
@@ -66,10 +80,8 @@ export default function ItemDetails(props) {
             ready_to_be_invoiced,
             ready_to_be_invoiced_date,
             created_at,
-            updated_at,
-            tasks} = (project)
+            updated_at} = (project)
 
-            console.log(props.projectTasks)
             
             
             
@@ -78,7 +90,7 @@ export default function ItemDetails(props) {
                 <div className="item-details-header">
                     <div className="item-details-header-top-line">
                         <div>
-                            <h1 className="item-details-h1">{address1} {address2} {city} -- {job_number} </h1>
+                            <h1 className="item-details-h1">{address1} {address2} {city} &mdash; {job_number} </h1>
                         </div>
                         <div>
                             {showInvoiceBadge(ready_to_be_invoiced)}    
@@ -90,6 +102,9 @@ export default function ItemDetails(props) {
                 </div>
 
                 <div className="item-details-body">
+
+
+{/* Project Information Section */}
                     <h2>Project Information</h2>
                     <Table striped bordered hover size="sm" className="item-details-table">
                         <tbody>
@@ -141,11 +156,22 @@ export default function ItemDetails(props) {
                         </tbody>
                     </Table>
                     
-                    {displayTaskTables(tasks)}
+
+{/* Tasks Section                     */}
+                    <div className="item-details-tasks-section">
+                        <div className="item-details-tasks-section-header">
+                            <h2>Tasks</h2>
+                        </div>
+
+                        <div className="item-details-task-section-body">
+                            {showTasks(project.id)}
+                        </div>
+
+                    </div>
 
 
-                    
 
+{/* Activity Table                     */}
                     <div className="item-details-section">
                         <div className="item-details-section-header">
                             <h2>Activity Log </h2>
