@@ -172,3 +172,15 @@ h2 {
   justify-content: flex-start;
   text-align: left;
 }
+
+.adminValueTable {
+  background-color: white;
+  width: 400px;
+}
+
+.adminTableHeader {
+  max-width: 400px;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}

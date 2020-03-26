@@ -1,7 +1,7 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './App.css';
-import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
+import {BrowserRouter as Router, Route} from 'react-router-dom'
 
 import NavBar from './components/NavBar'
 import ProjectList from './components/ProjectList'
@@ -21,7 +21,8 @@ export default class App extends React.Component {
     projects: [],
     activities: [],
     taskCategories: [],
-    projectTasks: []
+    projectTasks: [],
+    statusValues: []
   }
 
 
@@ -48,12 +49,19 @@ export default class App extends React.Component {
     .then(response => response.json())
     .then(project_tasks => this.setState({projectTasks: project_tasks}))
   }
+
+  fetchStatusValues = () => {
+    fetch(BASE_URL.concat('status_values'))
+    .then(response => response.json())
+    .then(status_values => this.setState({statusValues: status_values}))
+  }
   
   componentDidMount = () => {
     this.fetchProjects()
     this.fetchActivities()
     this.fetchTaskCategories()
     this.fetchProjectTasks()
+    this.fetchStatusValues()
   }
 
   addProject = (newProject) => {
@@ -78,50 +86,51 @@ export default class App extends React.Component {
   render() {
     return (
       <Router>
-        {/* <Switch> */}
-          <div className="App">
-            <NavBar />
-            <main>
-              <Route exact path='/'>
-                <ProjectList projects={this.state.projects}/>
-              </Route>
+        <div className="App">
+          <NavBar />
+          <main>
+            <Route exact path='/'>
+              <ProjectList projects={this.state.projects}/>
+            </Route>
 
-              <Route 
-                path='/item-details/:id' 
-                render={(props) => <ItemDetails 
-                  {...props} 
-                  projects={(this.state.projects)} 
-                  activities={this.state.activities} 
-                  taskCategories={this.state.taskCategories}
-                  projectTasks={this.state.projectTasks} 
-                />} 
+            <Route 
+              path='/item-details/:id' 
+              render={(props) => <ItemDetails 
+                {...props} 
+                projects={(this.state.projects)} 
+                activities={this.state.activities} 
+                taskCategories={this.state.taskCategories}
+                projectTasks={this.state.projectTasks} 
+              />} 
+            />
+
+            <Route exact path='/create-new-project'>
+              <CreateNewProject addProject={this.addProject} />
+            </Route>
+              
+
+            <Route exact path='/phone-log'>
+              <ActivityLog activities={this.state.activities}/>
+            </Route>
+
+            <Route exact path='/to-be-invoiced'>
+              <ToBeInvoiced projects={this.state.projects} />
+            </Route>
+
+            <Route exact path='/weekly-report'>
+              <WeeklyReport />
+            </Route>
+
+            <Route exact path='/admin'>
+              <Admin 
+                taskCategories={this.state.taskCategories}
+                statusValues={this.state.statusValues}
               />
-
-              <Route exact path='/create-new-project'>
-                <CreateNewProject addProject={this.addProject} />
-              </Route>
-                
-
-              <Route exact path='/phone-log'>
-                <ActivityLog activities={this.state.activities}/>
-              </Route>
-
-              <Route exact path='/to-be-invoiced'>
-                <ToBeInvoiced projects={this.state.projects} />
-              </Route>
-
-              <Route exact path='/weekly-report'>
-                <WeeklyReport />
-              </Route>
-
-              <Route exact path='/admin'>
-                <Admin />
-              </Route>
+            </Route>
 
 
-            </main>
-          </div>
-        {/* </Switch> */}
+          </main>
+        </div>
       </Router>
     );
   }
