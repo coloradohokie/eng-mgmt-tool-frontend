@@ -18,7 +18,8 @@ export default class App extends React.Component {
   
   state = {
     projects: [],
-    activities: []
+    activities: [],
+    taskCategories: []
   }
 
 
@@ -33,10 +34,17 @@ export default class App extends React.Component {
     .then(response => response.json())
     .then(activities => this.setState({activities: activities}))
   }
+
+  fetchTaskCategories = () => {
+    fetch(BASE_URL.concat('task_categories'))
+    .then(response => response.json())
+    .then(task_categories => this.setState({taskCategories: task_categories}))
+  }
   
   componentDidMount = () => {
     this.fetchProjects()
     this.fetchActivities()
+    this.fetchTaskCategories()
   }
 
   addProject = (newProject) => {
@@ -71,7 +79,12 @@ export default class App extends React.Component {
 
               <Route 
                 path='/item-details/:id' 
-                render={(props) => <ItemDetails {...props} projects={(this.state.projects)} activities={this.state.activities} />} 
+                render={(props) => <ItemDetails 
+                  {...props} 
+                  projects={(this.state.projects)} 
+                  activities={this.state.activities} 
+                  taskCategories={this.state.taskCategories} 
+                />} 
               />
 
               <Route exact path='/create-new-project'>

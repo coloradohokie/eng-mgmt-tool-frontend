@@ -24,11 +24,12 @@ export default function ItemDetails(props) {
         }
     }
 
-    const displayCategoryTable = (category_id, tasks) => {
-        console.log(category_id)
+    const displayTaskCategoryTable = (category_id, tasks) => {
+        console.log(props.taskCategories)
+        const selectedCategory = props.taskCategories.find(cat => cat.id === category_id)
         return (
             <div>
-                <h2>Task Category {category_id}</h2>
+                <h2>{selectedCategory.value}</h2>
                 <Table hover size="sm" className="item-details-table">
                     <tbody>
                         {tasks.map(task => task.task_category_id === category_id ? showTask(task):null)}
@@ -40,7 +41,7 @@ export default function ItemDetails(props) {
 
     const displayTaskTables = (tasks) => {
         const categories = [...new Set(tasks.map(task => task.task_category_id ))]
-        return categories.map(category => displayCategoryTable(category, tasks))
+        return categories.map(category => displayTaskCategoryTable(category, tasks))
     }
     
     const project = props.projects.find(element => element.id === parseInt(props.match.params.id))
@@ -83,76 +84,78 @@ export default function ItemDetails(props) {
                     
                 </div>
 
-                <h2>Project Information</h2>
-                <Table striped bordered hover size="sm" className="item-details-table">
-                    <tbody>
-                        <tr>
-                            <td>Budget</td>
-                            <td>${budget}</td>
-                        </tr>
+                <div className="item-details-body">
+                    <h2>Project Information</h2>
+                    <Table striped bordered hover size="sm" className="item-details-table">
+                        <tbody>
+                            <tr>
+                                <td>Budget</td>
+                                <td>${budget}</td>
+                            </tr>
 
-                        <tr>
-                            <td>Contract Date</td>
-                            <td>{contract_date}</td>
-                        </tr>
+                            <tr>
+                                <td>Contract Date</td>
+                                <td>{contract_date}</td>
+                            </tr>
 
-                        <tr>
-                            <td>ST Contract Received</td>
-                            <td>{st_contract_received_date}</td>
-                        </tr>
+                            <tr>
+                                <td>ST Contract Received</td>
+                                <td>{st_contract_received_date}</td>
+                            </tr>
 
-                        <tr>
-                            <td>Trusses Received</td>
-                            <td>{trusses_received_date}</td>
-                        </tr>
-                        
-                        <tr>
-                            <td>Framing Due</td>
-                            <td>{framing_due_date}</td>
-                        </tr>
-                        
-                        <tr>
-                            <td>Foundation Due</td>
-                            <td>{foundation_due_date}</td>
-                        </tr>
-                        
-                        <tr>
-                            <td>Email from DWG Received</td>
-                            <td>{email_from_dwg_received_date}</td>
-                        </tr>
-                        
-                        <tr>
-                            <td>Contract Proposal Sent</td>
-                            <td>{contract_proposal_sent_date}</td>
-                        </tr>
+                            <tr>
+                                <td>Trusses Received</td>
+                                <td>{trusses_received_date}</td>
+                            </tr>
+                            
+                            <tr>
+                                <td>Framing Due</td>
+                                <td>{framing_due_date}</td>
+                            </tr>
+                            
+                            <tr>
+                                <td>Foundation Due</td>
+                                <td>{foundation_due_date}</td>
+                            </tr>
+                            
+                            <tr>
+                                <td>Email from DWG Received</td>
+                                <td>{email_from_dwg_received_date}</td>
+                            </tr>
+                            
+                            <tr>
+                                <td>Contract Proposal Sent</td>
+                                <td>{contract_proposal_sent_date}</td>
+                            </tr>
 
-                        <tr>
-                            <td>Ready to be Invoiced Date</td>
-                            <td>{ready_to_be_invoiced_date}</td>
-                        </tr>
+                            <tr>
+                                <td>Ready to be Invoiced Date</td>
+                                <td>{ready_to_be_invoiced_date}</td>
+                            </tr>
 
-                    </tbody>
-                </Table>
-                
-                {displayTaskTables(tasks)}
+                        </tbody>
+                    </Table>
+                    
+                    {displayTaskTables(tasks)}
 
 
-                <h2>Activity Log</h2>
-                <Table striped bordered hover size="sm" className="activity-log-table">
-                    <thead>
-                        <tr>
-                            <th>Activity</th>
-                            <th>Date</th>
-                            <th>Project</th>
-                            <th>Notes</th>
-                        </tr>
-                    </thead>
+                    <h2>Activity Log</h2>
+                    <Table striped bordered hover size="sm" className="activity-log-table">
+                        <thead>
+                            <tr>
+                                <th>Activity</th>
+                                <th>Date</th>
+                                <th>Project</th>
+                                <th>Notes</th>
+                            </tr>
+                        </thead>
 
-                    <tbody>
-                        {showActivities(id)}
-                    </tbody>
-                </Table>
+                        <tbody>
+                            {showActivities(id)}
+                        </tbody>
+                    </Table>
 
+                </div>
 
 
                 <footer className="item-details-footer">
