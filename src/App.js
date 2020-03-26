@@ -20,6 +20,7 @@ export default class App extends React.Component {
   state = {
     projects: [],
     activities: [],
+    tasks: [],
     taskCategories: [],
     projectTasks: [],
     statusValues: []
@@ -55,6 +56,12 @@ export default class App extends React.Component {
     .then(response => response.json())
     .then(status_values => this.setState({statusValues: status_values}))
   }
+
+  fetchTasks = () => {
+    fetch(BASE_URL.concat('tasks'))
+      .then(response => response.json())
+      .then(tasks => this.setState({tasks: tasks}))
+  }
   
   componentDidMount = () => {
     this.fetchProjects()
@@ -62,6 +69,7 @@ export default class App extends React.Component {
     this.fetchTaskCategories()
     this.fetchProjectTasks()
     this.fetchStatusValues()
+    this.fetchTasks()
   }
 
   addProject = (newProject) => {
@@ -101,6 +109,7 @@ export default class App extends React.Component {
                 activities={this.state.activities} 
                 taskCategories={this.state.taskCategories}
                 projectTasks={this.state.projectTasks} 
+                // tasks={this.state.tasks}
               />} 
             />
 

@@ -7,7 +7,7 @@ export default function TaskItem(props) {
 
     const showCheckbox = () => {
         return (
-            <img src={unchecked} height="24" width="24" />
+            <img src={unchecked} height="24" width="24" alt="" />
         )
     }
 

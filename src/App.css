@@ -120,6 +120,10 @@ h2 {
   font-size: 20px;
 }
 
+h3 {
+  margin-top: 2rem;
+}
+
 .item-details {
   width: 90%;
   max-width: 1200px;
@@ -141,6 +145,7 @@ h2 {
   background-color: hsl(240, 20%, 20%);
   color: whitesmoke;
   padding-left: 2rem;
+  padding-right: 2rem;
   padding-bottom: 1rem;
 }
 
@@ -162,7 +167,6 @@ h2 {
 }
 
 .activity-log-table {
-  width: 90%;
   background-color: #FFF;
 }
 
@@ -183,4 +187,14 @@ h2 {
   display: flex;
   justify-content: space-between;
   margin-bottom: 0.5rem;
+}
+
+.item-details-section {
+  width: 90%;
+}
+
+.item-details-section-header {
+  display: flex;
+  justify-content: space-between;
+
 }

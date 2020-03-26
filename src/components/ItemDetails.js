@@ -5,6 +5,7 @@ import TaskItem from './TaskItem'
 import ActivityItem from './ActivityItem'
 
 
+
 export default function ItemDetails(props) {
     const showTask = (task) => {
         // console.log(task)
@@ -71,12 +72,13 @@ export default function ItemDetails(props) {
             console.log(props.projectTasks)
             
             
+            
             return (
             <div className="item-details">
                 <div className="item-details-header">
                     <div className="item-details-header-top-line">
                         <div>
-                            <h1 className="item-details-h1">{address1} {address2} {city} (Job# {job_number}) </h1>
+                            <h1 className="item-details-h1">{address1} {address2} {city} -- {job_number} </h1>
                         </div>
                         <div>
                             {showInvoiceBadge(ready_to_be_invoiced)}    
@@ -142,21 +144,32 @@ export default function ItemDetails(props) {
                     {displayTaskTables(tasks)}
 
 
-                    <h2>Activity Log</h2>
-                    <Table striped bordered hover size="sm" className="activity-log-table">
-                        <thead>
-                            <tr>
-                                <th>Activity</th>
-                                <th>Date</th>
-                                <th>Project</th>
-                                <th>Notes</th>
-                            </tr>
-                        </thead>
+                    
 
-                        <tbody>
-                            {showActivities(id)}
-                        </tbody>
-                    </Table>
+                    <div className="item-details-section">
+                        <div className="item-details-section-header">
+                            <h2>Activity Log </h2>
+                            <h3><Badge variant="secondary">Add Activity</Badge></h3>
+                            
+                        </div>
+
+                        <div className="item-details-section-body">
+                            <Table striped bordered hover size="sm" className="activity-log-table">
+                                <thead>
+                                    <tr>
+                                        <th>Activity</th>
+                                        <th>Date</th>
+                                        <th>Project</th>
+                                        <th>Notes</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    {showActivities(id)}
+                                </tbody>
+                            </Table>
+                        </div>
+                    </div>
 
                 </div>
 
