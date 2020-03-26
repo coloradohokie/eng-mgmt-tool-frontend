@@ -7,23 +7,50 @@ import ActivityItem from './ActivityItem'
 
 
 export default function ItemDetails(props) {
-    // console.log("Item Details Props", props)
+    console.log("Item Details Props", props)
 
     const showTask = (filteredTask) => {
-        // console.log("showTask: ", filteredTask)
-        return( <TaskItem key={filteredTask.id} {...filteredTask} toggleTaskCompleted={props.toggleTaskCompleted} /> )
+        console.log("showTask: ", filteredTask)
+        return( 
+            <TaskItem 
+                key={filteredTask.id} 
+                {...filteredTask} 
+                toggleTaskCompleted={props.toggleTaskCompleted}
+            /> 
+        )
     }
 
-    const showTasks = (project_id) => {
-        const filteredList = props.projectTasks.filter(projectTask => (projectTask.project_id === project_id))
-        // console.log("filtered list:", filteredList)
-        return(
-            <Table striped hover borderless>
-                <tbody>
-                    {filteredList.map(projectTask => showTask(projectTask))}
-                </tbody>
-            </Table>
+    const showTasksInCategory = (project_id, category) => {
+        const filteredList = props.projectTasks.filter(projectTask => 
+            (projectTask.project_id === project_id) &&
+            (projectTask.task.task_category_id === category.id)
         )
+        if (filteredList.length > 0) {
+            return ( 
+                <div>
+                    <h2>{category.value}</h2>
+                    <Table hover size="sm" className="item-details-table">
+                        <tbody>
+                            {filteredList.map(projectTask => showTask(projectTask))}
+                        </tbody>
+                    </Table>
+                </div>
+            )
+        }
+    }
+
+    const getTaskCategory = (project_id) => {
+        console.log(props.taskCategories)
+        return props.taskCategories.map(category => {
+            if (category.active) {
+                return showTasksInCategory(project_id, category)
+            }
+            // else {
+            //     console.log(category.value, "is NOT active")
+            //     return <></>
+            // }
+        })
+
     }
 
     const showActivities = (id) => { 
@@ -39,26 +66,6 @@ export default function ItemDetails(props) {
             return <h3><Badge variant="secondary">Ready to Be Invoiced</Badge></h3>
         }
     }
-
-    // const displayTaskCategoryTable = (category_id, tasks) => {
-    //     console.log(props.taskCategories)
-    //     const selectedCategory = props.taskCategories.find(cat => cat.id === category_id)
-    //     return (
-    //         <div>
-    //             <h2>{selectedCategory.value}</h2>
-    //             <Table hover size="sm" className="item-details-table">
-    //                 <tbody>
-    //                     {tasks.map(task => task.task_category_id === category_id ? showTask(task):null)}
-    //                 </tbody>
-    //             </Table>
-    //         </div>
-    //     )
-    // }
-
-    // const displayTaskTables = (tasks) => {
-    //     const categories = [...new Set(tasks.map(task => task.task_category_id ))]
-    //     return categories.map(category => displayTaskCategoryTable(category, tasks))
-    // }
     
     const project = props.projects.find(element => element.id === parseInt(props.match.params.id))
     if (project) {
@@ -164,7 +171,7 @@ export default function ItemDetails(props) {
                         </div>
 
                         <div className="item-details-task-section-body">
-                            {showTasks(project.id)}
+                            {getTaskCategory(project.id)}
                         </div>
 
                     </div>

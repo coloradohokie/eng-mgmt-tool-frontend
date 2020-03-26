@@ -10,7 +10,7 @@ export default function TaskItem(props) {
 
     if (props.completed) {
         return (
-            <tr onClick={handleClick}>
+            <tr className="task" onClick={handleClick}>
                 <td>{ <img src={checked} height="24" width="24" alt="" />}</td>
                 <td className="task-item done">{props.task.name}</td>
             </tr>
@@ -18,7 +18,7 @@ export default function TaskItem(props) {
     }
     else {
         return(
-            <tr onClick={handleClick}>
+            <tr className="task" onClick={handleClick}>
                 <td><img src={unchecked} height="24" width="24" alt="" /></td>
                 <td className="task-item">{props.task.name}</td>
             </tr>
