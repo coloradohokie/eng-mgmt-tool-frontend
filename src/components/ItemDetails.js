@@ -7,14 +7,7 @@ import Moment from 'react-moment'
 import CurrencyFormat from 'react-currency-format'
 
 
-
-
 export default function ItemDetails(props) {
-    console.log("Item Details Props", props)
-
-
-    
-
     const showTask = (filteredTask) => {
         return( 
             <TaskItem 
@@ -45,7 +38,6 @@ export default function ItemDetails(props) {
     }
 
     const getTaskCategory = (project_id) => {
-        console.log(props.taskCategories)
         return props.taskCategories.map(category => {
             if (category.active) {
                 return showTasksInCategory(project_id, category)
@@ -122,17 +114,6 @@ export default function ItemDetails(props) {
             updated_at} = (project)
 
             const addActivityUrl = `../add-activity/${project.id}`
-            const projectInfo = {
-                budget, 
-                contract_date, 
-                st_contract_received_date, 
-                trusses_received_date,
-                framing_due_date, 
-                foundation_due_date,
-                email_from_dwg_received_date,
-                contract_proposal_sent_date
-            }
-
 
             return (
             <div className="item-details">
@@ -156,11 +137,11 @@ export default function ItemDetails(props) {
 {/* Project Information Section */}
                     <div className="item-details-tasks-section">
                         <div className="item-details-tasks-section-header">                            
-                                <h2>Project Information 
+                                <h2>Project Information </h2>
                                     <a href={`../create-new-project`}>
                                         <Badge variant="secondary">Edit</Badge>
                                     </a>
-                                </h2>
+                        
                         </div>
                         <div className="item-details-task-section-body">
                             <Table striped bordered hover size="sm" className="item-details-table">
@@ -173,6 +154,7 @@ export default function ItemDetails(props) {
                                     {renderProjectInformationRow("Foundation Due",foundation_due_date,"date-field")}
                                     {renderProjectInformationRow("Contract Date",contract_date,"date-field")}
                                     {renderProjectInformationRow("Email from DWG Received",email_from_dwg_received_date,"date-field")}
+                                    {renderProjectInformationRow("Contract Proposal Sent Date",contract_proposal_sent_date,"date-field")}
                                     {renderProjectInformationRow("Ready to be Invoiced Date",ready_to_be_invoiced_date,"date-field")}
                                 </tbody>
                             </Table>
@@ -181,9 +163,6 @@ export default function ItemDetails(props) {
 
 {/* Tasks Section                     */}
                     <div className="item-details-tasks-section">
-                        <div className="item-details-tasks-section-header">
-                            <h2>Tasks</h2>
-                        </div>
 
                         <div className="item-details-task-section-body">
                             {getTaskCategory(project.id)}

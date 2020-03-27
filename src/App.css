@@ -171,7 +171,6 @@ h3 {
 }
 
 .task-item {
-  color: blue;
   display: flex;
   justify-content: flex-start;
   text-align: left;
@@ -204,4 +203,15 @@ h3 {
 
 .task:hover {
   cursor: pointer;
+}
+
+.item-details-tasks-section {
+  max-width: 400px;
+}
+
+.item-details-tasks-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin: 5px;
 }
