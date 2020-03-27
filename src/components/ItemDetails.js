@@ -4,6 +4,7 @@ import Badge from 'react-bootstrap/Badge'
 import TaskItem from './TaskItem'
 import ActivityItem from './ActivityItem'
 import Moment from 'react-moment'
+import CurrencyFormat from 'react-currency-format'
 
 
 
@@ -11,8 +12,10 @@ import Moment from 'react-moment'
 export default function ItemDetails(props) {
     console.log("Item Details Props", props)
 
+
+    
+
     const showTask = (filteredTask) => {
-        console.log("showTask: ", filteredTask)
         return( 
             <TaskItem 
                 key={filteredTask.id} 
@@ -79,13 +82,21 @@ export default function ItemDetails(props) {
                 <td className={clas}><Moment format="MM-DD-YYYY">{value}</Moment></td>
             </tr>
             )
+        } else if (clas === 'money-field')  {
+            return(
+                <tr>
+                    <td>{name}</td>
+                    <td className={clas}>{<CurrencyFormat value={value} displayType={'text'} thousandSeparator={true} prefix={'$'} />}</td>
+                </tr>
+            )
+        } else {
+            return(
+                <tr>
+                    <td>{name}</td>
+                    <td className={clas}>{value}</td>
+                </tr>
+            )
         }
-        return(
-            <tr>
-                <td>{name}</td>
-                <td className={clas}>{value}</td>
-            </tr>
-        )
     }
 
     const project = props.projects.find(element => element.id === parseInt(props.match.params.id))
@@ -154,7 +165,7 @@ export default function ItemDetails(props) {
                         <div className="item-details-task-section-body">
                             <Table striped bordered hover size="sm" className="item-details-table">
                                 <tbody>
-                                    {renderProjectInformationRow("Budget",budget,"text-field")}
+                                    {renderProjectInformationRow("Budget",budget,"money-field")}
                                     {renderProjectInformationRow("Contract Date",contract_date,"date-field")}
                                     {renderProjectInformationRow("ST Contract Received",st_contract_received_date,"date-field")}
                                     {renderProjectInformationRow("Trusses Received",trusses_received_date,"date-field")}
