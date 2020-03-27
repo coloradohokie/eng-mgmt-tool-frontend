@@ -4,7 +4,8 @@ import ProjectItem from './ProjectItem'
 const ProjectList = (props) => {
 
     const showProjects = () => {
-        return props.projects.map(project => <ProjectItem key={project.id} project={project} /> )
+        props.projects.sort(function (a,b) {return b.job_number - a.job_number})
+        return (props.projects.map(project => <ProjectItem key={project.id} project={project} /> ))
     }
 
     return (

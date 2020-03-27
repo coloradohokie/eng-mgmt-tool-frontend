@@ -50,7 +50,9 @@ export default function ItemDetails(props) {
 
     }
 
-    const showActivities = (id) => { 
+    const showActivities = (id) => {
+        props.activities.sort(function (a,b) {return b.id - a.id})
+        console.log(props.activities)
         return (
             props.activities.map(activity => activity.project_id === id ? 
                  <ActivityItem key={activity.id} activity={activity} /> : null

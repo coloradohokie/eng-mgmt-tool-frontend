@@ -5,6 +5,7 @@ import ActivityItem from './ActivityItem'
 export default function ActivityLog(props) {
     
     const showActivities = () => {
+        props.activities.sort(function (a,b) {return b.id - a.id})
         return (props.activities.map(activity => <ActivityItem key={activity.id} activity={activity} /> ))
     }
 

@@ -72,8 +72,9 @@ main {
 }
 
 .item-card {
-  width: 90%;
-  margin: auto;
+  width: 100%;
+  max-width: 800px;
+  /* margin: auto; */
   cursor: pointer;
   background-color: hsl(240, 20%, 90%);
   margin-bottom: 15px;
@@ -214,4 +215,23 @@ h3 {
   justify-content: space-between;
   align-items: flex-end;
   margin: 5px;
+}
+
+.card-contents {
+  display: flex;
+  justify-content: space-between;
+  min-height:100px;
+}
+.card-main-box {
+  width: 80%
+}
+.card-right-side-panel {
+  display: flex;
+  justify-content: flex-end;
+  text-align: right;
+
+}
+
+.status-badge {
+  min-width: 90px
 }
