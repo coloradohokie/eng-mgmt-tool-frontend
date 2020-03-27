@@ -12,6 +12,46 @@ export default function Admin(props) {
 
     }
 
+    const printTask = (task) => {
+        return(
+            <tr>
+                <td>{task.name}</td>
+                <td>{task.sort_id}</td>
+                <td>{task.active}</td>
+            </tr>
+        )
+    }
+
+    const showTasks = (category_id) => {
+        return(props.tasks.map(task => 
+            (task.task_category_id === category_id) ? printTask(task) : null
+        ))
+    }
+
+
+
+    const taskCategoryValues = () => {
+        return (props.taskCategories.map(category => {
+            return (
+                <>
+                <h2>{category.value} Tasks</h2>
+                <Table striped bordered size="sm" className="adminValueTable">
+                    <thead>
+                        <tr>
+                            <td>Value</td>
+                            <td>Sort Order</td>
+                            <td>Active</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {showTasks(category.id)}
+                    </tbody>
+                </Table>
+                </>
+            )
+        }))
+    }
+
     return (
         <div>
             <h1>This is the Admin Page</h1>
@@ -51,7 +91,11 @@ export default function Admin(props) {
                 </tbody>
             </Table>
 
+            {taskCategoryValues()}
 
-        </div>
+            
+
+
+        </div> //return div
     )
 }

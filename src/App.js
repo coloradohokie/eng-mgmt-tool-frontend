@@ -164,6 +164,7 @@ export default class App extends React.Component {
               <Admin 
                 taskCategories={this.state.taskCategories}
                 statusValues={this.state.statusValues}
+                tasks={this.state.tasks}
               />
             </Route>
 
