@@ -89,7 +89,7 @@ export default function ItemDetails(props) {
             created_at,
             updated_at} = (project)
 
-            
+            const addActivityUrl = `../add-activity/${project.id}`
             
             
             return (
@@ -182,7 +182,11 @@ export default function ItemDetails(props) {
                     <div className="item-details-section">
                         <div className="item-details-section-header">
                             <h2>Activity Log </h2>
-                            <h3><Badge variant="secondary">Add Activity</Badge></h3>
+                            <h3>
+                                <a href={addActivityUrl}>
+                                    <Badge variant="secondary">Add Activity</Badge>
+                                </a>
+                            </h3>
                             
                         </div>
 

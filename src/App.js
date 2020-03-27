@@ -11,6 +11,7 @@ import CreateNewProject from './components/CreateNewProject'
 import ToBeInvoiced from './components/ToBeInvoiced'
 import WeeklyReport from './components/WeeklyReport'
 import Admin from './components/Admin'
+import AddActivity from './components/AddActivity'
 
 const BASE_URL = `http://localhost:3000/`
 
@@ -23,7 +24,8 @@ export default class App extends React.Component {
     tasks: [],
     taskCategories: [],
     projectTasks: [],
-    statusValues: []
+    statusValues: [],
+    activityValues: []
   }
 
 
@@ -62,6 +64,12 @@ export default class App extends React.Component {
       .then(response => response.json())
       .then(tasks => this.setState({tasks: tasks}))
   }
+
+  fetchActivityValues = () => {
+    fetch(BASE_URL.concat('activity_values'))
+      .then(response => response.json())
+      .then(values => this.setState({activityValues: values}))
+  }
   
   componentDidMount = () => {
     this.fetchProjects()
@@ -70,6 +78,7 @@ export default class App extends React.Component {
     this.fetchProjectTasks()
     this.fetchStatusValues()
     this.fetchTasks()
+    this.fetchActivityValues()
   }
 
   addProject = (newProject) => {
@@ -82,6 +91,19 @@ export default class App extends React.Component {
       .then(project => console.log("response from server: ", project))
       .then(project => {this.setState([...this.state.projects, project])})
     window.location.href = "/"
+  }
+
+  addActivity = (newActivity) => {
+    console.log("Add Activity", newActivity)
+    fetch(BASE_URL.concat('activities'), {
+      method: 'POST',
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify(newActivity)
+    })
+      .then(response => response.json())
+      .then(activity => console.log("response from server: ", activity))
+      .then(activity => {this.setState([...this.state.activities, activity])})
+    window.location.href = `/item-details/${newActivity.project_id}`
   }
 
 
@@ -144,6 +166,15 @@ export default class App extends React.Component {
                 statusValues={this.state.statusValues}
               />
             </Route>
+
+            <Route 
+              path='/add-activity/:id' 
+              render={(props) => <AddActivity 
+                {...props} 
+                addActivity={this.addActivity}
+                activityValues={this.state.activityValues} 
+              />} 
+            />
 
 
           </main>
