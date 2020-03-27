@@ -3,6 +3,9 @@ import Table from 'react-bootstrap/Table'
 import Badge from 'react-bootstrap/Badge'
 import TaskItem from './TaskItem'
 import ActivityItem from './ActivityItem'
+import Moment from 'react-moment'
+
+
 
 
 export default function ItemDetails(props) {
@@ -65,8 +68,18 @@ export default function ItemDetails(props) {
             return <h3><Badge variant="secondary">Ready to Be Invoiced</Badge></h3>
         }
     }
+
+    
     
     const renderProjectInformationRow = (name, value, clas) => {
+        if (clas === 'date-field' && value) {
+            return (
+                <tr>
+                <td>{name}</td>
+                <td className={clas}><Moment format="MM-DD-YYYY">{value}</Moment></td>
+            </tr>
+            )
+        }
         return(
             <tr>
                 <td>{name}</td>
@@ -207,8 +220,8 @@ export default function ItemDetails(props) {
                         <p><a href="/"> &lt;- Back to Project List</a></p>
                     </div>
                     <div>
-                        <p>Project Created: {created_at}</p>
-                        <p>Last Updated: {updated_at}</p>
+                        <p>Project Created: {<Moment format="MM-DD-YYYY">{created_at}</Moment>}</p>
+                        <p>Last Updated: <Moment format="MM-DD-YYYY">{updated_at}</Moment></p>
                     </div>
                 </footer>
             </div>

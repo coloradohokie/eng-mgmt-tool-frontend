@@ -22,14 +22,22 @@ export default class CreateNewProject extends Component {
         emailFromDwgReceivedDate: "",
         contractProposalSentDate: "",
         readyToBeInvoiced: false,
-        readyToBeInvoicedDate: ""
+        readyToBeInvoicedDate: "",
+        proposalTemplate: null,
+        foundationTemplate: null,
+        framingTemplate: null
     }
 
     handleChange = (event) => {
-        const {name, value} = event.target
-        console.log(event.target)
-        console.log("name ", name, "value ", value)
-        this.setState({[name]:value})
+        if (event.target.type === "checkbox") {
+            const {name} = event.target
+            const value = event.target.checked
+            this.setState({[name]:value})
+        }
+        else {
+            const {name, value} = event.target
+            this.setState({[name]:value})
+        }
         console.log(this.state)
     }
 
@@ -113,17 +121,6 @@ export default class CreateNewProject extends Component {
                                 </div>
                             </Form.Row>
 
-                            <Form.Row>
-                                <Form.Group id="readyToBeInvoiced">
-                                    <Form.Check type="checkbox" name="readyToBeInvoiced" label="Ready to be Invoiced" onChange={this.handleChange} />
-                                </Form.Group>
-
-                                <Form.Group controlId="readyToBeInvoicedDate">
-                                    <Form.Control type="date" name="readyToBeInvoicedDate" onChange={this.handleChange} />
-                                </Form.Group>
-                            </Form.Row>
-
-
                         </div>
 
                         <div>
@@ -167,6 +164,17 @@ export default class CreateNewProject extends Component {
                                     <Form.Label>Contract Proposal Sent Date</Form.Label>
                                     <Form.Control type="date" name="contractProposalSentDate" onChange={this.handleChange} />
                                 </Form.Group>
+                                <div>
+                                    <Form.Group controlId="proposalTemplate">
+                                        <Form.Check type="checkbox" name="proposalTemplate" label="Proposal Template" onChange={this.handleChange} />
+                                    </Form.Group>
+                                    <Form.Group controlId="foundationTemplate">
+                                        <Form.Check type="checkbox" name="foundationTemplate" label="Foundation Template" onChange={this.handleChange} />
+                                    </Form.Group>
+                                    <Form.Group controlId="framingTemplate">
+                                        <Form.Check type="checkbox" name="framingTemplate" label="Framing Template" onChange={this.handleChange} />
+                                    </Form.Group>
+                                </div>
 
                                 {/* <Form.Group controlId="contractDate">
                                     <Form.Label>Contract Date</Form.Label>

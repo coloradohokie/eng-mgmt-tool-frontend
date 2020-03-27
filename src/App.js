@@ -13,6 +13,9 @@ import WeeklyReport from './components/WeeklyReport'
 import Admin from './components/Admin'
 import AddActivity from './components/AddActivity'
 
+var moment = require('moment');
+moment().format();
+
 const BASE_URL = `http://localhost:3000/`
 
 
@@ -82,7 +85,7 @@ export default class App extends React.Component {
   }
 
   addProject = (newProject) => {
-    fetch(BASE_URL.concat("projects"), {
+    fetch(BASE_URL.concat("project_tasks"), {
         method: 'POST',
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify(newProject)
@@ -106,11 +109,6 @@ export default class App extends React.Component {
     window.location.href = `/item-details/${newActivity.project_id}`
   }
 
-
-  // getProject = (id) => {
-  //   const project = this.state.projects.find(id) //this doesnt' work!!! see ex in toggleTaskCompleted
-  //   return project 
-  // }
   
   toggleTaskCompleted = (task_id) => {
     const projectTask = this.state.projectTasks.find(element => element.id === task_id)
@@ -181,8 +179,6 @@ export default class App extends React.Component {
                 activityValues={this.state.activityValues} 
               />} 
             />
-
-
           </main>
         </div>
       </Router>
