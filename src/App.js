@@ -116,7 +116,12 @@ export default class App extends React.Component {
     const projectTask = this.state.projectTasks.find(element => element.id === task_id)
     projectTask.completed === true ? 
       projectTask.completed = false : projectTask.completed = true
-    this.setState(projectTask) 
+    this.setState(projectTask)
+    fetch(BASE_URL.concat(`project_tasks/${task_id}`), {
+      method: 'PATCH',
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify(projectTask)
+    }) 
   }
   
   render() {

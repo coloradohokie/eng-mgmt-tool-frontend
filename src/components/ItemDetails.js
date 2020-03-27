@@ -5,7 +5,6 @@ import TaskItem from './TaskItem'
 import ActivityItem from './ActivityItem'
 
 
-
 export default function ItemDetails(props) {
     console.log("Item Details Props", props)
 
@@ -67,6 +66,15 @@ export default function ItemDetails(props) {
         }
     }
     
+    const renderProjectInformationRow = (name, value, clas) => {
+        return(
+            <tr>
+                <td>{name}</td>
+                <td className={clas}>{value}</td>
+            </tr>
+        )
+    }
+
     const project = props.projects.find(element => element.id === parseInt(props.match.params.id))
     if (project) {
         const {
@@ -90,8 +98,18 @@ export default function ItemDetails(props) {
             updated_at} = (project)
 
             const addActivityUrl = `../add-activity/${project.id}`
-            
-            
+            const projectInfo = {
+                budget, 
+                contract_date, 
+                st_contract_received_date, 
+                trusses_received_date,
+                framing_due_date, 
+                foundation_due_date,
+                email_from_dwg_received_date,
+                contract_proposal_sent_date
+            }
+
+
             return (
             <div className="item-details">
                 <div className="item-details-header">
@@ -112,57 +130,30 @@ export default function ItemDetails(props) {
 
 
 {/* Project Information Section */}
-                    <h2>Project Information</h2>
-                    <Table striped bordered hover size="sm" className="item-details-table">
-                        <tbody>
-                            <tr>
-                                <td>Budget</td>
-                                <td>${budget}</td>
-                            </tr>
-
-                            <tr>
-                                <td>Contract Date</td>
-                                <td>{contract_date}</td>
-                            </tr>
-
-                            <tr>
-                                <td>ST Contract Received</td>
-                                <td>{st_contract_received_date}</td>
-                            </tr>
-
-                            <tr>
-                                <td>Trusses Received</td>
-                                <td>{trusses_received_date}</td>
-                            </tr>
-                            
-                            <tr>
-                                <td>Framing Due</td>
-                                <td>{framing_due_date}</td>
-                            </tr>
-                            
-                            <tr>
-                                <td>Foundation Due</td>
-                                <td>{foundation_due_date}</td>
-                            </tr>
-                            
-                            <tr>
-                                <td>Email from DWG Received</td>
-                                <td>{email_from_dwg_received_date}</td>
-                            </tr>
-                            
-                            <tr>
-                                <td>Contract Proposal Sent</td>
-                                <td>{contract_proposal_sent_date}</td>
-                            </tr>
-
-                            <tr>
-                                <td>Ready to be Invoiced Date</td>
-                                <td>{ready_to_be_invoiced_date}</td>
-                            </tr>
-
-                        </tbody>
-                    </Table>
-                    
+                    <div className="item-details-tasks-section">
+                        <div className="item-details-tasks-section-header">                            
+                                <h2>Project Information 
+                                    <a href={`../create-new-project`}>
+                                        <Badge variant="secondary">Edit</Badge>
+                                    </a>
+                                </h2>
+                        </div>
+                        <div className="item-details-task-section-body">
+                            <Table striped bordered hover size="sm" className="item-details-table">
+                                <tbody>
+                                    {renderProjectInformationRow("Budget",budget,"text-field")}
+                                    {renderProjectInformationRow("Contract Date",contract_date,"date-field")}
+                                    {renderProjectInformationRow("ST Contract Received",st_contract_received_date,"date-field")}
+                                    {renderProjectInformationRow("Trusses Received",trusses_received_date,"date-field")}
+                                    {renderProjectInformationRow("Framing Due",framing_due_date,"date-field")}
+                                    {renderProjectInformationRow("Foundation Due",foundation_due_date,"date-field")}
+                                    {renderProjectInformationRow("Contract Date",contract_date,"date-field")}
+                                    {renderProjectInformationRow("Email from DWG Received",email_from_dwg_received_date,"date-field")}
+                                    {renderProjectInformationRow("Ready to be Invoiced Date",ready_to_be_invoiced_date,"date-field")}
+                                </tbody>
+                            </Table>
+                        </div>
+                    </div>
 
 {/* Tasks Section                     */}
                     <div className="item-details-tasks-section">
