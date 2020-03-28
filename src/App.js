@@ -23,12 +23,12 @@ export default class App extends React.Component {
   
   state = {
     projects: [],
-    activities: [],
+    projectActivities: [],
     tasks: [],
     taskCategories: [],
     projectTasks: [],
-    statusValues: [],
-    activityValues: []
+    statuses: [],
+    activities: []
   }
 
 
@@ -39,9 +39,9 @@ export default class App extends React.Component {
   }
 
   fetchActivities = () => {
-    fetch(BASE_URL.concat('activities'))
+    fetch(BASE_URL.concat('project_activities'))
     .then(response => response.json())
-    .then(activities => this.setState({activities: activities}))
+    .then(project_activities => this.setState({projectActivities: project_activities}))
   }
 
   fetchTaskCategories = () => {
@@ -57,9 +57,9 @@ export default class App extends React.Component {
   }
 
   fetchStatusValues = () => {
-    fetch(BASE_URL.concat('status_values'))
+    fetch(BASE_URL.concat('statuses'))
     .then(response => response.json())
-    .then(status_values => this.setState({statusValues: status_values}))
+    .then(statuses => this.setState({statuses: statuses}))
   }
 
   fetchTasks = () => {
@@ -69,9 +69,9 @@ export default class App extends React.Component {
   }
 
   fetchActivityValues = () => {
-    fetch(BASE_URL.concat('activity_values'))
+    fetch(BASE_URL.concat('activities'))
       .then(response => response.json())
-      .then(values => this.setState({activityValues: values}))
+      .then(activities => this.setState({activities: activities}))
   }
   
   componentDidMount = () => {
@@ -98,14 +98,14 @@ export default class App extends React.Component {
 
   addActivity = (newActivity) => {
     console.log("Add Activity", newActivity)
-    fetch(BASE_URL.concat('activities'), {
+    fetch(BASE_URL.concat('project_activities'), {
       method: 'POST',
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify(newActivity)
     })
       .then(response => response.json())
       .then(activity => console.log("response from server: ", activity))
-      .then(activity => {this.setState([...this.state.activities, activity])})
+      .then(activity => {this.setState([...this.state.project_activities, activity])})
     window.location.href = `/item-details/${newActivity.project_id}`
   }
 
@@ -138,7 +138,7 @@ export default class App extends React.Component {
               render={(props) => <ItemDetails 
                 {...props} 
                 projects={(this.state.projects)} 
-                activities={this.state.activities} 
+                activities={this.state.project_activities} 
                 taskCategories={this.state.taskCategories}
                 projectTasks={this.state.projectTasks} 
                 tasks={this.state.tasks}
@@ -152,7 +152,7 @@ export default class App extends React.Component {
               
 
             <Route exact path='/phone-log'>
-              <ActivityLog activities={this.state.activities}/>
+              <ActivityLog activities={this.state.project_activities}/>
             </Route>
 
             <Route exact path='/to-be-invoiced'>
@@ -166,7 +166,7 @@ export default class App extends React.Component {
             <Route exact path='/admin'>
               <Admin 
                 taskCategories={this.state.taskCategories}
-                statusValues={this.state.statusValues}
+                statusValues={this.state.statuses}
                 tasks={this.state.tasks}
               />
             </Route>
@@ -176,7 +176,7 @@ export default class App extends React.Component {
               render={(props) => <AddActivity 
                 {...props} 
                 addActivity={this.addActivity}
-                activityValues={this.state.activityValues} 
+                activityValues={this.state.activities} 
               />} 
             />
           </main>

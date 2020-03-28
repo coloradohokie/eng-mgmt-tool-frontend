@@ -19,7 +19,7 @@ const ProjectItem = (props) => {
                         <Card.Text>{project.project_description}</Card.Text>
                     </div>
                     <div className="card-right-side-panel">
-                        <Card.Text><Badge className="status-badge" variant="light">{project.status_value.value}</Badge></Card.Text>
+                        <Card.Text><Badge className="status-badge" variant="light">{project.status.value}</Badge></Card.Text>
                     </div>
                 </Card.Body>
             </Card>
