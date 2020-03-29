@@ -97,15 +97,13 @@ export default class App extends React.Component {
   }
 
   addActivity = (newActivity) => {
-    console.log("Add Activity", newActivity)
     fetch(BASE_URL.concat('project_activities'), {
       method: 'POST',
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify(newActivity)
     })
       .then(response => response.json())
-      .then(activity => console.log("response from server: ", activity))
-      .then(activity => {this.setState([...this.state.project_activities, activity])})
+      .then(activity => {this.setState([...this.state.projectActivities, activity])})
     window.location.href = `/item-details/${newActivity.project_id}`
   }
 
@@ -125,7 +123,6 @@ export default class App extends React.Component {
   render() {
     return (
       <Router>
-      {/* {console.log("Project Tasks", this.state.projectTasks)} */}
         <div className="App">
           <NavBar />
           <main>
@@ -138,7 +135,7 @@ export default class App extends React.Component {
               render={(props) => <ItemDetails 
                 {...props} 
                 projects={(this.state.projects)} 
-                activities={this.state.project_activities} 
+                project_activities={this.state.projectActivities} 
                 taskCategories={this.state.taskCategories}
                 projectTasks={this.state.projectTasks} 
                 tasks={this.state.tasks}
@@ -152,7 +149,7 @@ export default class App extends React.Component {
               
 
             <Route exact path='/phone-log'>
-              <ActivityLog activities={this.state.project_activities}/>
+              <ActivityLog activities={this.state.projectActivities}/>
             </Route>
 
             <Route exact path='/to-be-invoiced'>

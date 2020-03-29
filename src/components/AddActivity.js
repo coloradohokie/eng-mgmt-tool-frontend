@@ -30,11 +30,10 @@ export default class AddActivity extends Component {
 
     handleSubmit = (event) => {
         event.preventDefault()
-        console.log(this.state)
         this.props.addActivity(
             {
-                activity_value_id: this.getActivityId(this.state.activity) ,
-                project_id: this.props.match.params.id,
+                activity_id: this.getActivityId(this.state.activity) ,
+                project_id: parseInt(this.props.match.params.id),
                 activity_date: this.state.activity_date,
                 notes: this.state.notes,
                 important: false,
@@ -44,8 +43,6 @@ export default class AddActivity extends Component {
 
 
     render() {
-        console.log(this.props)
-        console.log(this.props.match.params.id)
         return (
             <div>
                 <h1>Add Activity</h1>

@@ -39,22 +39,15 @@ export default function ItemDetails(props) {
 
     const getTaskCategory = (project_id) => {
         return props.taskCategories.map(category => {
-            if (category.active) {
-                return showTasksInCategory(project_id, category)
-            }
-            // else {
-            //     console.log(category.value, "is NOT active")
-            //     return <></>
-            // }
+            return category.active ? showTasksInCategory(project_id, category) : <></>
         })
 
     }
 
     const showActivities = (id) => {
-        props.activities.sort(function (a,b) {return b.id - a.id})
-        console.log(props.activities)
+        props.project_activities.sort(function (a,b) {return b.id - a.id})
         return (
-            props.activities.map(activity => activity.project_id === id ? 
+            props.project_activities.map(activity => activity.project_id === id ? 
                  <ActivityItem key={activity.id} activity={activity} /> : null
             )                
         )
@@ -76,7 +69,7 @@ export default function ItemDetails(props) {
                 <td className={clas}><Moment format="MM-DD-YYYY">{value}</Moment></td>
             </tr>
             )
-        } else if (clas === 'money-field')  {
+        } else if (clas === 'money-field' && value)  {
             return(
                 <tr>
                     <td>{name}</td>
