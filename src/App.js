@@ -127,21 +127,17 @@ export default class App extends React.Component {
           <NavBar />
           <main>
             <Route exact path='/'>
-              <ProjectList projects={this.state.projects}/>
-            </Route>
-
-            <Route 
-              path='/item-details/:id' 
-              render={(props) => <ItemDetails 
-                {...props} 
-                projects={(this.state.projects)} 
-                project_activities={this.state.projectActivities} 
+              <ProjectList 
+                projects={this.state.projects}
+                projectActivities={this.state.projectActivities} 
                 taskCategories={this.state.taskCategories}
                 projectTasks={this.state.projectTasks} 
                 tasks={this.state.tasks}
                 toggleTaskCompleted={this.toggleTaskCompleted}
-              />} 
-            />
+
+              />
+            </Route>
+
 
             <Route exact path='/create-new-project'>
               <CreateNewProject addProject={this.addProject} />

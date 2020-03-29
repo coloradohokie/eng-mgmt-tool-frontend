@@ -45,9 +45,9 @@ export default function ItemDetails(props) {
     }
 
     const showActivities = (id) => {
-        props.project_activities.sort(function (a,b) {return b.id - a.id})
+        props.projectActivities.sort(function (a,b) {return b.id - a.id})
         return (
-            props.project_activities.map(activity => activity.project_id === id ? 
+            props.projectActivities.map(activity => activity.project_id === id ? 
                  <ActivityItem key={activity.id} activity={activity} /> : null
             )                
         )
@@ -86,7 +86,8 @@ export default function ItemDetails(props) {
         }
     }
 
-    const project = props.projects.find(element => element.id === parseInt(props.match.params.id))
+    // const project = props.projects.find(element => element.id === parseInt(props.match.params.id))
+    const project = props.project
     if (project) {
         const {
             id,
@@ -118,7 +119,10 @@ export default function ItemDetails(props) {
                             <h1 className="item-details-h1">{address1} {address2} {city} &mdash; {job_number} </h1>
                         </div>
                         <div>
-                            {showInvoiceBadge(ready_to_be_invoiced)}    
+                            {showInvoiceBadge(ready_to_be_invoiced)}
+                            <div className="close-box">
+                                <i class="fas fa-times"></i>    
+                            </div>
                         </div>
                     </div>
 

@@ -146,7 +146,7 @@ h3 {
   background-color: hsl(240, 20%, 20%);
   color: whitesmoke;
   padding-left: 2rem;
-  padding-right: 2rem;
+  padding-right: 0.5rem;
   padding-bottom: 1rem;
 }
 
@@ -234,4 +234,28 @@ h3 {
 
 .status-badge {
   min-width: 90px
+}
+
+.close-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: hsl(240, 50%, 50%);
+  width: 30px;
+  height: 30px;
+  border-radius: 2px;
+
+}
+
+.modal-header {
+  background-color: hsl(240, 20%, 20%);
+  color: whitesmoke
+}
+
+.modal-body {
+  background-color: hsl(240, 20%, 90%);
+}
+
+.modal-footer {
+  background-color: hsl(240, 20%, 90%);
 }
