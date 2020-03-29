@@ -156,8 +156,15 @@ h3 {
   padding-top: 10px;
 }
 
+.project-information-table {
+  width: 100%;
+  background-color: white;
+  box-shadow: 5px 5px 10px gray;
+}
+
+
 .item-details-table {
-  max-width: 400px;
+  max-width: 300px;
   background-color: white;
   box-shadow: 5px 5px 10px gray;
 }
@@ -206,8 +213,17 @@ h3 {
   cursor: pointer;
 }
 
+.modal-contents-container {
+  /* max-width: 400px; */
+
+  display: flex;
+  justify-content: flex-start;
+}
+
 .item-details-tasks-section {
-  max-width: 400px;
+  display: flex;
+  justify-content: flex-start;
+  width: 700px;
 }
 
 .item-details-tasks-section-header {
@@ -215,6 +231,13 @@ h3 {
   justify-content: space-between;
   align-items: flex-end;
   margin: 5px;
+}
+
+.item-details-tasks-section-body {
+  width: 700px;
+  display: flex;
+  justify-content: flex-start;
+  margin-left:30px;
 }
 
 .card-contents {
@@ -258,4 +281,17 @@ h3 {
 
 .modal-footer {
   background-color: hsl(240, 20%, 90%);
+}
+
+
+
+.modal-tasks-container {
+  margin-left: 20px;
+  width: 250px;
+}
+
+.modal-footer-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
 }

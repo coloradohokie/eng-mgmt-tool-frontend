@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
+import InputGroup from 'react-bootstrap/InputGroup'
 
 export default class CreateNewProject extends Component {
    
@@ -109,7 +110,12 @@ export default class CreateNewProject extends Component {
                             <Form.Row className="create-new-project-form-row">
                                 <Form.Group controlId="budget">
                                     <Form.Label>Budget</Form.Label>
-                                    <Form.Control type="number" name="budget" placeholder="$" onChange={this.handleChange} />
+                                    <InputGroup className="mb-3">
+                                        <InputGroup.Prepend>
+                                            <InputGroup.Text>$</InputGroup.Text>
+                                        </InputGroup.Prepend>
+                                        <Form.Control type="number" name="budget" onChange={this.handleChange} />
+                                    </InputGroup>
                                 </Form.Group>
                                 
                                 <div>
