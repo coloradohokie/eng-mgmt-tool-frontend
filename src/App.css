@@ -158,16 +158,14 @@ h3 {
 
 .project-information-table {
   width: 100%;
-  background-color: white;
-  box-shadow: 5px 5px 10px gray;
 }
 
 
-.item-details-table {
+/* .item-details-table {
   max-width: 300px;
   background-color: white;
   box-shadow: 5px 5px 10px gray;
-}
+} */
 
 .item-details-footer {
   display: flex;
@@ -233,6 +231,13 @@ h3 {
   margin: 5px;
 }
 
+.item-details-task-section-body {
+  min-height: 350px;
+  max-width: 300px;
+  background-color: white;
+  box-shadow: 5px 5px 10px gray;
+}
+
 .item-details-tasks-section-body {
   width: 700px;
   display: flex;
@@ -290,8 +295,18 @@ h3 {
   width: 250px;
 }
 
+.modal-task-list {
+  background-color: yellow;
+}
+
 .modal-footer-container {
   display: flex;
   justify-content: space-between;
   width: 100%;
+}
+
+.modal-status-bar {
+  display: flex;
+  justify-content: flex-end;
+  margin: 10px;
 }

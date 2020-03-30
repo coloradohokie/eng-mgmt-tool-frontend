@@ -11,6 +11,7 @@ import ActivityItem from './ActivityItem'
 
 
 const ProjectItem = (props) => {
+    console.log(props)
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
@@ -39,12 +40,16 @@ const ProjectItem = (props) => {
         if (filteredList.length > 0) {
             return ( 
                 <div className="modal-tasks-container">
-                    <h2>{category.value}</h2>
-                    <Table hover size="sm" className="item-details-table">
-                        <tbody>
-                            {filteredList.map(projectTask => showTask(projectTask))}
-                        </tbody>
-                    </Table>
+                    <div className="item-details-section-header">
+                        <h2>{category.value}</h2>
+                    </div>
+                    <div className="item-details-task-section-body">
+                        <Table hover size="sm" className="item-details-table">
+                            <tbody>
+                                {filteredList.map(projectTask => showTask(projectTask))}
+                            </tbody>
+                        </Table>
+                    </div>
                 </div>
             )
         }
@@ -96,6 +101,21 @@ const ProjectItem = (props) => {
         }
     }
 
+    const handleClick = (event) => {
+        if (event.target.name === "status") {
+            console.log("you changed the status to", event.target.value, "props", props)
+            props.changeStatus(event.target.value, project.id)
+        }
+    }
+
+    const getStatusValues = () => {
+        return props.statuses.map(status => {
+            return status.id ===project.status_id ?
+                <option value={status.id} selected>{status.value}</option> :
+                <option value={status.id}>{status.value}</option>
+        })
+    }
+
     const addActivityUrl = `../add-activity/${project.id}`
 
 
@@ -119,6 +139,12 @@ const ProjectItem = (props) => {
                     <Modal.Title>{displayTitle}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body className="modal-body">
+                    <div className="modal-status-bar">
+                        <label>Status</label>
+                        <select name="status" onChange={handleClick}>
+                            {getStatusValues()}
+                        </select>
+                    </div>
                     <div className="modal-contents-container">
                         <div className="project-information-section">
                             <div className="item-details-tasks-section-header">                            

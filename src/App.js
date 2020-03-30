@@ -5,7 +5,6 @@ import {BrowserRouter as Router, Route} from 'react-router-dom'
 
 import NavBar from './components/NavBar'
 import ProjectList from './components/ProjectList'
-import ItemDetails from './components/ItemDetails'
 import ActivityLog from './components/ActivityLog'
 import CreateNewProject from './components/CreateNewProject'
 import ToBeInvoiced from './components/ToBeInvoiced'
@@ -119,10 +118,23 @@ export default class App extends React.Component {
       body: JSON.stringify(projectTask)
     }) 
   }
-  
+
+  changeStatus = (status_id, project_id) => {
+    const project = this.state.projects.find(element => element.id === project_id)
+    project.status_id = parseInt(status_id)
+    this.setState(project)
+    fetch(BASE_URL.concat(`projects/${project_id}`), {
+      method: 'PATCH',
+      headers: {'Content-Type': "application/json"},
+      body: JSON.stringify(project)
+    })
+  }
+
+
   render() {
     return (
       <Router>
+      {console.log("statuses", this.state.statuses)}
         <div className="App">
           <NavBar />
           <main>
@@ -133,7 +145,9 @@ export default class App extends React.Component {
                 taskCategories={this.state.taskCategories}
                 projectTasks={this.state.projectTasks} 
                 tasks={this.state.tasks}
+                statuses={this.state.statuses}
                 toggleTaskCompleted={this.toggleTaskCompleted}
+                changeStatus={this.changeStatus}
 
               />
             </Route>
