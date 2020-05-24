@@ -49,23 +49,6 @@ main {
   margin: auto;
 }
 
-.nav-bar {
-  background-color: hsla(240, 0%, 0%, 0.7);
-  background-blend-mode: lighten;
-  height: 40px;
-  width: 100%;
-  display: flex;
-  justify-content: space-evenly;
-}
-
-.nav-bar-item {
-  margin: 20px;
-  color: hsl(240, 0%, 80%)
-}
-
-.nav-bar-item:hover {
-  color: white;
-}
 
 .project-list {
   display: flex;

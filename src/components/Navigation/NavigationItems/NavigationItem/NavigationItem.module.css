@@ -1,0 +1,17 @@
+.NavigationItem {
+    margin: 10px 0;
+    width: 100%;
+    box-sizing: border-box;
+    display: block;
+}
+
+.NavigationItem a {
+    color: hsl(240, 0%, 80%);
+    text-decoration: none;
+    width: 100%;
+    box-sizing: border-box;
+    display: block;
+}
+.NavigationItem a:hover {
+    color: white;
+}

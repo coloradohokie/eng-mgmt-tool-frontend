@@ -1,9 +1,9 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './App.css';
-import {BrowserRouter as Router, Route} from 'react-router-dom'
+import {Router, Switch, Route} from 'react-router-dom'
 
-import NavBar from './components/NavBar'
+import NavBar from './components/Navigation/NavBar/NavBar'
 import ProjectList from './components/ProjectList'
 import ActivityLog from './components/ActivityLog'
 import CreateNewProject from './components/CreateNewProject'
@@ -11,6 +11,7 @@ import ToBeInvoiced from './components/ToBeInvoiced'
 import WeeklyReport from './components/WeeklyReport'
 import Admin from './components/Admin'
 import AddActivity from './components/AddActivity'
+import Layout from './components/Layout/Layout'
 
 var moment = require('moment');
 moment().format();
@@ -133,12 +134,9 @@ export default class App extends React.Component {
 
   render() {
     return (
-      <Router>
-      {console.log("statuses", this.state.statuses)}
-        <div className="App">
-          <NavBar />
-          <main>
-            <Route exact path='/'>
+      <Layout>
+        <Switch>
+        <Route exact path='/'>
               <ProjectList 
                 projects={this.state.projects}
                 projectActivities={this.state.projectActivities} 
@@ -152,12 +150,10 @@ export default class App extends React.Component {
               />
             </Route>
 
-
             <Route exact path='/create-new-project'>
               <CreateNewProject addProject={this.addProject} />
             </Route>
               
-
             <Route exact path='/phone-log'>
               <ActivityLog activities={this.state.projectActivities}/>
             </Route>
@@ -184,11 +180,11 @@ export default class App extends React.Component {
                 {...props} 
                 addActivity={this.addActivity}
                 activityValues={this.state.activities} 
-              />} 
-            />
-          </main>
-        </div>
-      </Router>
+                />}
+              /> 
+
+        </Switch>
+      </Layout>
     );
   }
 }
