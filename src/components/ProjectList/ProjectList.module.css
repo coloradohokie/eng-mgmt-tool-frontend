@@ -1,0 +1,5 @@
+.ProjectList {
+    display: flex;
+    flex-direction: column;
+  
+  }

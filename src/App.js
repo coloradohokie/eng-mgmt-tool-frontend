@@ -4,11 +4,11 @@ import './App.css';
 import {Switch, Route} from 'react-router-dom'
 
 import Projects from './containers/Projects/Projects'
-import ActivityLog from './components/ActivityLog'
+import ActivityLog from './containers/ActivityLog/ActivityLog'
 import NewProject from './containers/NewProject/NewProject'
-import ToBeInvoiced from './components/ToBeInvoiced'
-import WeeklyReport from './components/WeeklyReport'
-import Admin from './components/Admin'
+import ToBeInvoiced from './containers/ToBeInvoiced/ToBeInvoiced'
+import WeeklyReport from './containers/WeeklyReport/WeeklyReport'
+import Admin from './containers/Admin/Admin'
 import AddActivity from './components/AddActivity'
 import Layout from './components/Layout/Layout'
 
@@ -145,7 +145,7 @@ changeStatus = (status_id, project_id) => {
               changeStatus={this.changeStatus}
             />
           </Route>
-          
+
           <Route exact path='/create-new-project'>
             <NewProject addProject={this.addProject} />
           </Route>

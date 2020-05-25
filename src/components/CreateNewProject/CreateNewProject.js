@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import InputGroup from 'react-bootstrap/InputGroup'
+import classes from './CreateNewProject.module.css'
 
 export default class CreateNewProject extends Component {
    
@@ -53,10 +54,10 @@ export default class CreateNewProject extends Component {
         return (
             <div>
                 <h1>Create New Project</h1>
-                <div className="create-new-project-form">
+                <div className={classes.CreateNewProjectForm}>
                     <Form onSubmit={this.handleSubmit}>
                         <div>
-                            <Form.Row className="create-new-project-form-row">
+                            <Form.Row className={classes.CreateNewProjectFormRow}>
                                 <Form.Group controlId="jobNumber">
                                     <Form.Label>Job Number*</Form.Label>
                                     <Form.Control 
@@ -107,7 +108,7 @@ export default class CreateNewProject extends Component {
                             </Form.Group>
 
 
-                            <Form.Row className="create-new-project-form-row">
+                            <Form.Row className={classes.CreateNewProjectFormRow}>
                                 <Form.Group controlId="budget">
                                     <Form.Label>Budget</Form.Label>
                                     <InputGroup className="mb-3">
@@ -131,7 +132,7 @@ export default class CreateNewProject extends Component {
 
                         <div>
 
-                            <Form.Row className="create-new-project-form-row">
+                            <Form.Row className={classes.CreateNewProjectFormRow}>
                                 <Form.Group controlId="contractDate">
                                     <Form.Label>Contract Date</Form.Label>
                                     <Form.Control type="date" name="contractDate" onChange={this.handleChange} />
@@ -148,7 +149,7 @@ export default class CreateNewProject extends Component {
                                 </Form.Group>
                             </Form.Row>
 
-                            <Form.Row className="create-new-project-form-row">
+                            <Form.Row className={classes.CreateNewProjectFormRow}>
                                 <Form.Group controlId="framingDueDate">
                                     <Form.Label>Framing Due Date</Form.Label>
                                     <Form.Control type="date" name="framingDueDate" onChange={this.handleChange} />
@@ -165,7 +166,7 @@ export default class CreateNewProject extends Component {
                                 </Form.Group>
                             </Form.Row>
 
-                            <Form.Row className="create-new-project-form-row">
+                            <Form.Row className={classes.CreateNewProjectFormRow}>
                                 <Form.Group controlId="contractProposalSentDate">
                                     <Form.Label>Contract Proposal Sent Date</Form.Label>
                                     <Form.Control type="date" name="contractProposalSentDate" onChange={this.handleChange} />

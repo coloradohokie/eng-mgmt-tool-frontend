@@ -5,6 +5,7 @@ import TaskItem from './TaskItem'
 import ActivityItem from './ActivityItem'
 import Moment from 'react-moment'
 import CurrencyFormat from 'react-currency-format'
+import classes from './ItemDetails.module.css'
 
 
 export default function ItemDetails(props) {
@@ -27,7 +28,7 @@ export default function ItemDetails(props) {
             return ( 
                 <div>
                     <h2>{category.value}</h2>
-                    <Table hover size="sm" className="item-details-table">
+                    <Table hover size="sm" className={classes.item-details-table}>
                         <tbody>
                             {filteredList.map(projectTask => showTask(projectTask))}
                         </tbody>
@@ -112,15 +113,15 @@ export default function ItemDetails(props) {
             const addActivityUrl = `../add-activity/${project.id}`
 
             return (
-            <div className="item-details">
-                <div className="item-details-header">
-                    <div className="item-details-header-top-line">
+            <div className={classes.item-details}>
+                <div className={classes.item-details-header}>
+                    <div className={classes.item-details-header-top-line}>
                         <div>
-                            <h1 className="item-details-h1">{address1} {address2} {city} &mdash; {job_number} </h1>
+                            <h1 className={classes.item-details-h1}>{address1} {address2} {city} &mdash; {job_number} </h1>
                         </div>
                         <div>
                             {showInvoiceBadge(ready_to_be_invoiced)}
-                            <div className="close-box">
+                            <div className={classes.close-box}>
                                 <i class="fas fa-times"></i>    
                             </div>
                         </div>
@@ -130,20 +131,20 @@ export default function ItemDetails(props) {
                     
                 </div>
 
-                <div className="item-details-body">
+                <div className={classes.item-details-body}>
 
 
 {/* Project Information Section */}
-                    <div className="item-details-tasks-section">
-                        <div className="item-details-tasks-section-header">                            
+                    <div className={classes.ItemDetailsTasksSection}>
+                        <div className={classes.ItemDetailsTasksSectionHeader}>                            
                                 <h2>Project Information </h2>
                                     <a href={`../create-new-project`}>
                                         <Badge variant="secondary">Edit</Badge>
                                     </a>
                         
                         </div>
-                        <div className="item-details-task-section-body">
-                            <Table striped bordered hover size="sm" className="item-details-table">
+                        <div className={classes.ItemDetailsTasksSectionBody}>
+                            <Table striped bordered hover size="sm" className={classes.ItemDetailsTable}>
                                 <tbody>
                                     {renderProjectInformationRow("Budget",budget,"money-field")}
                                     {renderProjectInformationRow("Contract Date",contract_date,"date-field")}
@@ -161,7 +162,7 @@ export default function ItemDetails(props) {
                     </div>
 
 {/* Tasks Section                     */}
-                    <div className="item-details-tasks-section">
+                    <div className={classes.ItemDetailsTasksSection}>
 
                         <div className="item-details-task-section-body">
                             {getTaskCategory(project.id)}
@@ -172,8 +173,8 @@ export default function ItemDetails(props) {
 
 
 {/* Activity Table                     */}
-                    <div className="item-details-section">
-                        <div className="item-details-section-header">
+                    <div className={classes.ItemDetailsSection}>
+                        <div className={classes.ItemDetailsSectionHeader}>
                             <h2>Activity Log </h2>
                             <h3>
                                 <a href={addActivityUrl}>
@@ -184,7 +185,7 @@ export default function ItemDetails(props) {
                         </div>
 
                         <div className="item-details-section-body">
-                            <Table striped bordered hover size="sm" className="activity-log-table">
+                            <Table striped bordered hover size="sm" style={{backgroundColor: "#FFF"}}>
                                 <thead>
                                     <tr>
                                         <th>Activity</th>
@@ -204,7 +205,7 @@ export default function ItemDetails(props) {
                 </div>
 
 
-                <footer className="item-details-footer">
+                <footer className={classes.item-details-footer}>
                     <div>
                         <p><a href="/"> &lt;- Back to Project List</a></p>
                     </div>

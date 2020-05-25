@@ -1,0 +1,12 @@
+.AdminValueTable {
+    background-color: white;
+    width: 400px;
+}
+
+.AdminTableHeader {
+    max-width: 400px;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+}
+  

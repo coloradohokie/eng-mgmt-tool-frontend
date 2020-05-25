@@ -1,7 +1,8 @@
 import React from 'react'
-import AdminDisplayValue from './AdminDisplayValue'
+import AdminDisplayValue from '../../components/AdminDisplayValue'
 import Table from 'react-bootstrap/Table'
 import Button from 'react-bootstrap/Button'
+import classes from './Admin.module.css'
 
 
 export default function Admin(props) {
@@ -35,7 +36,7 @@ export default function Admin(props) {
             return (
                 <>
                 <h2>{category.value} Tasks</h2>
-                <Table striped bordered size="sm" className="adminValueTable">
+                <Table striped bordered size="sm" className={classes.AdminValueTable}>
                     <thead>
                         <tr>
                             <td>Value</td>
@@ -56,11 +57,11 @@ export default function Admin(props) {
         <div>
             <h1>This is the Admin Page</h1>
 
-            <div className="adminTableHeader">
+            <div className={classes.AdminTableHeader}>
                 <h2>Task Categories</h2>
                 <Button size='sm' variant="secondary">Add Value</Button>
             </div>
-            <Table striped bordered size="sm" className="adminValueTable">
+            <Table striped bordered size="sm" className={classes.AdminValueTable}>
                 <thead>
                     <tr>
                         <td>Value</td>
@@ -78,7 +79,7 @@ export default function Admin(props) {
                 <h2>Status Categories</h2>
                 <Button size='sm' variant="secondary">Add Value</Button>
             </div>
-            <Table striped bordered size="sm" className="adminValueTable">
+            <Table striped bordered size="sm" className={classes.AdminValueTable}>
                 <thead>
                     <tr>
                         <td>Value</td>

@@ -1,5 +1,6 @@
 import React from 'react'
 import ProjectItem from './ProjectItem/ProjectItem'
+import classes from './ProjectList.module.css'
 
 
 const ProjectList = (props) => {
@@ -21,7 +22,7 @@ const ProjectList = (props) => {
     }
 
     return (
-        <div className="project-list">
+        <div className={classes.ProjectList}>
             <h1>Project List</h1>
             {showProjects()}
         </div>

@@ -1,0 +1,13 @@
+.TaskItem {
+    display: flex;
+    justify-content: flex-start;
+    text-align: left;
+  }
+  
+  .Done {
+    text-decoration: line-through;
+  }
+  
+  .Task:hover {
+    cursor: pointer;
+  }

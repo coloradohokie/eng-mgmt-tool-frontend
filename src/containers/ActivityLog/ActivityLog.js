@@ -1,8 +1,8 @@
 import React from 'react'
 import Table from 'react-bootstrap/Table'
-import ActivityItem from './ActivityItem/ActivityItem' 
+import ActivityItem from '../../components/ActivityItem/ActivityItem' 
 
-export default function ActivityLog(props) {
+const activityLog = (props) => {
     
     const showActivities = () => {
         props.activities.sort(function (a,b) {return b.id - a.id})
@@ -13,7 +13,7 @@ export default function ActivityLog(props) {
     return (
         <div>
             <h1>Phone Log</h1>
-            <Table striped bordered hover className="activity-log-table">
+            <Table striped bordered hover style={{backgroundColor: "#FFF"}}>
                 <thead>
                     <tr>
                     <th>Activity</th>
@@ -29,3 +29,5 @@ export default function ActivityLog(props) {
         </div>
     )
 }
+
+export default activityLog

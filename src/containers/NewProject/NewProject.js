@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import CreateNewProject from '../../components/CreateNewProject'
+import CreateNewProject from '../../components/CreateNewProject/CreateNewProject'
 
 
 class NewProject extends Component {

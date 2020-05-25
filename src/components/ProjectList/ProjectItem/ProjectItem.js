@@ -8,6 +8,7 @@ import Moment from 'react-moment'
 import CurrencyFormat from 'react-currency-format'
 import TaskItem from '../../TaskItem/TaskItem'
 import ActivityItem from '../../ActivityItem/ActivityItem'
+import classes from './ProjectItem.module.css'
 
 
 const ProjectItem = (props) => {
@@ -39,12 +40,12 @@ const ProjectItem = (props) => {
         )
         if (filteredList.length > 0) {
             return ( 
-                <div className="modal-tasks-container">
-                    <div className="item-details-section-header">
+                <div className={classes.ModalTasksContainer}>
+                    <div className={classes.ItemDetailsSectionHeader}>
                         <h2>{category.value}</h2>
                     </div>
-                    <div className="item-details-task-section-body">
-                        <Table hover size="sm" className="item-details-table">
+                    <div className={classes.ItemDetailsTaskSectionBody}>
+                        <Table hover size="sm" className={classes.ItemDetailsTable}>
                             <tbody>
                                 {filteredList.map(projectTask => showTask(projectTask))}
                             </tbody>
@@ -122,40 +123,40 @@ const ProjectItem = (props) => {
     return(
             <>
             
-            <Card className="item-card">
-                <Card.Body className="card-contents">
-                    <div className="card-main-box">
+            <Card className={classes.ItemCard}>
+                <Card.Body className={classes.CardContents}>
+                    <div className={classes.CardMainBox}>
                         <Card.Title onClick={handleShow}> {displayTitle} </Card.Title> 
                         <Card.Text>{project.project_description}</Card.Text>
                     </div>
-                    <div className="card-right-side-panel">
-                        <Card.Text><Badge className="status-badge" variant="light">{project.status.value}</Badge></Card.Text>
+                    <div className={classes.CardRightSidePanel}>
+                        <Card.Text><Badge className={classes.StatusBadge} variant="light">{project.status.value}</Badge></Card.Text>
                     </div>
                 </Card.Body>
             </Card>
 
             <Modal size="xl" centered show={show} onHide={handleClose}>
-                <Modal.Header className="modal-header" closeButton>
+                <Modal.Header className={classes.ModalHeader} closeButton>
                     <Modal.Title>{displayTitle}</Modal.Title>
                 </Modal.Header>
-                <Modal.Body className="modal-body">
-                    <div className="modal-status-bar">
+                <Modal.Body className={classes.ModelBody}>
+                    <div className={classes.ModalStatusBar}>
                         <label>Status</label>
                         <select name="status" onChange={handleClick}>
                             {getStatusValues()}
                         </select>
                     </div>
-                    <div className="modal-contents-container">
-                        <div className="project-information-section">
-                            <div className="item-details-tasks-section-header">                            
+                    <div className={classes.ModalContentsContainer}>
+                        <div>
+                            <div className={classes.ItemDetailsTasksSectionHeader}>                            
                                     <h2>Project Information </h2>
                                         <a href={`../create-new-project`}>
                                             <Badge variant="secondary">Edit</Badge>
                                         </a>
                             
                             </div>
-                            <div className="item-details-task-section-body">
-                                <Table striped bordered hover size="sm" className="project-information-table">
+                            <div className={classes.ItemDetailsTaskSectionBody}>
+                                <Table striped bordered hover size="sm" className={classes.ProjectInformationTable}>
                                     <tbody>
                                         {renderProjectInformationRow("Budget",project.budget,"money-field")}
                                         {renderProjectInformationRow("Contract Date",project.contract_date,"date-field")}
@@ -173,8 +174,8 @@ const ProjectItem = (props) => {
                         </div>
 
     {/* Tasks Section                     */}
-                        <div className="item-details-tasks-section">
-                            <div className="item-details-tasks-section-body">
+                        <div className={classes.ItemDetailsTasksSection}>
+                            <div className={classes.ItemDetailsTasksSectionBody}>
                                 {getTaskCategory(project.id)}
                             </div>
 
@@ -182,8 +183,8 @@ const ProjectItem = (props) => {
                     </div>
 
     {/* Activity Table                     */}
-                        <div className="item-details-section">
-                            <div className="item-details-section-header">
+                        <div className={classes.ItemDetailsSection}>
+                            <div className={classes.ItemDetailsSectionHeader}>
                                 <h2>Activity Log </h2>
                                 <h3>
                                     <a href={addActivityUrl}>
@@ -193,8 +194,8 @@ const ProjectItem = (props) => {
                                 
                             </div>
 
-                            <div className="item-details-section-body">
-                                <Table striped bordered hover size="sm" className="activity-log-table">
+                            <div>
+                                <Table striped bordered hover size="sm" className={classes.ActivityLogTable}>
                                     <thead>
                                         <tr>
                                             <th>Activity</th>
@@ -212,8 +213,8 @@ const ProjectItem = (props) => {
                         </div>
 
                 </Modal.Body>
-                <Modal.Footer className="modal-footer">
-                    <div className="modal-footer-container">
+                <Modal.Footer className={classes.ModalFooter}>
+                    <div className={classes.ModalFooterContainer}>
                         <div>
                             <p>Project Created: {<Moment format="MM-DD-YYYY">{project.created_at}</Moment>}</p>
                             <p>Last Updated: <Moment format="MM-DD-YYYY">{project.updated_at}</Moment></p>
