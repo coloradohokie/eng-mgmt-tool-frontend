@@ -1,5 +1,5 @@
 import React from 'react'
-import ProjectItem from './ProjectItem'
+import ProjectItem from './ProjectItem/ProjectItem'
 
 
 const ProjectList = (props) => {

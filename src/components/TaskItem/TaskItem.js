@@ -1,6 +1,6 @@
 import React from 'react'
-import unchecked from '../images/unchecked_box.png'
-import checked from '../images/checked_box.png'
+import unchecked from '../../assets/checkboxes/unchecked_box.png'
+import checked from '../../assets/checkboxes/checked_box.png'
 
 export default function TaskItem(props) {
 

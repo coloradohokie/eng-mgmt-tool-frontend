@@ -6,8 +6,8 @@ import Button from 'react-bootstrap/Button'
 import Table from 'react-bootstrap/Table'
 import Moment from 'react-moment'
 import CurrencyFormat from 'react-currency-format'
-import TaskItem from './TaskItem'
-import ActivityItem from './ActivityItem'
+import TaskItem from '../../TaskItem/TaskItem'
+import ActivityItem from '../../ActivityItem/ActivityItem'
 
 
 const ProjectItem = (props) => {

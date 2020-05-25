@@ -1,12 +1,11 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './App.css';
-import {Router, Switch, Route} from 'react-router-dom'
+import {Switch, Route} from 'react-router-dom'
 
-import NavBar from './components/Navigation/NavBar/NavBar'
-import ProjectList from './components/ProjectList'
+import Projects from './containers/Projects/Projects'
 import ActivityLog from './components/ActivityLog'
-import CreateNewProject from './components/CreateNewProject'
+import NewProject from './containers/NewProject/NewProject'
 import ToBeInvoiced from './components/ToBeInvoiced'
 import WeeklyReport from './components/WeeklyReport'
 import Admin from './components/Admin'
@@ -29,10 +28,10 @@ export default class App extends React.Component {
     projectTasks: [],
     statuses: [],
     activities: []
-  }
+}
 
 
-  fetchProjects = () => {
+fetchProjects = () => {
     fetch(BASE_URL.concat("projects"))
     .then(response => response.json())
     .then(projects => this.setState({projects: projects}))
@@ -84,18 +83,41 @@ export default class App extends React.Component {
     this.fetchActivityValues()
   }
 
-  addProject = (newProject) => {
-    fetch(BASE_URL.concat("project_tasks"), {
-        method: 'POST',
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify(newProject)
-      })
-      .then(response => response.json())
-      .then(project => console.log("response from server: ", project))
-      .then(project => {this.setState([...this.state.projects, project])})
-    window.location.href = "/"
-  }
 
+toggleTaskCompleted = (task_id) => {
+    const projectTask = this.state.projectTasks.find(element => element.id === task_id)
+    projectTask.completed === true ? 
+      projectTask.completed = false : projectTask.completed = true
+    this.setState(projectTask)
+    fetch(BASE_URL.concat(`project_tasks/${task_id}`), {
+      method: 'PATCH',
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify(projectTask)
+    }) 
+}
+
+addProject = (newProject) => {
+  fetch(BASE_URL.concat("project_tasks"), {
+      method: 'POST',
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify(newProject)
+    })
+    .then(response => response.json())
+    .then(project => console.log("response from server: ", project))
+    .then(project => {this.setState([...this.state.projects, project])})
+  window.location.href = "/"
+}
+
+changeStatus = (status_id, project_id) => {
+    const project = this.state.projects.find(element => element.id === project_id)
+    project.status_id = parseInt(status_id)
+    this.setState(project)
+    fetch(BASE_URL.concat(`projects/${project_id}`), {
+        method: 'PATCH',
+        headers: {'Content-Type': "application/json"},
+        body: JSON.stringify(project)
+    })
+}
   addActivity = (newActivity) => {
     fetch(BASE_URL.concat('project_activities'), {
       method: 'POST',
@@ -107,82 +129,53 @@ export default class App extends React.Component {
     window.location.href = `/item-details/${newActivity.project_id}`
   }
 
-  
-  toggleTaskCompleted = (task_id) => {
-    const projectTask = this.state.projectTasks.find(element => element.id === task_id)
-    projectTask.completed === true ? 
-      projectTask.completed = false : projectTask.completed = true
-    this.setState(projectTask)
-    fetch(BASE_URL.concat(`project_tasks/${task_id}`), {
-      method: 'PATCH',
-      headers: {"Content-Type": "application/json"},
-      body: JSON.stringify(projectTask)
-    }) 
-  }
-
-  changeStatus = (status_id, project_id) => {
-    const project = this.state.projects.find(element => element.id === project_id)
-    project.status_id = parseInt(status_id)
-    this.setState(project)
-    fetch(BASE_URL.concat(`projects/${project_id}`), {
-      method: 'PATCH',
-      headers: {'Content-Type': "application/json"},
-      body: JSON.stringify(project)
-    })
-  }
-
-
   render() {
     return (
       <Layout>
         <Switch>
-        <Route exact path='/'>
-              <ProjectList 
-                projects={this.state.projects}
-                projectActivities={this.state.projectActivities} 
-                taskCategories={this.state.taskCategories}
-                projectTasks={this.state.projectTasks} 
-                tasks={this.state.tasks}
-                statuses={this.state.statuses}
-                toggleTaskCompleted={this.toggleTaskCompleted}
-                changeStatus={this.changeStatus}
-
-              />
-            </Route>
-
-            <Route exact path='/create-new-project'>
-              <CreateNewProject addProject={this.addProject} />
-            </Route>
+          <Route exact path='/'>
+            <Projects
+              projects={this.state.projects}
+              projectActivities={this.state.projectActivities} 
+              taskCategories={this.state.taskCategories}
+              projectTasks={this.state.projectTasks} 
+              tasks={this.state.tasks}
+              statuses={this.state.statuses}
+              toggleTaskCompleted={this.toggleTaskCompleted}
+              changeStatus={this.changeStatus}
+            />
+          </Route>
+          
+          <Route exact path='/create-new-project'>
+            <NewProject addProject={this.addProject} />
+          </Route>
               
-            <Route exact path='/phone-log'>
-              <ActivityLog activities={this.state.projectActivities}/>
-            </Route>
+          <Route exact path='/phone-log'>
+            <ActivityLog activities={this.state.projectActivities}/>
+          </Route>
 
-            <Route exact path='/to-be-invoiced'>
-              <ToBeInvoiced projects={this.state.projects} />
-            </Route>
+          <Route exact path='/to-be-invoiced'>
+            <ToBeInvoiced projects={this.state.projects} />
+          </Route>
 
-            <Route exact path='/weekly-report'>
-              <WeeklyReport />
-            </Route>
+          <Route exact path='/weekly-report' component={WeeklyReport} />
 
-            <Route exact path='/admin'>
-              <Admin 
-                taskCategories={this.state.taskCategories}
-                statusValues={this.state.statuses}
-                tasks={this.state.tasks}
-              />
-            </Route>
+          <Route exact path='/admin'>
+            <Admin 
+              taskCategories={this.state.taskCategories}
+              statusValues={this.state.statuses}
+              tasks={this.state.tasks}
+            />
+          </Route>
 
-            <Route 
-              path='/add-activity/:id' 
-              render={(props) => <AddActivity 
-                {...props} 
-                addActivity={this.addActivity}
-                activityValues={this.state.activities} 
-                />}
-              /> 
-
+          <Route 
+            path='/add-activity/:id' 
+            render={(props) => <AddActivity 
+              {...props} 
+              addActivity={this.addActivity}
+              activityValues={this.state.activities} 
+            />}
+          /> 
         </Switch>
       </Layout>
     );

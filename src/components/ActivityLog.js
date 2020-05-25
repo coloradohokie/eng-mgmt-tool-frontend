@@ -1,6 +1,6 @@
 import React from 'react'
 import Table from 'react-bootstrap/Table'
-import ActivityItem from './ActivityItem' 
+import ActivityItem from './ActivityItem/ActivityItem' 
 
 export default function ActivityLog(props) {
     
