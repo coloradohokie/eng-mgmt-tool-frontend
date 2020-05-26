@@ -5,6 +5,12 @@
     justify-content: flex-start;
 }
 
+.ItemDetailsTable {
+  max-width: 300px;
+  background-color: white;
+  box-shadow: 5px 5px 10px gray;
+}
+
 .ItemDetailsSection {
     width: 90%;
   }
@@ -40,12 +46,6 @@
   justify-content: flex-start;
   margin-left:30px;
 }
-
-/* .ItemDetailsTable {
-  max-width: 300px;
-  background-color: white;
-  box-shadow: 5px 5px 10px gray;
-} */
 
 .ItemCard {
   width: 100%;
@@ -85,8 +85,6 @@
   background-color: hsl(240, 20%, 90%);
 }
 
-
-
 .modal-tasks-container {
   margin-left: 20px;
   width: 250px;
@@ -119,3 +117,4 @@
 .StatusBadge {
   min-width: 90px
 }
+

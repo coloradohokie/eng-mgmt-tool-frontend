@@ -23,9 +23,6 @@ export default class App extends React.Component {
   state = {
     projects: [],
     projectActivities: [],
-    tasks: [],
-    taskCategories: [],
-    projectTasks: [],
     statuses: [],
     activities: []
 }
@@ -43,17 +40,17 @@ fetchProjects = () => {
     .then(project_activities => this.setState({projectActivities: project_activities}))
   }
 
-  fetchTaskCategories = () => {
-    fetch(BASE_URL.concat('task_categories'))
-    .then(response => response.json())
-    .then(task_categories => this.setState({taskCategories: task_categories}))
-  }
+  // fetchTaskCategories = () => {
+  //   fetch(BASE_URL.concat('task_categories'))
+  //   .then(response => response.json())
+  //   .then(task_categories => this.setState({taskCategories: task_categories}))
+  // }
 
-  fetchProjectTasks = () => {
-    fetch(BASE_URL.concat('project_tasks'))
-    .then(response => response.json())
-    .then(project_tasks => this.setState({projectTasks: project_tasks}))
-  }
+  // fetchProjectTasks = () => {
+  //   fetch(BASE_URL.concat('project_tasks'))
+  //   .then(response => response.json())
+  //   .then(project_tasks => this.setState({projectTasks: project_tasks}))
+  // }
 
   fetchStatusValues = () => {
     fetch(BASE_URL.concat('statuses'))
@@ -61,11 +58,11 @@ fetchProjects = () => {
     .then(statuses => this.setState({statuses: statuses}))
   }
 
-  fetchTasks = () => {
-    fetch(BASE_URL.concat('tasks'))
-      .then(response => response.json())
-      .then(tasks => this.setState({tasks: tasks}))
-  }
+  // fetchTasks = () => {
+  //   fetch(BASE_URL.concat('tasks'))
+  //     .then(response => response.json())
+  //     .then(tasks => this.setState({tasks: tasks}))
+  // }
 
   fetchActivityValues = () => {
     fetch(BASE_URL.concat('activities'))
@@ -76,20 +73,21 @@ fetchProjects = () => {
   componentDidMount = () => {
     this.fetchProjects()
     this.fetchActivities()
-    this.fetchTaskCategories()
-    this.fetchProjectTasks()
+    // this.fetchTaskCategories()
+    // this.fetchProjectTasks()
     this.fetchStatusValues()
-    this.fetchTasks()
+    // this.fetchTasks()
     this.fetchActivityValues()
   }
 
 
-toggleTaskCompleted = (task_id) => {
-    const projectTask = this.state.projectTasks.find(element => element.id === task_id)
-    projectTask.completed === true ? 
-      projectTask.completed = false : projectTask.completed = true
+toggleTaskCompleted = (project_id, task_id) => {
+    const selectedProject = this.state.projects.find(project => project.id === project_id)
+    const projectTask = selectedProject.tasks.find(element => element.id === task_id)
+    projectTask.done === true ? 
+      projectTask.done = false : projectTask.done = true
     this.setState(projectTask)
-    fetch(BASE_URL.concat(`project_tasks/${task_id}`), {
+    fetch(BASE_URL.concat(`tasks/${task_id}`), {
       method: 'PATCH',
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify(projectTask)
@@ -137,9 +135,6 @@ changeStatus = (status_id, project_id) => {
             <Projects
               projects={this.state.projects}
               projectActivities={this.state.projectActivities} 
-              taskCategories={this.state.taskCategories}
-              projectTasks={this.state.projectTasks} 
-              tasks={this.state.tasks}
               statuses={this.state.statuses}
               toggleTaskCompleted={this.toggleTaskCompleted}
               changeStatus={this.changeStatus}

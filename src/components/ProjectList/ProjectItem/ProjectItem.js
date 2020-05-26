@@ -6,9 +6,10 @@ import Button from 'react-bootstrap/Button'
 import Table from 'react-bootstrap/Table'
 import Moment from 'react-moment'
 import CurrencyFormat from 'react-currency-format'
-import TaskItem from '../../TaskItem/TaskItem'
+import TaskItem from '../../../components/TaskItem/TaskItem'
 import ActivityItem from '../../ActivityItem/ActivityItem'
 import classes from './ProjectItem.module.css'
+import AddTask from './AddTask/AddTask'
 
 
 const ProjectItem = (props) => {
@@ -23,45 +24,48 @@ const ProjectItem = (props) => {
         `${project.address1}, ${project.city} \u2014 ${project.job_number}` :
         `${project.address1} \u2014 ${project.job_number}`
     
-    const showTask = (filteredTask) => {
+    const showTask = (project_id, filteredTask) => {
         return( 
             <TaskItem 
                 key={filteredTask.id} 
+                project_id={project_id}
                 {...filteredTask} 
                 toggleTaskCompleted={props.toggleTaskCompleted}
             /> 
         )
     }
 
-    const showTasksInCategory = (project_id, category) => {
-        const filteredList = props.projectTasks.filter(projectTask => 
-            (projectTask.project_id === project_id) &&
-            (projectTask.task.task_category_id === category.id)
+    const filterUniqueValues = (taskArray) => {
+        const unique = [...new Set(taskArray.map(item => item.template_name))]
+        return unique
+    }
+
+    const getTasks = (project_id) => {
+        const taskGroups = filterUniqueValues(props.project.tasks)
+        return (
+            <div>
+                {taskGroups.map(group => {
+                    return (
+                        <div>
+                            <h2>{group}</h2> 
+                            <Table hover size="sm" className={classes.ItemDetailsTable}>
+                                <tbody>
+                                    {props.project.tasks.map(task => {
+                                        if (task.template_name === group) {
+                                            return showTask(project_id, task)
+                                        }
+                                    })}
+                                </tbody>
+                            </Table>
+                        </div>
+                    )
+                })}
+            </div>
         )
-        if (filteredList.length > 0) {
-            return ( 
-                <div className={classes.ModalTasksContainer}>
-                    <div className={classes.ItemDetailsSectionHeader}>
-                        <h2>{category.value}</h2>
-                    </div>
-                    <div className={classes.ItemDetailsTaskSectionBody}>
-                        <Table hover size="sm" className={classes.ItemDetailsTable}>
-                            <tbody>
-                                {filteredList.map(projectTask => showTask(projectTask))}
-                            </tbody>
-                        </Table>
-                    </div>
-                </div>
-            )
-        }
     }
 
-    const getTaskCategory = (project_id) => {
-        return props.taskCategories.map(category => {
-            return category.active ? showTasksInCategory(project_id, category) : <></>
-        })
 
-    }
+
     const showActivities = (id) => {
         props.projectActivities.sort(function (a,b) {return b.id - a.id})
         return (
@@ -112,7 +116,7 @@ const ProjectItem = (props) => {
     const getStatusValues = () => {
         return props.statuses.map(status => {
             return status.id ===project.status_id ?
-                <option value={status.id} selected>{status.value}</option> :
+                <option value={status.id} defaultValue>{status.value}</option> :
                 <option value={status.id}>{status.value}</option>
         })
     }
@@ -176,7 +180,7 @@ const ProjectItem = (props) => {
     {/* Tasks Section                     */}
                         <div className={classes.ItemDetailsTasksSection}>
                             <div className={classes.ItemDetailsTasksSectionBody}>
-                                {getTaskCategory(project.id)}
+                                {getTasks(project.id)}
                             </div>
 
                         </div>

@@ -4,17 +4,18 @@ import checked from '../../assets/checkboxes/checked_box.png'
 import classes from './TaskItem.module.css'
 
 const taskItem = (props) => {
+    console.log("[TaskItem]", props)
 
     const handleClick = (event) => {
-        props.toggleTaskCompleted(props.id)
+        props.toggleTaskCompleted(props.project_id, props.id)
     }
 
-    if (props.completed) {
+    if (props.done) {
         const attachedClasses = [classes.TaskItem, classes.Done]
         return (
             <tr className={classes.Task} onClick={handleClick}>
                 <td>{ <img src={checked} height="24" width="24" alt="" />}</td>
-                <td className={attachedClasses.join(' ')}>{props.task.name}</td>
+                <td className={attachedClasses.join(' ')}>{props.name}</td>
             </tr>
         )
     }
@@ -22,7 +23,7 @@ const taskItem = (props) => {
         return(
             <tr className={classes.Task} onClick={handleClick}>
                 <td><img src={unchecked} height="24" width="24" alt="" /></td>
-                <td className={classes.TaskItem}>{props.task.name}</td>
+                <td className={classes.TaskItem}>{props.name}</td>
             </tr>
         )
     }
