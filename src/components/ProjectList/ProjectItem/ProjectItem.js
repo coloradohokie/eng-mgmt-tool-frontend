@@ -55,6 +55,7 @@ const ProjectItem = (props) => {
                                             return showTask(project_id, task)
                                         }
                                     })}
+                                    <AddTask group={group} project_id={project_id} addTaskToProject={props.addTaskToProject} />
                                 </tbody>
                             </Table>
                         </div>

@@ -14,28 +14,24 @@ class AddTask extends Component {
     addTaskHandler = () => {
         const newTask = {
             name: this.state.taskName,
-            task_group: "Main",
+            task_group: this.props.group,
             active: true
         }
 
         if (this.state.taskName !== "") {
-            fetch(`http://localhost:3000/task`, {
-                method: 'POST',
-                headers: {"Content-Type": "application/json"},
-                body: JSON.stringify(newTask)
-              })
-                .then(response => response.json())
-                .then(activity => {this.setState([...this.state.projectActivities, activity])})
-            //   window.location.href = `/item-details/${newActivity.project_id}`
+            this.props.addTaskToProject(this.props.project_id, this.props.group, this.state.taskName)
         }
     }
 
     render() {
+        console.log("Add Task", this.props)
         return(
-            <>
-            <input type="text" name="addTask" placeholder="Add a task" onChange={(event) => this.handleChange(event)} />
-            <button onClick={this.addTaskHandler}>Add</button>
-            </>
+            <tr>
+                <td colSpan="2">
+                    <input type="text" name="addTask" placeholder="Add a task" onChange={(event) => this.handleChange(event)} />
+                    <button onClick={this.addTaskHandler}>Add</button>
+                </td>
+            </tr>
         )
     }
 }

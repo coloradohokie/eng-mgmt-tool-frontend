@@ -11,6 +11,7 @@ class Projects extends Component {
                 statuses={this.props.statuses}
                 toggleTaskCompleted={this.props.toggleTaskCompleted}
                 changeStatus={this.props.changeStatus}
+                addTaskToProject={this.props.addTaskToProject}
             />
         )
         

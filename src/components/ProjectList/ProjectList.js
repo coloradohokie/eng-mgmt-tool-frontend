@@ -15,6 +15,7 @@ const ProjectList = (props) => {
                 toggleTaskCompleted={props.toggleTaskCompleted} 
                 statuses={props.statuses}
                 changeStatus={props.changeStatus}
+                addTaskToProject={props.addTaskToProject}
             /> ))
     }
 

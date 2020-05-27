@@ -46,23 +46,11 @@ fetchProjects = () => {
   //   .then(task_categories => this.setState({taskCategories: task_categories}))
   // }
 
-  // fetchProjectTasks = () => {
-  //   fetch(BASE_URL.concat('project_tasks'))
-  //   .then(response => response.json())
-  //   .then(project_tasks => this.setState({projectTasks: project_tasks}))
-  // }
-
   fetchStatusValues = () => {
     fetch(BASE_URL.concat('statuses'))
     .then(response => response.json())
     .then(statuses => this.setState({statuses: statuses}))
   }
-
-  // fetchTasks = () => {
-  //   fetch(BASE_URL.concat('tasks'))
-  //     .then(response => response.json())
-  //     .then(tasks => this.setState({tasks: tasks}))
-  // }
 
   fetchActivityValues = () => {
     fetch(BASE_URL.concat('activities'))
@@ -73,20 +61,37 @@ fetchProjects = () => {
   componentDidMount = () => {
     this.fetchProjects()
     this.fetchActivities()
-    // this.fetchTaskCategories()
-    // this.fetchProjectTasks()
     this.fetchStatusValues()
-    // this.fetchTasks()
     this.fetchActivityValues()
   }
 
+addTaskToProject = (project_id, group, taskName) => {
+    const newTask = {
+      name: taskName,
+      project_id: project_id,
+      template_name: group,
+      active: true,
+      done: false
+    }
+    const selectedProject = this.state.projects.find(project => project.id === project_id)
+    this.setState([...selectedProject.tasks, newTask])
+
+    fetch(BASE_URL.concat(`tasks`), {
+      method: 'POST',
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify(newTask)
+    })
+      .then(response => response.json)
+      .then(response => console.log(response))
+}
 
 toggleTaskCompleted = (project_id, task_id) => {
     const selectedProject = this.state.projects.find(project => project.id === project_id)
     const projectTask = selectedProject.tasks.find(element => element.id === task_id)
     projectTask.done === true ? 
       projectTask.done = false : projectTask.done = true
-    this.setState(projectTask)
+    console.log(projectTask)
+      this.setState(projectTask)
     fetch(BASE_URL.concat(`tasks/${task_id}`), {
       method: 'PATCH',
       headers: {"Content-Type": "application/json"},
@@ -138,6 +143,7 @@ changeStatus = (status_id, project_id) => {
               statuses={this.state.statuses}
               toggleTaskCompleted={this.toggleTaskCompleted}
               changeStatus={this.changeStatus}
+              addTaskToProject={this.addTaskToProject}
             />
           </Route>
 
