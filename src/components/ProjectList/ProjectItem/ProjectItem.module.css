@@ -1,44 +1,20 @@
 .ModalContentsContainer {
     /* max-width: 400px; */
-  
+    width: 95%;
     display: flex;
     justify-content: flex-start;
 }
 
 
-.ItemDetailsSection {
-    width: 90%;
-  }
 
-.ItemDetailsSectionHeader {
-  display: flex;
-  justify-content: space-between;
+.TasksTable {
+  margin: 10px;
 }
 
-.ItemDetailsTasksSection {
+.TasksSection {
   display: flex;
   justify-content: flex-start;
-  width: 700px;
-}
-
-.ItemDetailsTasksSectionHeader {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  margin: 5px;
-}
-
-.ItemDetailsTaskSectionBody {
-  min-height: 350px;
-  max-width: 300px;
-  background-color: white;
-  box-shadow: 5px 5px 10px gray;
-}
-
-.ItemDetailsTasksSectionBody {
-  width: 700px;
-  display: flex;
-  justify-content: flex-start;
+  /* width: 700px; */
   margin-left:30px;
 }
 
@@ -101,15 +77,23 @@
   margin: 10px;
 }
 
-.ProjectInformationTable {
-  width: 100%;
-}
 
-.ActivityLogTable {
-  background-color: #FFF;
-}
 
 .StatusBadge {
   min-width: 90px
 }
 
+@media (max-width: 800px) {
+  .ModalContentsContainer {
+      display: flex;
+      flex-direction: column;
+  }
+
+  .TaskSectionBody {
+    min-height: 0;
+    max-width: 800px;
+    width: 100%
+  }
+  
+
+}

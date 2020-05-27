@@ -1,0 +1,13 @@
+.ActivitySection {
+    width: 90%;
+  }
+
+.ActivitySectionHeader {
+  display: flex;
+  justify-content: space-between;
+}
+
+.ActivityLogTable {
+    background-color: #FFF;
+  }
+  

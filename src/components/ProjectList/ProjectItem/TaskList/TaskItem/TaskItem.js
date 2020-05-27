@@ -14,7 +14,7 @@ const taskItem = (props) => {
         const attachedClasses = [classes.TaskItem, classes.Done]
         return (
             <tr className={classes.Task} onClick={handleClick}>
-                <td>{ <img src={checked} height="24" width="24" alt="" />}</td>
+                <td>{ <img src={checked} height="16" width="16" alt="" />}</td>
                 <td className={attachedClasses.join(' ')}>{props.name}</td>
             </tr>
         )
@@ -22,7 +22,7 @@ const taskItem = (props) => {
     else {
         return(
             <tr className={classes.Task} onClick={handleClick}>
-                <td><img src={unchecked} height="24" width="24" alt="" /></td>
+                <td><img src={unchecked} height="16" width="16" alt="" /></td>
                 <td className={classes.TaskItem}>{props.name}</td>
             </tr>
         )

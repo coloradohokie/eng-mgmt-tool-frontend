@@ -23,6 +23,7 @@ class TaskList extends Component {
                         if (task.template_name === this.props.group) {
                             return this.showTask(this.props.project_id, task)
                         }
+                        return null
                     })}
                     <AddTask 
                         group={this.props.group} 
