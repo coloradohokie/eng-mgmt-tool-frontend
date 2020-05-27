@@ -1,6 +1,4 @@
 import React, { Component } from 'react'
-import Form from 'react-bootstrap/Form'
-
 
 class AddTask extends Component {
     state={
@@ -12,12 +10,6 @@ class AddTask extends Component {
     }
 
     addTaskHandler = () => {
-        const newTask = {
-            name: this.state.taskName,
-            task_group: this.props.group,
-            active: true
-        }
-
         if (this.state.taskName !== "") {
             this.props.addTaskToProject(this.props.project_id, this.props.group, this.state.taskName)
         }

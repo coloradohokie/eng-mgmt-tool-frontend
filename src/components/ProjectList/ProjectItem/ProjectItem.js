@@ -6,10 +6,11 @@ import Button from 'react-bootstrap/Button'
 import Table from 'react-bootstrap/Table'
 import Moment from 'react-moment'
 import CurrencyFormat from 'react-currency-format'
-import TaskItem from '../../../components/TaskItem/TaskItem'
+
 import ActivityItem from '../../ActivityItem/ActivityItem'
 import classes from './ProjectItem.module.css'
-import AddTask from './AddTask/AddTask'
+
+import TaskList from './TaskList/TaskList'
 
 
 const ProjectItem = (props) => {
@@ -24,16 +25,7 @@ const ProjectItem = (props) => {
         `${project.address1}, ${project.city} \u2014 ${project.job_number}` :
         `${project.address1} \u2014 ${project.job_number}`
     
-    const showTask = (project_id, filteredTask) => {
-        return( 
-            <TaskItem 
-                key={filteredTask.id} 
-                project_id={project_id}
-                {...filteredTask} 
-                toggleTaskCompleted={props.toggleTaskCompleted}
-            /> 
-        )
-    }
+
 
     const filterUniqueValues = (taskArray) => {
         const unique = [...new Set(taskArray.map(item => item.template_name))]
@@ -48,16 +40,12 @@ const ProjectItem = (props) => {
                     return (
                         <div>
                             <h2>{group}</h2> 
-                            <Table hover size="sm" className={classes.ItemDetailsTable}>
-                                <tbody>
-                                    {props.project.tasks.map(task => {
-                                        if (task.template_name === group) {
-                                            return showTask(project_id, task)
-                                        }
-                                    })}
-                                    <AddTask group={group} project_id={project_id} addTaskToProject={props.addTaskToProject} />
-                                </tbody>
-                            </Table>
+                            <TaskList 
+                                tasks={props.project.tasks}
+                                group={group} 
+                                project_id={project_id} 
+                                addTaskToProject={props.addTaskToProject}
+                                toggleTaskCompleted={props.toggleTaskCompleted} />
                         </div>
                     )
                 })}
