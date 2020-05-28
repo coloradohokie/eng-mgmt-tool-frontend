@@ -1,10 +1,15 @@
 import React, { Component } from 'react'
-import AddTask from './AddTask/AddTask'
 import TaskItem from './TaskItem/TaskItem'
 import Table from 'react-bootstrap/Table'
 import classes from './TaskList.module.css'
 
 class TaskList extends Component {
+//props: tasks, group, project_id, addTaskToProject(), toggleTaskCompleted()
+
+    state = {
+        tasks: this.props.tasks,
+        newTask: ""
+    }
     
     showTask = (project_id, task) => ( 
         <TaskItem 
@@ -14,6 +19,18 @@ class TaskList extends Component {
             toggleTaskCompleted={this.props.toggleTaskCompleted}
         /> 
     )
+
+    handleChange(event) {
+        this.setState({newTask: event.target.value})
+    }
+
+    addTaskHandler = () => {
+        if (this.state.newTask !== "") {
+            const tasks = this.state.tasks.push(this.state.newTask)
+            this.setState({tasks: tasks, newTask: ""})
+            this.props.addTaskToProject(this.props.project_id, this.props.group, this.state.newTask)
+        }
+    }
 
     render() {
         return(
@@ -25,10 +42,12 @@ class TaskList extends Component {
                         }
                         return null
                     })}
-                    <AddTask 
-                        group={this.props.group} 
-                        project_id={this.props.project_id} 
-                        addTaskToProject={this.props.addTaskToProject} />
+                    <tr>
+                        <td colSpan="2">
+                            <input type="text" name="addTask" value={this.state.newTask} placeholder="Add a task" onChange={(event) => this.handleChange(event)} />
+                            <button onClick={this.addTaskHandler}>Add</button>
+                        </td>
+                    </tr>
                 </tbody>
             </Table>
         )
