@@ -1,102 +1,54 @@
-import React from 'react'
-import AdminDisplayValue from '../../components/AdminDisplayValue'
+import React, { Component } from 'react'
 import Table from 'react-bootstrap/Table'
 import Button from 'react-bootstrap/Button'
 import classes from './Admin.module.css'
+import AdminValueTable from '../../components/AdminValueTable/AdminValueTable'
 
+const BASE_URL = `http://localhost:3000/`
 
-export default function Admin(props) {
-    console.log(props)
+class Admin extends Component {
 
-    const renderTable = (values) => {
-        return values.map(category => <AdminDisplayValue {...category} />)
-
+    state = {
+        taskTemplates: []
     }
 
-    const printTask = (task) => {
-        return(
-            <tr>
-                <td>{task.name}</td>
-                <td>{task.sort_id}</td>
-                <td>{task.active}</td>
-            </tr>
+
+    fetchTaskTemplates = () => {
+        fetch(BASE_URL.concat('task_templates'))
+            .then(response => response.json())
+            .then(task_templates => this.setState({taskTemplates: task_templates}))
+    }
+
+//   fetchStatusValues = () => {
+//     fetch(BASE_URL.concat('statuses'))
+//     .then(response => response.json())
+//     .then(statuses => this.setState({statuses: statuses}))
+//   }
+
+//   fetchActivityValues = () => {
+//     fetch(BASE_URL.concat('activities'))
+//       .then(response => response.json())
+//       .then(activities => this.setState({activities: activities}))
+//   }
+  
+  componentDidMount() {
+    //   this.fetchStatusValues()
+    //   this.fetchActivityValues()
+      this.fetchTaskTemplates()
+  }
+
+    render() {
+        return (
+            <div>
+                <h1>System Administration</h1>
+                <div className={classes.AdminTableHeader}>
+                    <AdminValueTable title="Task Templates" values={this.state.taskTemplates} />
+                    <AdminValueTable title="Project Statuses" values={this.props.statuses} />
+                    <AdminValueTable title="Activity Values" values={this.props.activities} />
+                </div>
+            </div>
         )
     }
-
-    const showTasks = (category_id) => {
-        return(props.tasks.map(task => 
-            (task.task_category_id === category_id) ? printTask(task) : null
-        ))
-    }
-
-
-
-    const taskCategoryValues = () => {
-        return (props.taskCategories.map(category => {
-            return (
-                <>
-                <h2>{category.value} Tasks</h2>
-                <Table striped bordered size="sm" className={classes.AdminValueTable}>
-                    <thead>
-                        <tr>
-                            <td>Value</td>
-                            <td>Sort Order</td>
-                            <td>Active</td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {showTasks(category.id)}
-                    </tbody>
-                </Table>
-                </>
-            )
-        }))
-    }
-
-    return (
-        <div>
-            <h1>This is the Admin Page</h1>
-
-            <div className={classes.AdminTableHeader}>
-                <h2>Task Categories</h2>
-                <Button size='sm' variant="secondary">Add Value</Button>
-            </div>
-            <Table striped bordered size="sm" className={classes.AdminValueTable}>
-                <thead>
-                    <tr>
-                        <td>Value</td>
-                        <td>Sort Order</td>
-                        <td>Active</td>
-                    </tr>
-                </thead>
-                <tbody>
-                    {renderTable(props.taskCategories)}
-                </tbody>
-            </Table>
-
-
-            <div className="adminTableHeader">
-                <h2>Status Categories</h2>
-                <Button size='sm' variant="secondary">Add Value</Button>
-            </div>
-            <Table striped bordered size="sm" className={classes.AdminValueTable}>
-                <thead>
-                    <tr>
-                        <td>Value</td>
-                        <td>Sort Order</td>
-                        <td>Active</td>
-                    </tr>
-                </thead>
-                <tbody>
-                    {renderTable(props.statusValues)}
-                </tbody>
-            </Table>
-
-            {taskCategoryValues()}
-
-            
-
-
-        </div> //return div
-    )
 }
+
+export default Admin

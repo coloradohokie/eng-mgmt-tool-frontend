@@ -164,9 +164,8 @@ changeStatus = (status_id, project_id) => {
 
           <Route exact path='/admin'>
             <Admin 
-              taskCategories={this.state.taskCategories}
-              statusValues={this.state.statuses}
-              tasks={this.state.tasks}
+              statuses={this.state.statuses}
+              activities={this.state.activities}
             />
           </Route>
 
