@@ -76,8 +76,6 @@ addTaskToProject = (project_id, group, taskName) => {
     const selectedProject = this.state.projects.find(project => project.id === project_id)
     let projectTasks = selectedProject.tasks.push(newTask)
     this.setState(selectedProject.projectTasks)
-    console.log("selected projects variable", selectedProject)
-    console.log("state", this.state.projects)
 
     fetch(BASE_URL.concat(`tasks`), {
       method: 'POST',

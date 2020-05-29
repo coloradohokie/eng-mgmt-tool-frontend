@@ -11,26 +11,32 @@ class TaskList extends Component {
         newTask: ""
     }
     
-    showTask = (project_id, task) => ( 
-        <TaskItem 
-            key={task.id} 
-            project_id={project_id}
-            {...task} 
-            toggleTaskCompleted={this.props.toggleTaskCompleted}
-        /> 
-    )
+    showTask = (project_id, task) => {
+        if (!task.id) {
+            task.id = 1000
+        }
+        return( 
+            <TaskItem 
+                key={task.id} 
+                project_id={project_id}
+                {...task} 
+                toggleTaskCompleted={this.props.toggleTaskCompleted}
+            /> 
+        )
+    }
 
     handleChange(event) {
         this.setState({newTask: event.target.value})
     }
 
-    addTaskHandler = () => {
-        if (this.state.newTask !== "") {
-            const tasks = this.state.tasks.push(this.state.newTask)
-            this.setState({tasks: tasks, newTask: ""})
+    handleEnter = (event) => {
+        if (event.key === "Enter" && this.state.newTask !== "") {
             this.props.addTaskToProject(this.props.project_id, this.props.group, this.state.newTask)
+            this.setState({newTask: ""})
         }
     }
+
+
 
     render() {
         return(
@@ -44,8 +50,13 @@ class TaskList extends Component {
                     })}
                     <tr>
                         <td colSpan="2">
-                            <input type="text" name="addTask" value={this.state.newTask} placeholder="Add a task" onChange={(event) => this.handleChange(event)} />
-                            <button onClick={this.addTaskHandler}>Add</button>
+                            <input 
+                                type="text" 
+                                name="addTask" 
+                                value={this.state.newTask} 
+                                placeholder="Add a task"
+                                onKeyPress={this.handleEnter} 
+                                onChange={(event) => this.handleChange(event)} />
                         </td>
                     </tr>
                 </tbody>

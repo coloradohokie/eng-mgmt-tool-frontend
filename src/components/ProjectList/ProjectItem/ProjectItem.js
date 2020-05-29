@@ -10,7 +10,6 @@ import ActivityTable from './ActivityTable/ActivityTable'
 import ProjectInformation from './ProjectInformation/ProjectInformation'
 
 const ProjectItem = (props) => {
-    console.log(props)
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
@@ -34,7 +33,7 @@ const ProjectItem = (props) => {
             <div className={classes.TasksSection}>
                 {taskGroups.map(group => {
                     return (
-                        <div className={classes.TasksTable}>
+                        <div key={group} className={classes.TasksTable}>
                             <h2>{group}</h2> 
                             <TaskList 
                                 tasks={props.project.tasks}
@@ -65,8 +64,8 @@ const ProjectItem = (props) => {
     const getStatusValues = () => {
         return props.statuses.map(status => {
             return status.id ===project.status_id ?
-                <option value={status.id} defaultValue>{status.value}</option> :
-                <option value={status.id}>{status.value}</option>
+                <option key={status.id} value={status.id} defaultValue>{status.value}</option> :
+                <option key={status.id} value={status.id}>{status.value}</option>
         })
     }
 
