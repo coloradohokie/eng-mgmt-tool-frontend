@@ -13,6 +13,8 @@ const ProjectItem = (props) => {
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+    const [statusChange, setStatusChange] = useState(false)
+    const handleStatusChange = () => setStatusChange(true)
     const project = {...props.project}
     
 
@@ -48,14 +50,16 @@ const ProjectItem = (props) => {
         )
     }
 
-    const showInvoiceBadge = (ready_to_be_invoiced) => {
-        if (ready_to_be_invoiced) {
-            return <h3><Badge variant="secondary">Ready to Be Invoiced</Badge></h3>
-        }
-    }
+    // const showInvoiceBadge = (ready_to_be_invoiced) => {
+    //     if (ready_to_be_invoiced) {
+    //         return <h3><Badge variant="secondary">Ready to Be Invoiced</Badge></h3>
+    //     }
+    // }
 
     const handleClick = (event) => {
         if (event.target.name === "status") {
+            handleStatusChange()
+            console.log(statusChange)
             console.log("you changed the status to", event.target.value, "props", props)
             props.changeStatus(event.target.value, project.id)
         }

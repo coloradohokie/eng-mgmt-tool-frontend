@@ -4,8 +4,6 @@ import checked from './checkboxes/checked_box.png'
 import classes from './TaskItem.module.css'
 
 const taskItem = (props) => {
-    console.log("[TaskItem]", props)
-
     const handleClick = (event) => {
         props.toggleTaskCompleted(props.project_id, props.id)
     }

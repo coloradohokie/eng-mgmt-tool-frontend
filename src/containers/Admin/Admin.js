@@ -1,6 +1,4 @@
 import React, { Component } from 'react'
-import Table from 'react-bootstrap/Table'
-import Button from 'react-bootstrap/Button'
 import classes from './Admin.module.css'
 import AdminValueTable from '../../components/AdminValueTable/AdminValueTable'
 
@@ -9,7 +7,9 @@ const BASE_URL = `http://localhost:3000/`
 class Admin extends Component {
 
     state = {
-        taskTemplates: []
+        taskTemplates: [],
+        statuses: [],
+        activities: []
     }
 
 
@@ -17,6 +17,18 @@ class Admin extends Component {
         fetch(BASE_URL.concat('task_templates'))
             .then(response => response.json())
             .then(task_templates => this.setState({taskTemplates: task_templates}))
+    }
+
+    updateValues = (valueList, newValue) => {
+        if (valueList === "Task Templates") {
+            this.setState([...this.state.taskTemplates, newValue])
+        }
+        if (valueList === "Project Statuses") {
+            this.setState([...this.state.statuses, newValue])
+        }
+        if (valueList === "Activity Values") {
+            this.setState([...this.state.activities, newValue])
+        }
     }
 
 //   fetchStatusValues = () => {
@@ -35,6 +47,10 @@ class Admin extends Component {
     //   this.fetchStatusValues()
     //   this.fetchActivityValues()
       this.fetchTaskTemplates()
+      this.setState({
+          statuses: this.props.statuses,
+          activities:this.props.activities
+        })
   }
 
     render() {
@@ -42,9 +58,9 @@ class Admin extends Component {
             <div>
                 <h1>System Administration</h1>
                 <div className={classes.AdminTableHeader}>
-                    <AdminValueTable title="Task Templates" values={this.state.taskTemplates} />
-                    <AdminValueTable title="Project Statuses" values={this.props.statuses} />
-                    <AdminValueTable title="Activity Values" values={this.props.activities} />
+                    <AdminValueTable title="Task Templates" values={this.state.taskTemplates} updateValues={this.updateValues} />
+                    <AdminValueTable title="Project Statuses" values={this.props.statuses} updateValues={this.updateValues} />
+                    <AdminValueTable title="Activity Values" values={this.props.activities} updateValues={this.updateValues} />
                 </div>
             </div>
         )
