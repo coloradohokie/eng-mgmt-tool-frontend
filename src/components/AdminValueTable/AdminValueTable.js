@@ -101,7 +101,9 @@ class AdminValueTable extends Component {
             <div>
                 <div className={classes.AdminTableHeader}>
                     <h2>{this.props.title}</h2>
-                    <Button size='sm' variant="secondary" onClick={() => this.addValueClicked(this.props.title)}>Add Value</Button>
+                    <div className={classes.AddValueButton}>
+                        <Button size='sm' variant="secondary" onClick={() => this.addValueClicked(this.props.title)}>Add Value</Button>
+                    </div>
                 </div>
                 <Table striped bordered size="sm" className={classes.AdminValueTable}>
                     <thead>
