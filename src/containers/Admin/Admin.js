@@ -22,6 +22,7 @@ class Admin extends Component {
     updateValues = (valueList, newValue) => {
         if (valueList === "Task Templates") {
             this.setState([...this.state.taskTemplates, newValue])
+            console.log(this.state.taskTemplates)
         }
         if (valueList === "Project Statuses") {
             this.setState([...this.state.statuses, newValue])

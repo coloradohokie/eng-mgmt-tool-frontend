@@ -9,7 +9,7 @@ class AdminValueTable extends Component {
     
     state = {
         addNewValue: false,
-        name: "",
+        value: "",
         sort_id: 99
     }
 
@@ -37,9 +37,9 @@ class AdminValueTable extends Component {
     }
 
     submitNewValue = (title) => {
-        if (this.state.name && this.state.sort_id) {
+        if (this.state.value && this.state.sort_id) {
             const newValue = {
-                name: this.state.name,
+                value: this.state.value,
                 sort_id: this.state.sort_id,
                 active: true
             }
@@ -68,7 +68,7 @@ class AdminValueTable extends Component {
                     this.props.updateValues(title, response)})
             this.setState({
                 addNewValue: false,
-                name: "",
+                value: "",
                 sort_id: 99
             })
         }
@@ -79,7 +79,7 @@ class AdminValueTable extends Component {
             return(
                 <>
                 <tr>
-                    <td> <input name="name" type="text" value={this.state.name} onChange={this.addValueInputHandler} placeholder="Name" /> </td>
+                    <td> <input name="value" type="text" value={this.state.value} onChange={this.addValueInputHandler} placeholder="Name" /> </td>
                     <td> <input name="sort_id" value={this.state.sort_id} onChange={this.addValueInputHandler} type="number" /> </td>
                     <td> Yes </td>
                 </tr>
