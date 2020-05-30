@@ -7,11 +7,13 @@ class Projects extends Component {
         return (
             <ProjectList 
                 projects={this.props.projects}
-                projectActivities={this.props.projectActivities} 
+                projectActivities={this.props.projectActivities}
+                activities={this.props.activities} 
                 statuses={this.props.statuses}
                 toggleTaskCompleted={this.props.toggleTaskCompleted}
                 changeStatus={this.props.changeStatus}
                 addTaskToProject={this.props.addTaskToProject}
+                updateProjectActivities={this.props.updateProjectActivities}
             />
         )
         

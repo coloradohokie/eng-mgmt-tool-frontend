@@ -104,7 +104,11 @@ const ProjectItem = (props) => {
                         <ProjectInformation project={project} />
                         {getTasks(project.id)}
                     </div>
-                    <ActivityTable project projectActivities={props.projectActivities} />
+                    <ActivityTable 
+                        project={project} 
+                        projectActivities={props.projectActivities}
+                        activities={props.activities}
+                        updateProjectActivities={props.updateProjectActivities} />
                 </Modal.Body>
 
                 <Modal.Footer className={classes.ModalFooter}>

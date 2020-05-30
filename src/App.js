@@ -67,54 +67,51 @@ export default class App extends React.Component {
     this.fetchTaskTemplates()
   }
 
-addTaskToProject = (project_id, group, taskName) => {
-    const newTask = {
-      name: taskName,
-      project_id: project_id,
-      template_name: group,
-      active: true,
-      done: false
-    }
-    const selectedProject = this.state.projects.find(project => project.id === project_id)
-    let projectTasks = selectedProject.tasks.push(newTask)
-    this.setState(selectedProject.projectTasks)
+  addTaskToProject = (project_id, group, taskName) => {
+      const newTask = {
+        name: taskName,
+        project_id: project_id,
+        template_name: group,
+        active: true,
+        done: false
+      }
+      const selectedProject = this.state.projects.find(project => project.id === project_id)
+      let projectTasks = selectedProject.tasks.push(newTask)
+      this.setState(selectedProject.projectTasks)
 
-    fetch(BASE_URL.concat(`tasks`), {
-      method: 'POST',
-      headers: {"Content-Type": "application/json"},
-      body: JSON.stringify(newTask)
-    })
-      .then(response => response.json)
-      .then(response => console.log(response))
-}
+      fetch(BASE_URL.concat(`tasks`), {
+        method: 'POST',
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(newTask)
+      })
+        .then(response => response.json)
+  }
 
-toggleTaskCompleted = (project_id, task_id) => {
-    const selectedProject = this.state.projects.find(project => project.id === project_id)
-    const projectTask = selectedProject.tasks.find(element => element.id === task_id)
-    projectTask.done === true ? 
-      projectTask.done = false : projectTask.done = true
-    console.log(projectTask)
-      this.setState(projectTask)
-    fetch(BASE_URL.concat(`tasks/${task_id}`), {
-      method: 'PATCH',
-      headers: {"Content-Type": "application/json"},
-      body: JSON.stringify(projectTask)
-    }) 
-}
+  toggleTaskCompleted = (project_id, task_id) => {
+      const selectedProject = this.state.projects.find(project => project.id === project_id)
+      const projectTask = selectedProject.tasks.find(element => element.id === task_id)
+      projectTask.done === true ? 
+        projectTask.done = false : projectTask.done = true
+        this.setState(projectTask)
+      fetch(BASE_URL.concat(`tasks/${task_id}`), {
+        method: 'PATCH',
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(projectTask)
+      }) 
+  }
 
-addProject = (newProject) => {
-  fetch(BASE_URL.concat("project_tasks"), {
-      method: 'POST',
-      headers: {"Content-Type": "application/json"},
-      body: JSON.stringify(newProject)
-    })
-    .then(response => response.json())
-    .then(project => console.log("response from server: ", project))
-    .then(project => {this.setState([...this.state.projects, project])})
-  window.location.href = "/"
-}
+  addProject = (newProject) => {
+    fetch(BASE_URL.concat("project_tasks"), {
+        method: 'POST',
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(newProject)
+      })
+      .then(response => response.json())
+      .then(project => {this.setState([...this.state.projects, project])})
+    window.location.href = "/"
+  }
 
-changeStatus = (status_id, project_id) => {
+  changeStatus = (status_id, project_id) => {
     const project = this.state.projects.find(element => element.id === project_id)
     project.status_id = parseInt(status_id)
     this.setState(project)
@@ -123,7 +120,8 @@ changeStatus = (status_id, project_id) => {
         headers: {'Content-Type': "application/json"},
         body: JSON.stringify(project)
     })
-}
+  }
+
   addActivity = (newActivity) => {
     fetch(BASE_URL.concat('project_activities'), {
       method: 'POST',
@@ -145,7 +143,11 @@ changeStatus = (status_id, project_id) => {
     if (valueList === "Activity Values") {
         this.setState({activities: [...this.state.activities, newValue]})
     }
-}
+  }
+
+  updateProjectActivities = (newValue) => {
+    this.setState({projectActivities: [...this.state.projectActivities, newValue]})
+  }
 
   render() {
     return (
@@ -154,11 +156,13 @@ changeStatus = (status_id, project_id) => {
           <Route exact path='/'>
             <Projects
               projects={this.state.projects}
-              projectActivities={this.state.projectActivities} 
+              projectActivities={this.state.projectActivities}
+              activities={this.state.activities} 
               statuses={this.state.statuses}
               toggleTaskCompleted={this.toggleTaskCompleted}
               changeStatus={this.changeStatus}
               addTaskToProject={this.addTaskToProject}
+              updateProjectActivities={this.updateProjectActivities}
             />
           </Route>
 

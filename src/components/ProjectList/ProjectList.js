@@ -11,11 +11,13 @@ const ProjectList = (props) => {
             <ProjectItem 
                 key={project.id} 
                 project={project}
+                activities={props.activities}
                 projectActivities={props.projectActivities} 
                 toggleTaskCompleted={props.toggleTaskCompleted} 
                 statuses={props.statuses}
                 changeStatus={props.changeStatus}
                 addTaskToProject={props.addTaskToProject}
+                updateProjectActivities={props.updateProjectActivities}
             /> ))
     }
 

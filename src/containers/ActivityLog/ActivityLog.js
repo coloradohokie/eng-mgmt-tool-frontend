@@ -1,6 +1,6 @@
 import React from 'react'
 import Table from 'react-bootstrap/Table'
-import ActivityItem from '../../components/ActivityItem/ActivityItem' 
+import ActivityItem from '../../components/ProjectList/ProjectItem/ActivityTable/ActivityItem/ActivityItem' 
 
 const activityLog = (props) => {
     
