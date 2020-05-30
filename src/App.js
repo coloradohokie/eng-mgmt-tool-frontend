@@ -24,14 +24,15 @@ export default class App extends React.Component {
     projects: [],
     projectActivities: [],
     statuses: [],
-    activities: []
-}
+    activities: [],
+    taskTemplates: []
+  }
 
 
-fetchProjects = () => {
-    fetch(BASE_URL.concat("projects"))
-    .then(response => response.json())
-    .then(projects => this.setState({projects: projects}))
+  fetchProjects = () => {
+      fetch(BASE_URL.concat("projects"))
+      .then(response => response.json())
+      .then(projects => this.setState({projects: projects}))
   }
 
   fetchActivities = () => {
@@ -39,12 +40,6 @@ fetchProjects = () => {
     .then(response => response.json())
     .then(project_activities => this.setState({projectActivities: project_activities}))
   }
-
-  // fetchTaskCategories = () => {
-  //   fetch(BASE_URL.concat('task_categories'))
-  //   .then(response => response.json())
-  //   .then(task_categories => this.setState({taskCategories: task_categories}))
-  // }
 
   fetchStatusValues = () => {
     fetch(BASE_URL.concat('statuses'))
@@ -57,12 +52,19 @@ fetchProjects = () => {
       .then(response => response.json())
       .then(activities => this.setState({activities: activities}))
   }
-  
+
+  fetchTaskTemplates = () => {
+    fetch(BASE_URL.concat('task_templates'))
+      .then(response => response.json())
+      .then(taskTemplates => this.setState({taskTemplates: taskTemplates}))
+  }
+    
   componentDidMount = () => {
     this.fetchProjects()
     this.fetchActivities()
     this.fetchStatusValues()
     this.fetchActivityValues()
+    this.fetchTaskTemplates()
   }
 
 addTaskToProject = (project_id, group, taskName) => {
@@ -133,6 +135,18 @@ changeStatus = (status_id, project_id) => {
     window.location.href = `/item-details/${newActivity.project_id}`
   }
 
+  updateValues = (valueList, newValue) => {
+    if (valueList === "Task Templates") {
+        this.setState({taskTemplates: [...this.state.taskTemplates, newValue]})
+    }
+    if (valueList === "Project Statuses") {
+        this.setState({statuses: [...this.state.statuses, newValue]})
+    }
+    if (valueList === "Activity Values") {
+        this.setState({activities: [...this.state.activities, newValue]})
+    }
+}
+
   render() {
     return (
       <Layout>
@@ -166,6 +180,8 @@ changeStatus = (status_id, project_id) => {
             <Admin 
               statuses={this.state.statuses}
               activities={this.state.activities}
+              taskTemplates={this.state.taskTemplates}
+              updateValues={this.updateValues}
             />
           </Route>
 
