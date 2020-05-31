@@ -13,15 +13,15 @@ const ProjectItem = (props) => {
     const [show, setShow] = useState(false);
     const handleClose = () => {
         setShow(false)
-        window.location.href = `/`};
+        // window.location.href = `/`
+    };
     const handleShow = () => setShow(true);
-    let project = {...props.project}
-    const [projectStatus, setProjectStatus] = useState(props.project.status.id)
+    // let project = {...props.project}
+    const [projectStatusId, setProjectStatusId] = useState(props.project.status.id)
     
-
-    const displayTitle = project.city ?
-        `${project.address1}, ${project.city} \u2014 ${project.job_number}` :
-        `${project.address1} \u2014 ${project.job_number}`
+    const displayTitle = props.project.city ?
+        `${props.project.address1}, ${props.project.city} \u2014 ${props.project.job_number}` :
+        `${props.project.address1} \u2014 ${props.project.job_number}`
     
 
 
@@ -58,16 +58,13 @@ const ProjectItem = (props) => {
     // }
 
     const setStatusHandler = (event) => {
-        const updatedProject = {...props.project, status_id: +event.target.value}
+        const updatedStatus = props.statuses.find(status => status.id === +event.target.value)
+        const updatedProject = {...props.project, status_id: +event.target.value, status: updatedStatus}
+        console.log(updatedStatus)
         console.log("Props.Project", {...props.project})
         console.log("UPdted Project", updatedProject)
-        setProjectStatus(event.target.value)
-        // props.changeStatus(updatedProject)
-        fetch(`http://localhost:3000/projects/${project.id}`, {
-            method: 'PATCH',
-            headers: {'Content-Type': "application/json"},
-            body: JSON.stringify({...props.project, status_id: event.target.value})
-        })
+        setProjectStatusId(+event.target.value)
+        props.changeStatus(props.project.id, updatedProject)
     }
     
 
@@ -82,10 +79,10 @@ const ProjectItem = (props) => {
                 <Card.Body className={classes.CardContents}>
                     <div className={classes.CardMainBox}>
                         <Card.Title onClick={handleShow}> {displayTitle} </Card.Title> 
-                        <Card.Text>{project.project_description}</Card.Text>
+                        <Card.Text>{props.project.project_description}</Card.Text>
                     </div>
                     <div className={classes.CardRightSidePanel}>
-                        <Card.Text><Badge className={classes.StatusBadge} variant="light">{props.project.status.value}</Badge></Card.Text>
+                        <Card.Text><Badge className={classes.StatusBadge} variant="light">{props.statuses.find(status => status.id === projectStatusId).value}</Badge></Card.Text>
                     </div>
                 </Card.Body>
             </Card>
@@ -98,16 +95,16 @@ const ProjectItem = (props) => {
                 <Modal.Body className={classes.ModelBody}>
                     <div className={classes.ModalStatusBar}>
                         <label>Status</label>
-                        <select name="status" value={projectStatus} onChange={setStatusHandler}>
+                        <select name="status" value={projectStatusId} onChange={setStatusHandler}>
                             {getStatusValues()}
                         </select>
                     </div>
                     <div className={classes.ModalContentsContainer}>
-                        <ProjectInformation project={project} />
-                        {getTasks(project.id)}
+                        <ProjectInformation project={props.project} />
+                        {getTasks(props.project.id)}
                     </div>
                     <ActivityTable 
-                        project={project} 
+                        project={props.project} 
                         projectActivities={props.projectActivities}
                         activities={props.activities}
                         updateProjectActivities={props.updateProjectActivities} />
@@ -116,8 +113,8 @@ const ProjectItem = (props) => {
                 <Modal.Footer className={classes.ModalFooter}>
                     <div className={classes.ModalFooterContainer}>
                         <div>
-                            <p>Project Created: {<Moment format="MM-DD-YYYY">{project.created_at}</Moment>}</p>
-                            <p>Last Updated: <Moment format="MM-DD-YYYY">{project.updated_at}</Moment></p>
+                            <p>Project Created: {<Moment format="MM-DD-YYYY">{props.project.created_at}</Moment>}</p>
+                            <p>Last Updated: <Moment format="MM-DD-YYYY">{props.project.updated_at}</Moment></p>
 
                         </div>
                         <div>

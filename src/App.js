@@ -111,9 +111,17 @@ export default class App extends React.Component {
     window.location.href = "/"
   }
 
-  changeStatus = (updatedProject) => {
-    this.setState({projects: [...this.state.projects, updatedProject]})
-    console.log("udated state", this.state.projects)
+  changeStatus = (project_id, updatedProject) => {
+    // this.setState({projects: [...this.state.projects, updatedProject]})
+    console.log("SENT TO SERVER", updatedProject)
+    fetch(`http://localhost:3000/projects/${project_id}`, {
+      method: 'PATCH',
+      headers: {'Content-Type': "application/json"},
+      body: JSON.stringify(updatedProject)
+  })
+      .then(response => response.json())
+      .then(response => console.log("SERVER RESPONSE", response))
+
   }
   
 
