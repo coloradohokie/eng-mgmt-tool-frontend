@@ -1,6 +1,6 @@
 import React from 'react'
 import Table from 'react-bootstrap/Table'
-import Badge from 'react-bootstrap/Badge'
+import Button from 'react-bootstrap/Button'
 import Moment from 'react-moment'
 import CurrencyFormat from 'react-currency-format'
 import classes from './ProjectInformation.module.css'
@@ -38,7 +38,7 @@ const projectInformation = (props) => {
             <div className={classes.ProjectInformationHeader}>                            
                     <h2>Project Information </h2>
                         <a href={`../create-new-project`}>
-                            <Badge variant="secondary">Edit</Badge>
+                            <Button size='sm' variant="secondary" >Edit</Button>
                         </a>
             
             </div>

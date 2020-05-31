@@ -111,16 +111,11 @@ export default class App extends React.Component {
     window.location.href = "/"
   }
 
-  changeStatus = (status_id, project_id) => {
-    const project = this.state.projects.find(element => element.id === project_id)
-    project.status_id = parseInt(status_id)
-    this.setState(project)
-    fetch(BASE_URL.concat(`projects/${project_id}`), {
-        method: 'PATCH',
-        headers: {'Content-Type': "application/json"},
-        body: JSON.stringify(project)
-    })
+  changeStatus = (updatedProject) => {
+    this.setState({projects: [...this.state.projects, updatedProject]})
+    console.log("udated state", this.state.projects)
   }
+  
 
   addActivity = (newActivity) => {
     fetch(BASE_URL.concat('project_activities'), {

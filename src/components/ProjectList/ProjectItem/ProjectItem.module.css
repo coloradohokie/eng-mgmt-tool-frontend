@@ -1,5 +1,4 @@
 .ModalContentsContainer {
-    /* max-width: 400px; */
     width: 95%;
     display: flex;
     justify-content: flex-start;
@@ -14,7 +13,6 @@
 .TasksSection {
   display: flex;
   justify-content: flex-start;
-  /* width: 700px; */
   margin-left:30px;
 }
 
@@ -40,7 +38,6 @@
   display: flex;
   justify-content: flex-end;
   text-align: right;
-
 }
 
 .ModalHeader {
@@ -83,10 +80,31 @@
   min-width: 90px
 }
 
-@media (max-width: 800px) {
+@media (max-width: 1199px) {
   .ModalContentsContainer {
       display: flex;
       flex-direction: column;
+  }
+
+  .TasksSection {
+    flex-direction: row;
+  }
+
+  .TaskSectionBody {
+    min-height: 0;
+    max-width: 800px;
+    width: 100%
+  }
+} 
+
+@media (max-width: 991px) {
+  .ModalContentsContainer {
+      display: flex;
+      flex-direction: column;
+  }
+
+  .TasksSection {
+    flex-direction: column;
   }
 
   .TaskSectionBody {

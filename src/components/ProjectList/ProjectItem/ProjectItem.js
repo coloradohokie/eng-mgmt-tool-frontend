@@ -11,11 +11,12 @@ import ProjectInformation from './ProjectInformation/ProjectInformation'
 
 const ProjectItem = (props) => {
     const [show, setShow] = useState(false);
-    const handleClose = () => setShow(false);
+    const handleClose = () => {
+        setShow(false)
+        window.location.href = `/`};
     const handleShow = () => setShow(true);
-    const [statusChange, setStatusChange] = useState(false)
-    const handleStatusChange = () => setStatusChange(true)
-    const project = {...props.project}
+    let project = {...props.project}
+    const [projectStatus, setProjectStatus] = useState(props.project.status.id)
     
 
     const displayTitle = project.city ?
@@ -56,21 +57,22 @@ const ProjectItem = (props) => {
     //     }
     // }
 
-    const handleClick = (event) => {
-        if (event.target.name === "status") {
-            handleStatusChange()
-            console.log(statusChange)
-            console.log("you changed the status to", event.target.value, "props", props)
-            props.changeStatus(event.target.value, project.id)
-        }
+    const setStatusHandler = (event) => {
+        const updatedProject = {...props.project, status_id: +event.target.value}
+        console.log("Props.Project", {...props.project})
+        console.log("UPdted Project", updatedProject)
+        setProjectStatus(event.target.value)
+        // props.changeStatus(updatedProject)
+        fetch(`http://localhost:3000/projects/${project.id}`, {
+            method: 'PATCH',
+            headers: {'Content-Type': "application/json"},
+            body: JSON.stringify({...props.project, status_id: event.target.value})
+        })
     }
+    
 
     const getStatusValues = () => {
-        return props.statuses.map(status => {
-            return status.id ===project.status_id ?
-                <option key={status.id} value={status.id} defaultValue>{status.value}</option> :
-                <option key={status.id} value={status.id}>{status.value}</option>
-        })
+        return props.statuses.map(status => <option key={status.id} value={status.id}>{status.value}</option>)
     }
 
     return(
@@ -83,7 +85,7 @@ const ProjectItem = (props) => {
                         <Card.Text>{project.project_description}</Card.Text>
                     </div>
                     <div className={classes.CardRightSidePanel}>
-                        <Card.Text><Badge className={classes.StatusBadge} variant="light">{project.status.value}</Badge></Card.Text>
+                        <Card.Text><Badge className={classes.StatusBadge} variant="light">{props.project.status.value}</Badge></Card.Text>
                     </div>
                 </Card.Body>
             </Card>
@@ -96,7 +98,7 @@ const ProjectItem = (props) => {
                 <Modal.Body className={classes.ModelBody}>
                     <div className={classes.ModalStatusBar}>
                         <label>Status</label>
-                        <select name="status" onChange={handleClick}>
+                        <select name="status" value={projectStatus} onChange={setStatusHandler}>
                             {getStatusValues()}
                         </select>
                     </div>
