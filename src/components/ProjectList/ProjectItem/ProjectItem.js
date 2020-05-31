@@ -13,10 +13,8 @@ const ProjectItem = (props) => {
     const [show, setShow] = useState(false);
     const handleClose = () => {
         setShow(false)
-        // window.location.href = `/`
     };
     const handleShow = () => setShow(true);
-    // let project = {...props.project}
     const [projectStatusId, setProjectStatusId] = useState(props.project.status.id)
     
     const displayTitle = props.project.city ?
