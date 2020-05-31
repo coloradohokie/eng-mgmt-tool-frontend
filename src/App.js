@@ -101,7 +101,7 @@ export default class App extends React.Component {
   }
 
   addProject = (newProject) => {
-    fetch(BASE_URL.concat("project_tasks"), {
+    fetch(BASE_URL.concat("projects"), {
         method: 'POST',
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify(newProject)
