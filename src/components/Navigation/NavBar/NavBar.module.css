@@ -3,8 +3,8 @@
     background-blend-mode: lighten;
     height: 40px;
     width: 100%;
-    display: flex;
-    justify-content: space-between;
+    /* display: flex;
+    justify-content: space-around; */
     top: 0;
     left: 0;
     align-items: center;

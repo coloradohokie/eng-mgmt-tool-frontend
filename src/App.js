@@ -108,7 +108,7 @@ export default class App extends React.Component {
       })
       .then(response => response.json())
       .then(project => {this.setState({projects: [...this.state.projects, project]})})
-    // window.location.href = "/"
+    window.location.href = "/"
   }
 
   updateProject = (project_id, updatedProject) => {
@@ -173,7 +173,7 @@ export default class App extends React.Component {
             <NewProject addProject={this.addProject} />
           </Route>
               
-          <Route exact path='/phone-log'>
+          <Route exact path='/activity-log'>
             <ActivityLog activities={this.state.projectActivities}/>
           </Route>
 

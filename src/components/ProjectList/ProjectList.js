@@ -1,5 +1,7 @@
 import React from 'react'
 import ProjectItem from './ProjectItem/ProjectItem'
+import Button from 'react-bootstrap/Button'
+import {Link} from 'react-router-dom'
 import classes from './ProjectList.module.css'
 
 
@@ -23,7 +25,12 @@ const ProjectList = (props) => {
 
     return (
         <div className={classes.ProjectList}>
-            <h1>Project List</h1>
+            <div className={classes.ProjectListHeader}>
+                <h1>Project List</h1>
+                <Link to='/create-new-project'>
+                    <Button size="sm" variant="secondary"> New Project </Button>
+                </Link>
+            </div>
             {showProjects()}
         </div>
     )
