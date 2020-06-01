@@ -107,11 +107,11 @@ export default class App extends React.Component {
         body: JSON.stringify(newProject)
       })
       .then(response => response.json())
-      .then(project => {this.setState([...this.state.projects, project])})
-    window.location.href = "/"
+      .then(project => {this.setState({projects: [...this.state.projects, project]})})
+    // window.location.href = "/"
   }
 
-  changeStatus = (project_id, updatedProject) => {
+  updateProject = (project_id, updatedProject) => {
     // this.setState({projects: [...this.state.projects, updatedProject]})
     console.log("SENT TO SERVER", updatedProject)
     fetch(`http://localhost:3000/projects/${project_id}`, {
@@ -163,7 +163,7 @@ export default class App extends React.Component {
               activities={this.state.activities} 
               statuses={this.state.statuses}
               toggleTaskCompleted={this.toggleTaskCompleted}
-              changeStatus={this.changeStatus}
+              updateProject={this.updateProject}
               addTaskToProject={this.addTaskToProject}
               updateProjectActivities={this.updateProjectActivities}
             />

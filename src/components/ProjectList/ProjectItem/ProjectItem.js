@@ -62,7 +62,7 @@ const ProjectItem = (props) => {
         console.log("Props.Project", {...props.project})
         console.log("UPdted Project", updatedProject)
         setProjectStatusId(+event.target.value)
-        props.changeStatus(props.project.id, updatedProject)
+        props.updateProject(props.project.id, updatedProject)
     }
     
 
@@ -98,7 +98,7 @@ const ProjectItem = (props) => {
                         </select>
                     </div>
                     <div className={classes.ModalContentsContainer}>
-                        <ProjectInformation project={props.project} />
+                        <ProjectInformation project={props.project} updateProject={props.updateProject} />
                         {getTasks(props.project.id)}
                     </div>
                     <ActivityTable 
