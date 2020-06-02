@@ -115,7 +115,6 @@ class ActivityTable extends Component {
                         <tr>
                             <th>Activity</th>
                             <th>Date</th>
-                            <th>Project</th>
                             <th>Notes</th>
                         </tr>
                     </thead>

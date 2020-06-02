@@ -6,13 +6,13 @@ const activityLog = (props) => {
     
     const showActivities = () => {
         props.activities.sort(function (a,b) {return b.id - a.id})
-        return (props.activities.map(activity => <ActivityItem key={activity.id} activity={activity} /> ))
+        return (props.activities.map(activity => <ActivityItem key={activity.id} activity={activity} showProject /> ))
     }
 
 
     return (
         <div>
-            <h1>Phone Log</h1>
+            <h1>Activity Log</h1>
             <Table striped bordered hover style={{backgroundColor: "#FFF"}}>
                 <thead>
                     <tr>

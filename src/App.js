@@ -185,7 +185,11 @@ export default class App extends React.Component {
             <ActivityLog activities={this.state.projectActivities}/>
           </Route>
 
-          <Route exact path='/weekly-report' component={WeeklyReport} />
+          <Route exact path='/weekly-report'>
+            <WeeklyReport 
+              projects={this.state.projects}
+              projectActivities={this.state.projectActivities} />
+          </Route> 
 
           <Route exact path='/admin'>
             <Admin 

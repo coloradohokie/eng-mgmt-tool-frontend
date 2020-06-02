@@ -7,7 +7,7 @@ export default function ActivityItem(props) {
         <tr>
             <td>{props.activity.activity.value}</td>
             <td>{props.activity.activity_date}</td>
-            <td>{props.activity.project.address1}</td>
+            {props.showProject === true ? <td>{props.activity.project.address1}</td> : null }
             <td>{props.activity.notes}</td>
         </tr>
     )
