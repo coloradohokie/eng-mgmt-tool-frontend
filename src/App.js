@@ -177,10 +177,6 @@ export default class App extends React.Component {
             <ActivityLog activities={this.state.projectActivities}/>
           </Route>
 
-          <Route exact path='/to-be-invoiced'>
-            <ToBeInvoiced projects={this.state.projects} />
-          </Route>
-
           <Route exact path='/weekly-report' component={WeeklyReport} />
 
           <Route exact path='/admin'>

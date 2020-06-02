@@ -40,8 +40,7 @@ body {
 
 main {
   width: 90%;
-  min-width: 1000px;
-  margin: auto;
+  min-width: 550px;
 }
 
 a {

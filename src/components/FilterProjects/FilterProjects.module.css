@@ -1,0 +1,16 @@
+.FilterControls {
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    border: 2px solid black;
+    border-radius: 5px;
+    background-color: #bbb;
+    padding: 5px;
+    margin-top: 50px;
+    margin-bottom: 10px;
+
+}
+
+.FilterControls label {
+    margin-right: 10px;
+}

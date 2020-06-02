@@ -1,3 +1,14 @@
 .Projects {
     padding-left: 20px;
 }
+
+.sortControls {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.sortControls button {
+    border-radius: 5px;
+    margin-left: 10px;
+    font-size: 0.7em;
+}
