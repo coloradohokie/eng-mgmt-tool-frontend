@@ -58,9 +58,6 @@ const ProjectItem = (props) => {
     const setStatusHandler = (event) => {
         const updatedStatus = props.statuses.find(status => status.id === +event.target.value)
         const updatedProject = {...props.project, status_id: +event.target.value, status: updatedStatus}
-        console.log(updatedStatus)
-        console.log("Props.Project", {...props.project})
-        console.log("UPdted Project", updatedProject)
         setProjectStatusId(+event.target.value)
         props.updateProject(props.project.id, updatedProject)
     }
@@ -77,7 +74,10 @@ const ProjectItem = (props) => {
                 <Card.Body className={classes.CardContents}>
                     <div className={classes.CardMainBox}>
                         <Card.Title onClick={handleShow}> {displayTitle} </Card.Title> 
-                        <Card.Text>{props.project.project_description}</Card.Text>
+                        <Card.Text>
+                            <p>{props.project.project_description}.</p>
+                            <p style={{fontSize: "0.7em", paddingTop: "4px"}}>Last Action: {props.project.last_action} <Moment format="MMM Do, h:mm a">{props.project.updated_at}</Moment></p>
+                        </Card.Text>
                     </div>
                     <div className={classes.CardRightSidePanel}>
                         <Card.Text><Badge className={classes.StatusBadge} variant="light">{props.statuses.find(status => status.id === projectStatusId).value}</Badge></Card.Text>

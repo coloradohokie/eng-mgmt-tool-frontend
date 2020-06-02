@@ -75,8 +75,11 @@ export default class App extends React.Component {
         done: false
       }
       const selectedProject = this.state.projects.find(project => project.id === project_id)
-      let projectTasks = selectedProject.tasks.push(newTask)
-      this.setState(selectedProject.projectTasks)
+      selectedProject.tasks.push(newTask)
+      selectedProject.last_action = `${taskName} task added to project`
+      this.setState(selectedProject)
+      this.updateProject(project_id, selectedProject)
+      // this.setState(selectedProject.projectTasks)
 
       fetch(BASE_URL.concat(`tasks`), {
         method: 'POST',
@@ -86,12 +89,19 @@ export default class App extends React.Component {
         .then(response => response.json)
   }
 
-  toggleTaskCompleted = (project_id, task_id) => {
+  toggleTaskCompleted = (project_id, task_id, taskName) => {
       const selectedProject = this.state.projects.find(project => project.id === project_id)
       const projectTask = selectedProject.tasks.find(element => element.id === task_id)
-      projectTask.done === true ? 
-        projectTask.done = false : projectTask.done = true
-        this.setState(projectTask)
+      if (projectTask.done === true) { 
+        projectTask.done = false
+        selectedProject.last_action = `${taskName} task marked not completed`
+      } else {
+        projectTask.done = true
+        selectedProject.last_action = `${taskName} task marked completed`
+      }
+      this.setState(selectedProject)
+      this.updateProject(project_id, selectedProject)
+      this.setState(projectTask)
       fetch(BASE_URL.concat(`tasks/${task_id}`), {
         method: 'PATCH',
         headers: {"Content-Type": "application/json"},
@@ -111,7 +121,6 @@ export default class App extends React.Component {
   }
 
   updateProject = (project_id, updatedProject) => {
-    // this.setState({projects: [...this.state.projects, updatedProject]})
     console.log("SENT TO SERVER", updatedProject)
     fetch(`http://localhost:3000/projects/${project_id}`, {
       method: 'PATCH',
