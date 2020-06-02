@@ -26,3 +26,9 @@
     background-color: #FFF;
     width: 100%;
 }
+
+.NoInformation {
+    font-style: italic;
+    font-size: 0.9em;
+    color: #555;
+}

@@ -47,46 +47,42 @@ class WeeklyReport extends Component {
     displayProjects = () => {
         const displayTaskSection = (project) => {   
             if (project.tasks.length === 0) {
-                return <h2>No Completed Tasks</h2>
+                return (<p className={classes.NoInformation}>No completed tasks in the specified time period.</p>)
             }
             return (
-                <div>
-                    <h2>Completed Tasks</h2>
-                    <Table striped bordered hover size="sm" className={classes.ActivityLogTable}>
-                        <thead>
+                <Table striped bordered hover size="sm" className={classes.ActivityLogTable}>
+                    <thead>
+                        <tr>
                             <th>Task</th>
                             <th>Completed</th>
-                        </thead>
-                        <tbody>
-                            {project.tasks.map( task =>  this.taskCompletedText(task))}                    
-                        </tbody>
-                    </Table>
-                </div>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {project.tasks.map( task =>  this.taskCompletedText(task))}                    
+                    </tbody>
+                </Table>
             )
         }
 
         const displayActivitySection = (project) => {
             if (!this.props.projectActivities.find(activity => activity.project_id === project.id)) {
-                return <h2>No Activity</h2>
+                return (<p className={classes.NoInformation}>No logged activity in the specified time period.</p>)
             }  
 
             return (
-                <div>
-                    <h2>Activity</h2>
-                    <Table striped bordered hover size="sm" className={classes.ActivityLogTable}>
-                        <thead>
-                            <tr>
-                                <th>Activity</th>
-                                <th>Date</th>
-                                <th>Notes</th>
-                            </tr>
-                        </thead>
-        
-                        <tbody>
-                            {this.showActivities(project.id)}
-                        </tbody>
-                    </Table>
-                </div>
+                <Table striped bordered hover size="sm" className={classes.ActivityLogTable}>
+                    <thead>
+                        <tr>
+                            <th>Activity</th>
+                            <th>Date</th>
+                            <th>Notes</th>
+                        </tr>
+                    </thead>
+    
+                    <tbody>
+                        {this.showActivities(project.id)}
+                    </tbody>
+                </Table>
             )
         }
 
@@ -99,14 +95,12 @@ class WeeklyReport extends Component {
                 return(
                     <Card key={project.id} className={classes.ProjectCard}>
                         <Card.Body className={classes.CardContents}>
-                            <div>
-                                <Card.Title> {displayTitle} </Card.Title> 
-                                <Card.Text>
-                                    <p>{project.project_description}.</p>
-                                    {displayTaskSection(project)}
-                                    {displayActivitySection(project)}
-                                </Card.Text>
-                            </div>
+                            <Card.Title> {displayTitle} </Card.Title>
+                            <Card.Subtitle> {project.project_description}. </Card.Subtitle> 
+                            <h2>Newly Completed Tasks</h2>
+                            {displayTaskSection(project)}
+                            <h2>New Activity</h2>
+                            {displayActivitySection(project)}
                         </Card.Body>
                     </Card>
                 )
