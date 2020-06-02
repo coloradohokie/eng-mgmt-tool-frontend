@@ -25,8 +25,9 @@ class Projects extends Component {
         const filterValues = []
         this.state.filters.map( filter => {
             if (filter.show) {
-                filterValues.push(filter.name)
+                return filterValues.push(filter.name)
             }
+            return null
         })
         if (filterValues === []) {
             console.log("No filters selected")
@@ -44,8 +45,9 @@ class Projects extends Component {
         let updatedFilters = this.state.filters
         updatedFilters.map( updatedFilter => {
             if (updatedFilter.name === filter.name) {
-                updatedFilter.show = filter.show 
+                return updatedFilter.show = filter.show 
             }
+            return null
         })
         this.setState({filters: updatedFilters})
     }
@@ -56,7 +58,7 @@ class Projects extends Component {
                 <label>
                     Sort By:
                     <select name="selectedMethod" value={this.state.sort.selectedMethod} onChange={this.handleChange}>
-                        {this.state.sort.methods.map( method => (<option value={method}>{method}</option>))}
+                        {this.state.sort.methods.map( (method, index) => (<option key={index} value={method}>{method}</option>))}
                     </select>
                 </label>
                 <button name="ascending" onClick={this.handleChange}>Toggle Sort</button>
@@ -78,7 +80,7 @@ class Projects extends Component {
 
 
     render() {
-        console.log(this.state.filters)
+        console.log(this.props.projects)
         return (
             <div className={classes.Projects}>
                 <FilterProjects filters={this.state.filters} toggleFilter={this.toggleFilter} />

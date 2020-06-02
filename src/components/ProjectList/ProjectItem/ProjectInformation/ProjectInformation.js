@@ -27,8 +27,8 @@ class ProjectInformation extends Component {
 
         projectInfoArray.map(info => {
             if (info.value === null && info.fieldType === "date-field") {
-                info.value = " "
-            }
+                return info.value = " "
+            } return null
         })
 
         this.setState({projectInformationValues: projectInfoArray})
@@ -100,41 +100,30 @@ class ProjectInformation extends Component {
         this.state.projectInformationValues.map( infoValue => {
             switch (infoValue.name) {
                 case "Budget":
-                    this.props.project.budget = infoValue.value
-                    break
+                    return this.props.project.budget = infoValue.value
                 case "Contract Date":
-                    this.props.project.contract_date = infoValue.value
-                    break
+                    return this.props.project.contract_date = infoValue.value
                 case "ST Contract Received":
-                    this.props.project.st_contract_received_date = infoValue.value
-                    break
+                    return this.props.project.st_contract_received_date = infoValue.value
                 case "Trusses Received":
-                    this.props.project.trusses_received_date = infoValue.value
-                    break
+                    return this.props.project.trusses_received_date = infoValue.value
                 case "Framing Due":
-                    this.props.project.framing_due_date = infoValue.value
-                    break
+                    return this.props.project.framing_due_date = infoValue.value
                 case "Foundation Due":
-                    this.props.project.foundation_due_date = infoValue.value
-                    break
+                    return this.props.project.foundation_due_date = infoValue.value
                 case "Email from DWG Received":
-                    this.props.project.email_from_dwg_received_date = infoValue.value
-                    break
+                    return this.props.project.email_from_dwg_received_date = infoValue.value
                 case "Contract Proposal Sent Date":
-                    this.props.project.contract_proposal_sent_date = infoValue.value
-                    break
+                    return this.props.project.contract_proposal_sent_date = infoValue.value
                 case "Ready to be Invoiced Date":
-                    this.props.project.ready_to_be_invoiced_date = infoValue.value
-                    break
-            }
+                    return this.props.project.ready_to_be_invoiced_date = infoValue.value
+            } return null
         })
-        console.log("send to update project", this.props.project.id, this.props.project)
         this.props.updateProject(this.props.project.id, this.props.project)
     }
 
     toggleEditButton = () => {
         if (this.state.editing) {
-            console.log("Done clicked")
             this.addProjectInformationToProject()
             this.setState({editing: false})
         } else {
@@ -147,12 +136,13 @@ class ProjectInformation extends Component {
         let newState = this.state.projectInformationValues
         newState.map( info => {
             if (info.name === name) {
-                (info.fieldType === "money-field") ? info.value = +value : info.value = value;
-                (info.fieldType === "date-field" && info.value === " ") ? info.value = "" : info.value = value 
+                if (info.fieldType === "money-field") { info.value = +value }
+                else if (info.fieldType === "date-field" && info.value === " ") { info.value = "" }
+                else {info.value = value }
             }
+            return info.value
         })
         this.setState({projectInformationValues: newState})
-        console.log("State", this.state.projectInformationValues)
     }
 
     render() {
@@ -166,7 +156,6 @@ class ProjectInformation extends Component {
                 <div className={classes.ProjectInformationBody}>
                     <Table striped bordered hover size="sm" className={classes.ProjectInformationTable}>
                         <tbody>
-                            {console.log("State before map", this.state.projectInformationValues)}
                             {this.state.projectInformationValues.map( info => this.renderProjectInformationRow(info.name, info.value, info.fieldType))}
                         </tbody>
                     </Table>
