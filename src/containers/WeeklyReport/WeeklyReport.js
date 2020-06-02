@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import ReportControls from '../../components/WeeklyReport/ReportControls/ReportControls'
 import Moment from 'react-moment'
 import Table from 'react-bootstrap/Table'
 import ActivityItem from '../../components/ProjectList/ProjectItem/ActivityTable/ActivityItem/ActivityItem'
@@ -8,11 +9,22 @@ import classes from './WeeklyReport.module.css'
 class WeeklyReport extends Component {
     
     state = {
-        startDate: "",
-        endDate: ""
+        startDate: "2020-05-31",
+        endDate: "2020-06-03"
     }
     
+    componentDidMount() {
+        // const today = new Date()
+        // const todayName = today.getDay()
+        // const start = today.setDate(today.getDate() - 7)
+        // console.log(start, today)
+        // this.setState({startDate: ""}, {endDate: today})
+    }
 
+    handleDateChange = (event) => {
+        this.setState({[event.target.name]: event.target.value})
+        console.log("handle date change", this.state)
+    }
 
     taskCompletedText = (task) => {
         if (task.done) {
@@ -33,10 +45,6 @@ class WeeklyReport extends Component {
                  <ActivityItem key={activity.id} activity={activity} /> : null
             )                
         )
-    }
-
-    displayTitle = () => {
-
     }
 
 
@@ -118,6 +126,7 @@ class WeeklyReport extends Component {
             <div>
                 <h1>Weekly Report</h1>
                 <p>showing activity for all time.</p>
+                <ReportControls startDate={this.state.startDate} endDate={this.state.endDate} handleDateChange={this.handleDateChange} />
                 {this.displayProjects()}
             </div>
         )
