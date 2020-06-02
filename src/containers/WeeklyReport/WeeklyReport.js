@@ -5,26 +5,23 @@ import Table from 'react-bootstrap/Table'
 import ActivityItem from '../../components/ProjectList/ProjectItem/ActivityTable/ActivityItem/ActivityItem'
 import Card from 'react-bootstrap/Card'
 import classes from './WeeklyReport.module.css'
+import moment from 'moment'
 
 class WeeklyReport extends Component {
     
     state = {
-        startDate: "2020-05-31",
-        endDate: "2020-06-03"
+        startDate: "",
+        endDate: ""
     }
     
     componentDidMount() {
-        // const today = new Date()
-        // const todayName = today.getDay()
-        // const start = today.setDate(today.getDate() - 7)
-        // console.log(start, today)
-        // this.setState({startDate: ""}, {endDate: today})
+        this.setState({
+            startDate:  moment().subtract(6, 'days'),       
+            endDate: moment()
+        })
     }
 
-    handleDateChange = (event) => {
-        this.setState({[event.target.name]: event.target.value})
-        console.log("handle date change", this.state)
-    }
+    handleDateChange = (event) => this.setState({[event.target.name]: event.target.value})
 
     taskCompletedText = (task) => {
         if (task.done) {
@@ -46,7 +43,6 @@ class WeeklyReport extends Component {
             )                
         )
     }
-
 
     displayProjects = () => {
         const displayTaskSection = (project) => {   
@@ -70,7 +66,6 @@ class WeeklyReport extends Component {
         }
 
         const displayActivitySection = (project) => {
-            console.log(project.id, this.props.projectActivities.find(activity => activity.project_id === project.id))
             if (!this.props.projectActivities.find(activity => activity.project_id === project.id)) {
                 return <h2>No Activity</h2>
             }  
@@ -95,37 +90,35 @@ class WeeklyReport extends Component {
             )
         }
 
-
-
-
         return this.props.projects.map( project => {
-            const displayTitle = project.city ?
-            `${project.address1}, ${project.city} \u2014 ${project.job_number}` :
-            `${project.address1} \u2014 ${project.job_number}`
-
-            return(
-                <Card className={classes.ProjectCard}>
-                    <Card.Body className={classes.CardContents}>
-                        <div>
-                            <Card.Title> {displayTitle} </Card.Title> 
-                            <Card.Text>
-                                <p>{project.project_description}.</p>
-                                {displayTaskSection(project)}
-                                {displayActivitySection(project)}
-                            </Card.Text>
-                        </div>
-                    </Card.Body>
-                </Card>
-            )
+            if (moment(project.updated_at).isSameOrAfter(this.state.startDate) && moment(project.updated_at).isSameOrBefore(this.state.endDate)) {
+                const displayTitle = project.city ?
+                `${project.address1}, ${project.city} \u2014 ${project.job_number}` :
+                `${project.address1} \u2014 ${project.job_number}`
+                
+                return(
+                    <Card key={project.id} className={classes.ProjectCard}>
+                        <Card.Body className={classes.CardContents}>
+                            <div>
+                                <Card.Title> {displayTitle} </Card.Title> 
+                                <Card.Text>
+                                    <p>{project.project_description}.</p>
+                                    {displayTaskSection(project)}
+                                    {displayActivitySection(project)}
+                                </Card.Text>
+                            </div>
+                        </Card.Body>
+                    </Card>
+                )
+            }
+            return null            
         })
     }
 
     render() {
-        console.log(this.props)
         return (
             <div>
                 <h1>Weekly Report</h1>
-                <p>showing activity for all time.</p>
                 <ReportControls startDate={this.state.startDate} endDate={this.state.endDate} handleDateChange={this.handleDateChange} />
                 {this.displayProjects()}
             </div>
