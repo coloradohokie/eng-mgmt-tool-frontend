@@ -9,7 +9,7 @@ export default class CreateNewProject extends Component {
     state = {
         jobNumber: null,
         client: "",
-        status: "Proposed",
+        status: "Open",
         address1: "",
         address2: "",
         city: "",
@@ -40,15 +40,20 @@ export default class CreateNewProject extends Component {
             const {name, value} = event.target
             this.setState({[name]:value})
         }
-        console.log(this.state)
     }
 
     handleSubmit = (event) => {
         event.preventDefault()
-        console.log(this.state)
         this.props.addProject(this.state)
     }
 
+    listStatusOptions = () => {
+        return this.props.statuses.map( status => {
+            return (
+                <option key={status.id}>{status.value}</option>
+            )
+        })
+    }
     
     render() {
         return (
@@ -80,11 +85,8 @@ export default class CreateNewProject extends Component {
 
                                 <Form.Group controlId="status">
                                     <Form.Label>Status</Form.Label>
-                                    <Form.Control as="select" custom name="status" onChange={this.handleChange}>
-                                        <option default>Proposed</option>
-                                        <option>Open</option>
-                                        <option>On Hold</option>
-                                        <option>Closed</option>
+                                    <Form.Control as="select" custom name="status" value={this.state.status} onChange={this.handleChange}>
+                                        {this.listStatusOptions()}
                                     </Form.Control>
                                 </Form.Group>
                             </Form.Row>
@@ -127,11 +129,9 @@ export default class CreateNewProject extends Component {
                                     </Form.Control>
                                 </div>
                             </Form.Row>
-
                         </div>
 
                         <div>
-
                             <Form.Row className={classes.CreateNewProjectFormRow}>
                                 <Form.Group controlId="contractDate">
                                     <Form.Label>Contract Date</Form.Label>
@@ -188,16 +188,12 @@ export default class CreateNewProject extends Component {
                                     <Form.Control type="date" name="contractDate" onChange={this.handleChange} />
                                 </Form.Group> */}
                             </Form.Row>
-
                         </div>
 
                         <Button variant="primary" type="submit">
                             Submit
                         </Button>
-
-
                     </Form>
-
                 </div>
             </div>
         )

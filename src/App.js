@@ -176,8 +176,10 @@ export default class App extends React.Component {
             />
           </Route>
 
-          <Route exact path='/create-new-project'>
-            <NewProject addProject={this.addProject} />
+          <Route path='/create-new-project'>
+            <NewProject
+              statuses={this.state.statuses} 
+              addProject={this.addProject} />
           </Route>
               
           <Route exact path='/activity-log'>

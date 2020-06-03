@@ -6,7 +6,7 @@ class NewProject extends Component {
     
     render() {
         return(
-            <CreateNewProject addProject={this.props.addProject} />
+            <CreateNewProject statuses={this.props.statuses} addProject={this.props.addProject} />
         )
     }
 
