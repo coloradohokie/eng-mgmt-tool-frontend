@@ -15,7 +15,7 @@ class Projects extends Component {
             {name: "Archived", show: false}
         ],
         sort: {
-            methods: ["Job Number", "Address", "City", "Status", "% Complete"],
+            methods: ["Job Number", "Address", "City", "Status"],
             selectedMethod: "Status",
             ascending: true
         }        
@@ -80,11 +80,12 @@ class Projects extends Component {
 
 
     render() {
-        console.log(this.props.projects)
         return (
             <div className={classes.Projects}>
-                <FilterProjects filters={this.state.filters} toggleFilter={this.toggleFilter} />
-                {this.sortProjects()}
+                <div className={classes.Controls}>
+                    <FilterProjects filters={this.state.filters} toggleFilter={this.toggleFilter} />
+                    {this.sortProjects()}
+                </div>
                 <ProjectList 
                     projects={this.selectedProjectList(this.props.projects)}
                     sort={this.state.sort}

@@ -3,6 +3,7 @@ import Card from 'react-bootstrap/Card'
 import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'
 import Badge from 'react-bootstrap/Badge'
+import ProjectProgress from '../../ProjectProgress/ProjectProgress'
 import Moment from 'react-moment'
 import classes from './ProjectItem.module.css'
 import TaskList from './TaskList/TaskList'
@@ -49,12 +50,6 @@ const ProjectItem = (props) => {
         )
     }
 
-    // const showInvoiceBadge = (ready_to_be_invoiced) => {
-    //     if (ready_to_be_invoiced) {
-    //         return <h3><Badge variant="secondary">Ready to Be Invoiced</Badge></h3>
-    //     }
-    // }
-
     const setStatusHandler = (event) => {
         const updatedStatus = props.statuses.find(status => status.id === +event.target.value)
         const updatedProject = {...props.project, status_id: +event.target.value, status: updatedStatus}
@@ -74,13 +69,16 @@ const ProjectItem = (props) => {
                 <Card.Body className={classes.CardContents}>
                     <div className={classes.CardMainBox}>
                         <Card.Title onClick={handleShow}> {displayTitle} </Card.Title> 
-                        <Card.Text>
                             <p>{props.project.project_description}.</p>
                             <p style={{fontSize: "0.7em", paddingTop: "4px"}}>Last Action: {props.project.last_action} <Moment format="MMM Do, h:mm a">{props.project.updated_at}</Moment></p>
-                        </Card.Text>
                     </div>
                     <div className={classes.CardRightSidePanel}>
-                        <Card.Text><Badge className={classes.StatusBadge} variant="light">{props.statuses.find(status => status.id === projectStatusId).value}</Badge></Card.Text>
+                        <div>
+                        <Badge className={classes.StatusBadge} variant="light">
+                            {props.statuses.find(status => status.id === projectStatusId).value}
+                        </Badge>
+                        <ProjectProgress project={props.project} />
+                        </div>
                     </div>
                 </Card.Body>
             </Card>

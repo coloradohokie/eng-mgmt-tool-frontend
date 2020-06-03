@@ -77,7 +77,8 @@
 
 
 .StatusBadge {
-  min-width: 90px
+  min-width: 90px;
+  height: 18px
 }
 
 @media (max-width: 1199px) {

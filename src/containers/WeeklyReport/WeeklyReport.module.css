@@ -1,3 +1,7 @@
+.WeeklyReport {
+    max-width: 800px;
+}
+
 .ProjectCard {
     width: 100%;
     max-width: 800px;
@@ -31,4 +35,14 @@
     font-style: italic;
     font-size: 0.9em;
     color: #555;
+}
+
+.CardMainBox {
+    width: 80%
+}
+
+.CardRightSidePanel {
+display: flex;
+justify-content: flex-end;
+text-align: right;
 }

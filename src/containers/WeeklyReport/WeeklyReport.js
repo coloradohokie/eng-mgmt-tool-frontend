@@ -4,6 +4,7 @@ import Moment from 'react-moment'
 import Table from 'react-bootstrap/Table'
 import ActivityItem from '../../components/ProjectList/ProjectItem/ActivityTable/ActivityItem/ActivityItem'
 import Card from 'react-bootstrap/Card'
+import ProjectProgress from '../../components/ProjectProgress/ProjectProgress'
 import classes from './WeeklyReport.module.css'
 import moment from 'moment'
 
@@ -65,7 +66,11 @@ class WeeklyReport extends Component {
         }
 
         const displayActivitySection = (project) => {
-            if (!this.props.projectActivities.find(activity => activity.project_id === project.id)) {
+            if (!this.props.projectActivities.find(activity => (
+                    (activity.project_id === project.id) &&
+                    moment(activity.activity_date).isSameOrAfter(this.state.startDate) &&
+                    moment(activity.activity_date).isSameOrBefore(this.state.endDate)
+                    ))) {
                 return (<p className={classes.NoInformation}>No logged activity in the specified time period.</p>)
             }  
 
@@ -97,6 +102,7 @@ class WeeklyReport extends Component {
                         <Card.Body className={classes.CardContents}>
                             <Card.Title> {displayTitle} </Card.Title>
                             <Card.Subtitle> {project.project_description}. </Card.Subtitle> 
+                            <ProjectProgress project={project} />
                             <h2>Newly Completed Tasks</h2>
                             {displayTaskSection(project)}
                             <h2>New Activity</h2>
@@ -111,7 +117,7 @@ class WeeklyReport extends Component {
 
     render() {
         return (
-            <div>
+            <div className={classes.WeeklyReport}>
                 <h1>Weekly Report</h1>
                 <ReportControls startDate={this.state.startDate} endDate={this.state.endDate} handleDateChange={this.handleDateChange} />
                 {this.displayProjects()}
