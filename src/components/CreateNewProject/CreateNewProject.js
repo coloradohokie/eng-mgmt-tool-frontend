@@ -30,6 +30,15 @@ export default class CreateNewProject extends Component {
         framingTemplate: null
     }
 
+    constructor(props) {
+        super(props)
+        this.firstInputElementRef = React.createRef()
+    }
+
+    componentDidMount() {
+        this.firstInputElementRef.current.focus()
+    }
+
     handleChange = (event) => {
         if (event.target.type === "checkbox") {
             const {name} = event.target
@@ -66,6 +75,7 @@ export default class CreateNewProject extends Component {
                                 <Form.Group controlId="jobNumber">
                                     <Form.Label>Job Number*</Form.Label>
                                     <Form.Control 
+                                        ref={this.firstInputElementRef}
                                         type="number" 
                                         placeholder="Job #" 
                                         name="jobNumber" 
@@ -189,10 +199,12 @@ export default class CreateNewProject extends Component {
                                 </Form.Group> */}
                             </Form.Row>
                         </div>
-
-                        <Button variant="primary" type="submit">
-                            Submit
-                        </Button>
+                        
+                        <div className={classes.FormExitButtons}>
+                            <Button variant="primary" type="submit">
+                                Submit
+                            </Button>
+                        </div>
                     </Form>
                 </div>
             </div>
