@@ -8,7 +8,6 @@ import ActivityLog from './containers/ActivityLog/ActivityLog'
 import NewProject from './containers/NewProject/NewProject'
 import WeeklyReport from './containers/WeeklyReport/WeeklyReport'
 import Admin from './containers/Admin/Admin'
-import AddActivity from './components/AddActivity'
 import Layout from './components/Layout/Layout'
 
 var moment = require('moment');
@@ -198,16 +197,7 @@ export default class App extends React.Component {
               taskTemplates={this.state.taskTemplates}
               updateValues={this.updateValues}
             />
-          </Route>
-
-          <Route 
-            path='/add-activity/:id' 
-            render={(props) => <AddActivity 
-              {...props} 
-              addActivity={this.addActivity}
-              activityValues={this.state.activities} 
-            />}
-          /> 
+          </Route> 
         </Switch>
       </Layout>
     );
