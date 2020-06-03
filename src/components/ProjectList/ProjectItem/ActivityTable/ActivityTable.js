@@ -76,17 +76,15 @@ class ActivityTable extends Component {
                         </select>
                     </td>
                     <td>
-                        <Moment />
+                        <Moment format="MMM Do, YYYY"/>
                     </td>
-                    <td>
-                        {this.props.project.address1}
-                    </td>
-                    <td>
-                        <textarea name="notes" value={this.state.notes} onChange={this.inputHandler} />
+                    <td style={{textAlign: "right"}}>
+                        <textarea style={{width: "100%", height: "150px"}} name="notes" value={this.state.notes} onChange={this.inputHandler} />
+                        <button style={{display: "inline-block"}} onClick={this.submitActivityInformation}>Add</button>
                     </td>
                 </tr>
                 <tr>
-                    <td colSpan="4"><button onClick={this.submitActivityInformation}>Add</button></td>
+                    <td colSpan="4"></td>
                 </tr>
                 </>
             )
@@ -113,15 +111,15 @@ class ActivityTable extends Component {
                 <Table striped bordered hover size="sm" className={classes.ActivityLogTable}>
                     <thead>
                         <tr>
-                            <th>Activity</th>
-                            <th>Date</th>
+                            <th style={{width: "150px"}}>Activity</th>
+                            <th style={{width: "150px"}}>Date</th>
                             <th>Notes</th>
                         </tr>
                     </thead>
     
                     <tbody>
-                        {this.showActivities(this.props.project.id)}
                         {this.addActivityRow()}
+                        {this.showActivities(this.props.project.id)}
                     </tbody>
                 </Table>
             </div>
