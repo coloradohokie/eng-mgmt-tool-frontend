@@ -21,6 +21,7 @@ class Layout extends Component {
         return (
             <>
             <NavBar
+                isAuthenticated={this.props.isAuthenticated}
                 drawerToggleClicked={this.sideDrawerToggleHandler} />
             <SideDrawer
                 open={this.state.showSideDrawer}

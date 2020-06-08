@@ -7,7 +7,7 @@ const NavBar = (props) => (
     <header className={classes.NavBar}>
         <DrawerToggle clicked={props.drawerToggleClicked} />
         <nav className={classes.DesktopOnly}>
-            <NavigationItems />
+            <NavigationItems isAuthenticated={props.isAuthenticated} />
         </nav>
     </header>
 )

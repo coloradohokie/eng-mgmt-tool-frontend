@@ -1,7 +1,7 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './App.css';
-import {Switch, Route} from 'react-router-dom'
+import {Switch, Route, Redirect} from 'react-router-dom'
 
 import Projects from './containers/Projects/Projects'
 import ActivityLog from './containers/ActivityLog/ActivityLog'
@@ -9,6 +9,8 @@ import NewProject from './containers/NewProject/NewProject'
 import WeeklyReport from './containers/WeeklyReport/WeeklyReport'
 import Admin from './containers/Admin/Admin'
 import Layout from './components/Layout/Layout'
+import Auth from './containers/Auth/Auth'
+import Logout from './containers/Auth/Logout/Logout'
 
 var moment = require('moment');
 moment().format();
@@ -23,47 +25,72 @@ export default class App extends React.Component {
     projectActivities: [],
     statuses: [],
     activities: [],
-    taskTemplates: []
+    taskTemplates: [],
+    isAuthenticated: false
   }
 
+  constructor(props) {
+    super()
+    this.checkAuthState()
+  }
 
   fetchProjects = () => {
-      fetch(BASE_URL.concat("projects"))
+    const token = localStorage.getItem('token')
+    if (!token) {
+      return null
+    }
+      fetch(BASE_URL.concat("projects"), {
+        method: 'GET',
+        headers: {'Authorization': `Bearer ${token}`},
+
+      })
       .then(response => response.json())
-      .then(projects => this.setState({projects: projects}))
+      .then(response => {
+        this.setState({
+          projects: response.projects,
+          projectActivities: response.project_activities,
+          statuses: response.statuses,
+          activities: response.activities,
+          taskTemplates: response.task_templates,
+        })
+      })
   }
 
-  fetchActivities = () => {
-    fetch(BASE_URL.concat('project_activities'))
-    .then(response => response.json())
-    .then(project_activities => this.setState({projectActivities: project_activities}))
-  }
-
-  fetchStatusValues = () => {
-    fetch(BASE_URL.concat('statuses'))
-    .then(response => response.json())
-    .then(statuses => this.setState({statuses: statuses}))
-  }
-
-  fetchActivityValues = () => {
-    fetch(BASE_URL.concat('activities'))
-      .then(response => response.json())
-      .then(activities => this.setState({activities: activities}))
-  }
-
-  fetchTaskTemplates = () => {
-    fetch(BASE_URL.concat('task_templates'))
-      .then(response => response.json())
-      .then(taskTemplates => this.setState({taskTemplates: taskTemplates}))
-  }
-    
   componentDidMount = () => {
+    this.checkAuthState()
     this.fetchProjects()
-    this.fetchActivities()
-    this.fetchStatusValues()
-    this.fetchActivityValues()
-    this.fetchTaskTemplates()
   }
+
+  checkAuthState = () => {
+    console.log("checkAuthState called")
+    const token = localStorage.getItem('token')
+    if (!token) {
+        console.log("No Token")
+        this.logout()
+    } else {
+        const expirationDate = localStorage.getItem('expirationDate')
+        if (expirationDate < new Date()) {
+            console.log("Token expired")
+            this.logout()
+
+        } else {
+            console.log("Authenticated")
+            const userId = localStorage.getItem('userId')
+            this.setState({isAuthenticated: true})
+
+        }
+    }
+  }
+
+  logout = () => {
+    console.log("Logout Called")
+    this.setState({isAuthenticated: false})
+    localStorage.removeItem('token')
+    localStorage.removeItem('expirationDate')
+    localStorage.removeItem('username')
+    localStorage.removeItem('userId')
+  }
+
 
   addTaskToProject = (project_id, group, taskName) => {
       const newTask = {
@@ -160,8 +187,15 @@ export default class App extends React.Component {
   }
 
   render() {
-    return (
-      <Layout>
+
+    let routes = (
+      <Switch>
+        <Route exact path='/auth' component={Auth} /> 
+      </Switch>
+    )
+
+    if (this.state.isAuthenticated) {
+      routes = (
         <Switch>
           <Route exact path='/'>
             <Projects
@@ -183,7 +217,11 @@ export default class App extends React.Component {
           </Route>
               
           <Route exact path='/activity-log'>
-            <ActivityLog activities={this.state.projectActivities}/>
+            <ActivityLog 
+              projects={this.state.projects}
+              projectActivities={this.state.projectActivities}
+              activities={this.state.activities}
+            />
           </Route>
 
           <Route exact path='/weekly-report'>
@@ -199,10 +237,26 @@ export default class App extends React.Component {
               taskTemplates={this.state.taskTemplates}
               updateValues={this.updateValues}
             />
-          </Route> 
+          </Route>
+          <Route exact path='/logout'>
+            <Logout logout={this.logout} />
+          </Route>
+          
         </Switch>
-      </Layout>
-    );
+      )
+    }
+
+    let returnValue = (<Auth />)
+    if (this.state.isAuthenticated) {
+      returnValue = (
+        <Layout isAuthenticated={this.state.isAuthenticated}>
+          {routes}
+        </Layout>
+      )
+    }
+
+    console.log(this.state.isAuthenticated)
+    return (returnValue)
   }
 }
 

@@ -19,11 +19,15 @@ class ActivityTable extends Component {
         )
     }
 
+    getActivityName = (activityId) => {
+        return this.props.activities.find( activity => activity.id === activityId ).value
+    }
+
     showActivities = (id) => {
         this.state.projectActivities.sort(function (a,b) {return b.id - a.id})
         return (
             this.state.projectActivities.map(activity => activity.project_id === id ? 
-                 <ActivityItem key={activity.id} activity={activity} /> : null
+                 <ActivityItem key={activity.id} activity={activity} activityName={this.getActivityName(activity.activity_id)} /> : null
             )                
         )
     }
@@ -101,6 +105,7 @@ class ActivityTable extends Component {
     }
 
     render() {
+        console.log(this.props)
         return(
             <div className={classes.ActivitySection}>
                 <div className={classes.ActivitySectionHeader}>

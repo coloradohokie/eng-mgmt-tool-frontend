@@ -32,8 +32,10 @@ class Projects extends Component {
         if (filterValues === []) {
             console.log("No filters selected")
         }
-
-        return this.props.projects.filter(project => filterValues.includes(project.status.value))
+        if (this.props.projects) {
+            return this.props.projects.filter(project => filterValues.includes(project.status.value))
+        }
+        return null
     }
 
     toggleFilter = (filter) => {

@@ -3,10 +3,19 @@ import Table from 'react-bootstrap/Table'
 import ActivityItem from '../../components/ProjectList/ProjectItem/ActivityTable/ActivityItem/ActivityItem' 
 
 const activityLog = (props) => {
+
+    const getProjectAddress = (projectId) => {
+        return props.projects.find( project => project.id === projectId).address1
+    }
+
+    const getActivityName = (activityId) => {
+        return props.activities.find( activity => activity.id === activityId ).value
+    }
     
     const showActivities = () => {
-        props.activities.sort(function (a,b) {return b.id - a.id})
-        return (props.activities.map(activity => <ActivityItem key={activity.id} activity={activity} showProject /> ))
+        props.projectActivities.sort(function (a,b) {return b.id - a.id})
+        console.log(props)
+        return (props.projectActivities.map(activity => <ActivityItem key={activity.id} activity={activity} activityName={getActivityName(activity.activity_id)} projectAddress={getProjectAddress(activity.project_id)} showProject /> ))
     }
 
 
