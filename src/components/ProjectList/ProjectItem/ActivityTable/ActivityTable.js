@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import Button from 'react-bootstrap/Button'
 import Table from 'react-bootstrap/Table'
 import Moment from 'react-moment'
+import { AJAX } from '../../../../shared/utility'
 import ActivityItem from './ActivityItem/ActivityItem'
 import classes from './ActivityTable.module.css'
 
@@ -44,7 +45,7 @@ class ActivityTable extends Component {
         this.setState({[event.target.name]: event.target.value})
     }
 
-    submitActivityInformation = () => {
+    submitActivityInformation = async () => {
         const newActivity = {
             activity_id: this.state.activityTypeId,
             project_id: this.props.project.id,
@@ -53,15 +54,8 @@ class ActivityTable extends Component {
             important: false,
             archived: false
         }
-
-        fetch('http://localhost:3000/project_activities', {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(newActivity)
-        })
-            .then(response => response.json())
-            .then(response => this.props.updateProjectActivities(response))
-
+        const response = await AJAX('project_activities', 'POST', false, newActivity )
+        this.props.updateProjectActivities(response)
         this.setState({
             showAddActivity: false,
             notes: "",

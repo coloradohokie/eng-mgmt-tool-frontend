@@ -1,68 +1,32 @@
+# Structural Engineering Project Manager
+This app was created for a client that wanted an automated way to manage their projects for their clients. They were a consultant who worked at a structural engineering firm and they wanted a way to manage their proposals, projects, and report their weekly progress to their manager.
+
+
+It has several features:
+* User Authentication
+* Project Management
+* Proposal Management
+* Conversion of a Proposal to a Project
+* Weekly Reporting Tool
+
+This is a highly specialized application and is not intended for general use.
+
+The code base of this project is split into a frontend and a backend to maintain portability. The frontend is hosted on michaelnewman.dev/apps/engineering_project_manager. The backend is hosted on heroku.
+
+
+## Languages
+The frontend of this project is written entirely in React/JavaScript ES6, CSS, and HTML. The backend is written in Ruby. An API connects the frontend to the backend.
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+All npm scripts are available:
+* `npm start`
+* `npm test`
+* `npm run build`
+* `npm run eject`
 
-In the project directory, you can run:
 
-### `npm start`
+## History
+This project was originally my Mod 4 project while attending Flatiron School. Unlike most school projects, this had a client with a list of needs which needed to be met in order for the project to be successful. This meant that if something was outside of my knowledge, I needed to learn it; I couldn't just pretend that the feature wasn't part of the original scope. I wanted to develop it this way because I felt like this approach was similar to real-world experience.
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+This project has been deployed and used by the client. Due to privacy concerns, the location of that install is not being reported.

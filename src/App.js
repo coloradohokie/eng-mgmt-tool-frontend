@@ -11,12 +11,11 @@ import Admin from './containers/Admin/Admin'
 import Layout from './components/Layout/Layout'
 import Auth from './containers/Auth/Auth'
 import Logout from './containers/Auth/Logout/Logout'
+import { BASE_URL } from './shared/config'
+import { AJAX } from './shared/utility'
 
 var moment = require('moment');
 moment().format();
-
-const BASE_URL = `http://localhost:3000/`
-
 
 export default class App extends React.Component {
   
@@ -34,26 +33,20 @@ export default class App extends React.Component {
     this.checkAuthState()
   }
 
-  fetchProjects = () => {
-    const token = localStorage.getItem('token')
-    if (!token) {
-      return null
+  fetchProjects = async () => {
+    try {
+      const endpoint = 'projects'
+      const response = await AJAX(endpoint)
+      this.setState({
+        projects: response.projects,
+        projectActivities: response.project_activities,
+        statuses: response.statuses,
+        activities: response.activities,
+        taskTemplates: response.task_templates,
+      })
+    } catch (error) {
+      console.error(error)
     }
-      fetch(BASE_URL.concat("projects"), {
-        method: 'GET',
-        headers: {'Authorization': `Bearer ${token}`},
-
-      })
-      .then(response => response.json())
-      .then(response => {
-        this.setState({
-          projects: response.projects,
-          projectActivities: response.project_activities,
-          statuses: response.statuses,
-          activities: response.activities,
-          taskTemplates: response.task_templates,
-        })
-      })
   }
 
   componentDidMount = () => {
@@ -62,19 +55,17 @@ export default class App extends React.Component {
   }
 
   checkAuthState = () => {
-    console.log("checkAuthState called")
     const token = localStorage.getItem('token')
     if (!token) {
-        console.log("No Token")
+        console.error("No Token")
         this.logout()
     } else {
         const expirationDate = localStorage.getItem('expirationDate')
         if (expirationDate < new Date()) {
-            console.log("Token expired")
+            console.error("Token expired")
             this.logout()
 
         } else {
-            console.log("Authenticated")
             const userId = localStorage.getItem('userId')
             this.setState({isAuthenticated: true})
 
@@ -92,7 +83,8 @@ export default class App extends React.Component {
   }
 
 
-  addTaskToProject = (project_id, group, taskName) => {
+  addTaskToProject = async (project_id, group, taskName) => {
+    try {
       const newTask = {
         name: taskName,
         project_id: project_id,
@@ -105,17 +97,15 @@ export default class App extends React.Component {
       selectedProject.last_action = `${taskName} task added to project`
       this.setState(selectedProject)
       this.updateProject(project_id, selectedProject)
-      // this.setState(selectedProject.projectTasks)
+      AJAX('tasks', 'POST', false , newTask)
 
-      fetch(BASE_URL.concat(`tasks`), {
-        method: 'POST',
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify(newTask)
-      })
-        .then(response => response.json)
+    } catch (error) {
+      console.error(error)
+    }
   }
 
-  toggleTaskCompleted = (project_id, task_id, taskName) => {
+  toggleTaskCompleted = async (project_id, task_id, taskName) => {
+    try {
       const selectedProject = this.state.projects.find(project => project.id === project_id)
       const projectTask = selectedProject.tasks.find(element => element.id === task_id)
       if (projectTask.done === true) { 
@@ -128,46 +118,41 @@ export default class App extends React.Component {
       this.setState(selectedProject)
       this.updateProject(project_id, selectedProject)
       this.setState(projectTask)
-      fetch(BASE_URL.concat(`tasks/${task_id}`), {
-        method: 'PATCH',
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify(projectTask)
-      }) 
+      const endpoint = `tasks/${task_id}`
+      await AJAX(endpoint, 'PATCH', false, projectTask)
+    } catch (error) {
+      console.error(error)
+    }
   }
 
-  addProject = (newProject) => {
-    fetch(BASE_URL.concat("projects"), {
-        method: 'POST',
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify(newProject)
-      })
-      .then(response => response.json())
-      .then(project => {this.setState({projects: [...this.state.projects, project]})})
-    window.location.href = "/"
+  addProject = async (newProject) => {
+    try {
+      const project = await AJAX('projects', 'POST', false, newProject)
+      this.setState({projects: [...this.state.projects, project]})
+      window.location.href = '/'
+    } catch (error) {
+      console.error(error)
+    }
   }
 
-  updateProject = (project_id, updatedProject) => {
-    console.log("SENT TO SERVER", updatedProject)
-    fetch(`http://localhost:3000/projects/${project_id}`, {
-      method: 'PATCH',
-      headers: {'Content-Type': "application/json"},
-      body: JSON.stringify(updatedProject)
-  })
-      .then(response => response.json())
-      .then(response => console.log("SERVER RESPONSE", response))
-
+  updateProject = async (project_id, updatedProject) => {
+    try {
+      const endpoint = `projects/${project_id}`
+      await AJAX(endpoint, 'PATCH', false, updatedProject)
+    } catch (error) {
+      console.error(error)
+    }
   }
   
 
-  addActivity = (newActivity) => {
-    fetch(BASE_URL.concat('project_activities'), {
-      method: 'POST',
-      headers: {"Content-Type": "application/json"},
-      body: JSON.stringify(newActivity)
-    })
-      .then(response => response.json())
-      .then(activity => {this.setState([...this.state.projectActivities, activity])})
-    window.location.href = `/item-details/${newActivity.project_id}`
+  addActivity = async (newActivity) => {
+    try {
+      const activity = await AJAX('project_activities', 'POST', false, newActivity)
+      this.setState([...this.state.projectActivities, activity])
+      window.location.href = `/item-details/${newActivity.project_id}`
+    } catch (error) {
+      console.error(error)
+    }
   }
 
   updateValues = (valueList, newValue) => {
@@ -255,7 +240,6 @@ export default class App extends React.Component {
       )
     }
 
-    console.log(this.state.isAuthenticated)
     return (returnValue)
   }
 }

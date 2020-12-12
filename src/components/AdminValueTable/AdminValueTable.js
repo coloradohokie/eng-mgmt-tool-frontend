@@ -3,6 +3,7 @@ import Table from 'react-bootstrap/Table'
 import Button from 'react-bootstrap/Button'
 import classes from './AdminValueTable.module.css'
 import AdminDisplayValue from './AdminDisplayValue/AdminDisplayValue'
+import { AJAX } from '../../shared/utility'
 
 
 class AdminValueTable extends Component {
@@ -36,41 +37,39 @@ class AdminValueTable extends Component {
         this.setState({[event.target.name]: event.target.value})
     }
 
-    submitNewValue = (title) => {
-        if (this.state.value && this.state.sort_id) {
-            const newValue = {
-                value: this.state.value,
-                sort_id: this.state.sort_id,
-                active: true
+    submitNewValue = async (title) => {
+        try {
+            if (this.state.value && this.state.sort_id) {
+                const newValue = {
+                    value: this.state.value,
+                    sort_id: this.state.sort_id,
+                    active: true
+                }
+                let endpoint = ""
+                switch (title) {
+                    case "Task Templates":
+                        endpoint = "task_templates"
+                        break
+                    case "Project Statuses":
+                        endpoint = "statuses"
+                        break
+                    case "Activity Values":
+                        endpoint = "activities"
+                        break
+                    default:
+                        endpoint = ""
+                }
+                const response = await AJAX(endpoint, 'POST', false, newValue)
+                this.props.updateValues(title, response)
+                this.setState({
+                    addNewValue: false,
+                    value: "",
+                    sort_id: 99
+                })
             }
-            let endpoint = ""
-            switch (title) {
-                case "Task Templates":
-                    endpoint = "task_templates"
-                    break
-                case "Project Statuses":
-                    endpoint = "statuses"
-                    break
-                case "Activity Values":
-                    endpoint = "activities"
-                    break
-                default:
-                    endpoint = ""
-            }
-            fetch(`http://localhost:3000/`.concat(endpoint), {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify(newValue)
-            })
-                .then(response => response.json())
-                .then(response => {
-                    console.log(response)
-                    this.props.updateValues(title, response)})
-            this.setState({
-                addNewValue: false,
-                value: "",
-                sort_id: 99
-            })
+
+        } catch (error) {
+            console.error(error)
         }
     }
 

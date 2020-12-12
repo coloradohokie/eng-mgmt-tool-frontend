@@ -3,6 +3,7 @@ import Input from '../../components/UI/Input/Input'
 import Button from '../../components/UI/Button/Button'
 import classes from './Auth.module.css'
 import { Redirect } from 'react-router-dom'
+import { AJAX } from '../../shared/utility'
 
 class Auth extends Component {
     state = {
@@ -81,28 +82,26 @@ class Auth extends Component {
         this.setState( { controls: updatedControls } );
     }
 
-    submitHandler = ( event ) => {
+    submitHandler = async ( event ) => {
         event.preventDefault();
-        // this.props.onAuth( this.state.controls.email.value, this.state.controls.password.value, this.state.isSignup );
-        fetch('http://localhost:3000/login', {
-            method: 'POST',
-            headers: {'Content-Type':'application/json'},
-            body: JSON.stringify({username: this.state.controls.username.value, password: this.state.controls.password.value})
-        })
-            .then(response => response.json())
-            .then(response => {
-                if (response.token) {
-                    localStorage.setItem('token', response.token)
-                    const expirationDate = new Date(new Date().getTime() + (response.expiration * 1000))
-                    localStorage.setItem('expirationDate', expirationDate)
-                    localStorage.setItem('username', response.username)
-                    localStorage.setItem('userId', response.user_id)
-                    console.log(localStorage)
-                    window.location.href = "/"
-                } else {
-                    console.log("Bad Login")
-                }
-        })
+        try {
+            const payload = {
+                username: this.state.controls.username.value, 
+                password: this.state.controls.password.value
+            }
+            const response = await AJAX('login', 'POST', false, payload)
+            if (!response.token) throw new Error ('Bad Login')
+
+            localStorage.setItem('token', response.token)
+            const expirationDate = new Date(new Date().getTime() + (response.expiration * 1000))
+            localStorage.setItem('expirationDate', expirationDate)
+            localStorage.setItem('username', response.username)
+            localStorage.setItem('userId', response.user_id)
+            window.location.href = "/"
+    
+        } catch (error) {
+            console.error(error)
+        }
     }
 
 
