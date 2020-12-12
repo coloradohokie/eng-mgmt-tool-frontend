@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import Input from '../../components/UI/Input/Input'
 import Button from '../../components/UI/Button/Button'
 import classes from './Auth.module.css'
-import { Redirect } from 'react-router-dom'
 import { AJAX } from '../../shared/utility'
 
 class Auth extends Component {

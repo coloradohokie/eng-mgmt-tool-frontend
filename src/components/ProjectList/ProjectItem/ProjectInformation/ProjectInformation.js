@@ -37,7 +37,7 @@ class ProjectInformation extends Component {
     renderProjectInformationRow = (name, value, fieldType) => {
         if (!this.state.editing) {
             if (fieldType === 'date-field' && value) {
-                let fieldValue = <Moment format="MMM DD">{value=value}</Moment>
+                let fieldValue = <Moment format="MMM DD">{value}</Moment>
                 if (value === " ") { 
                     fieldValue = null
                 } 
@@ -117,7 +117,8 @@ class ProjectInformation extends Component {
                     return this.props.project.contract_proposal_sent_date = infoValue.value
                 case "Ready to be Invoiced Date":
                     return this.props.project.ready_to_be_invoiced_date = infoValue.value
-            } return null
+                default: return null
+            }
         })
         this.props.updateProject(this.props.project.id, this.props.project)
     }

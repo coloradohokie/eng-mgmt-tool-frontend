@@ -1,7 +1,7 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './App.css';
-import {Switch, Route, Redirect} from 'react-router-dom'
+import { Switch, Route } from 'react-router-dom'
 
 import Projects from './containers/Projects/Projects'
 import ActivityLog from './containers/ActivityLog/ActivityLog'
@@ -11,7 +11,6 @@ import Admin from './containers/Admin/Admin'
 import Layout from './components/Layout/Layout'
 import Auth from './containers/Auth/Auth'
 import Logout from './containers/Auth/Logout/Logout'
-import { BASE_URL } from './shared/config'
 import { AJAX } from './shared/utility'
 
 var moment = require('moment');
@@ -66,7 +65,7 @@ export default class App extends React.Component {
             this.logout()
 
         } else {
-            const userId = localStorage.getItem('userId')
+            // const userId = localStorage.getItem('userId')
             this.setState({isAuthenticated: true})
 
         }
