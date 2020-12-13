@@ -1,0 +1,118 @@
+.ModalContentsContainer {
+    width: 95%;
+    display: flex;
+    justify-content: flex-start;
+}
+
+
+
+.TasksTable {
+  margin: 10px;
+}
+
+.TasksSection {
+  display: flex;
+  justify-content: flex-start;
+  margin-left:30px;
+}
+
+.ItemCard {
+  width: 100%;
+  max-width: 800px;
+  /* margin: auto; */
+  cursor: pointer;
+  background-color: hsl(240, 20%, 90%);
+  margin-bottom: 15px;
+  box-shadow: 5px 5px 10px gray;
+}
+
+.CardContents {
+  display: flex;
+  justify-content: space-between;
+  min-height:100px;
+}
+.CardMainBox {
+  width: 80%
+}
+.CardRightSidePanel {
+  display: flex;
+  justify-content: flex-end;
+  text-align: right;
+}
+
+.ModalHeader {
+  background-color: hsl(240, 20%, 20%);
+  color: whitesmoke
+}
+
+.ModalBody {
+  background-color: hsl(240, 20%, 90%);
+}
+
+.ModalFooter {
+  background-color: hsl(240, 20%, 90%);
+}
+
+.modal-tasks-container {
+  margin-left: 20px;
+  width: 250px;
+}
+
+.modal-task-list {
+  background-color: yellow;
+}
+
+.ModalFooterContainer {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.ModalStatusBar {
+  display: flex;
+  justify-content: flex-end;
+  margin: 10px;
+}
+
+
+
+.StatusBadge {
+  min-width: 90px;
+  height: 18px
+}
+
+@media (max-width: 1199px) {
+  .ModalContentsContainer {
+      display: flex;
+      flex-direction: column;
+  }
+
+  .TasksSection {
+    flex-direction: row;
+  }
+
+  .TaskSectionBody {
+    min-height: 0;
+    max-width: 800px;
+    width: 100%
+  }
+} 
+
+@media (max-width: 991px) {
+  .ModalContentsContainer {
+      display: flex;
+      flex-direction: column;
+  }
+
+  .TasksSection {
+    flex-direction: column;
+  }
+
+  .TaskSectionBody {
+    min-height: 0;
+    max-width: 800px;
+    width: 100%
+  }
+  
+
+}

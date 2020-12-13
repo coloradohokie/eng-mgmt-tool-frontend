@@ -1,0 +1,48 @@
+.WeeklyReport {
+    max-width: 800px;
+}
+
+.ProjectCard {
+    width: 100%;
+    max-width: 800px;
+    /* margin: auto; */
+    cursor: pointer;
+    background-color: hsl(240, 20%, 90%);
+    margin-bottom: 15px;
+    box-shadow: 5px 5px 10px gray;
+}
+
+.CardContents {
+    /* display: flex;
+    justify-content: space-between; */
+    min-height:100px;
+}
+
+
+.ActivitySectionHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 4px;
+}
+
+.ActivityLogTable {
+    background-color: #FFF;
+    width: 100%;
+}
+
+.NoInformation {
+    font-style: italic;
+    font-size: 0.9em;
+    color: #555;
+}
+
+.CardMainBox {
+    width: 80%
+}
+
+.CardRightSidePanel {
+display: flex;
+justify-content: flex-end;
+text-align: right;
+}

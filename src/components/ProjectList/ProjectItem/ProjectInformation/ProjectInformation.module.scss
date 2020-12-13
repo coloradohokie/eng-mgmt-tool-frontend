@@ -1,0 +1,26 @@
+
+.ProjectInformationTable {
+    width: 100%;
+    font-size: 0.8rem;
+}
+  
+.ProjectInformationHeader {
+display: flex;
+justify-content: space-between;
+align-items: flex-end;
+margin: 5px;
+}
+  
+.ProjectInformationBody {
+    background-color: white;
+    box-shadow: 5px 5px 10px gray;
+}
+
+@media (max-width: 800px) {
+
+    .TaskSectionBody {
+      min-height: 0;
+      max-width: 800px;
+      width: 100%
+    }
+}

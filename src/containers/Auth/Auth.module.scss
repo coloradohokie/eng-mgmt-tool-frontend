@@ -1,0 +1,17 @@
+.LoginBox {
+    margin: 50px auto;
+    width: 40%;
+    text-align: center;
+    background-color: hsl(240, 20%, 90%);
+    box-shadow: 0 2px 3px #ccc;
+    border: 1px solid #eee;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+
+@media (min-width: 600px) {
+    .LoginBox {
+        width: 500px;
+    }
+}

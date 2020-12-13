@@ -1,0 +1,35 @@
+.FilterBox {
+    /* display: flex; */
+    /* justify-content: flex-start; */
+    /* flex-wrap: wrap; */
+    height: 100px;
+    width: 300px;
+    border: 2px solid black;
+    border-radius: 5px;
+    background-color: #bbb;
+    padding: 5px;
+    margin-top: 0px;
+    margin-bottom: 10px;
+
+}
+
+.FilterControls label {
+    margin-right: 10px;
+}
+
+.FiltersList {
+    height: 70%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    list-style-type: none;
+    column-count: 2;
+    column-width: 100px;
+}
+
+h3 {
+    margin-top: 0;
+    margin-bottom: 5px;
+    font-weight: bold;
+}

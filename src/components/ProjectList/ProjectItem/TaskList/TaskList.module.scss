@@ -1,0 +1,18 @@
+.ItemDetailsTable {
+    max-width: 300px;
+    background-color: white;
+    box-shadow: 5px 5px 10px gray;
+  }
+
+.ItemDetailsTable input {
+  border: 1px #ddd solid;
+  border-radius: 8px;
+}
+
+::placeholder {
+  color: gray;
+  font-style: italic;
+  font-size: 0.8rem;
+  padding-left: 4px;
+}
+  

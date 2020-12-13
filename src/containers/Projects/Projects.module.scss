@@ -1,0 +1,23 @@
+.Projects {
+    max-width: 800px;
+}
+
+.sortControls {
+    display: flex;
+    justify-content: flex-end;
+    
+    button {
+        height: 20px;
+        border-radius: 5px;
+        margin-left: 10px;
+        font-size: 0.7em;
+    }
+}
+
+.Controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: top;
+    height: 100px;
+    margin-top: 50px;
+}
