@@ -10,7 +10,7 @@ import WeeklyReport from './containers/WeeklyReport/WeeklyReport'
 import Admin from './containers/Admin/Admin'
 import Layout from './components/Layout/Layout'
 import Auth from './containers/Auth/Auth'
-import Logout from './containers/Auth/Logout/Logout'
+import Logout from './components/Navigation/Logout/Logout'
 import { AJAX } from './shared/utility'
 
 var moment = require('moment');
@@ -73,7 +73,6 @@ export default class App extends React.Component {
   }
 
   logout = () => {
-    console.log("Logout Called")
     this.setState({isAuthenticated: false})
     localStorage.removeItem('token')
     localStorage.removeItem('expirationDate')
@@ -222,10 +221,6 @@ export default class App extends React.Component {
               updateValues={this.updateValues}
             />
           </Route>
-          <Route exact path='/logout'>
-            <Logout logout={this.logout} />
-          </Route>
-          
         </Switch>
       )
     }
@@ -233,7 +228,7 @@ export default class App extends React.Component {
     let returnValue = (<Auth />)
     if (this.state.isAuthenticated) {
       returnValue = (
-        <Layout isAuthenticated={this.state.isAuthenticated}>
+        <Layout isAuthenticated={this.state.isAuthenticated} logout={this.logout}>
           {routes}
         </Layout>
       )

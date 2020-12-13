@@ -9,7 +9,6 @@ const navigationItems = (props) => {
                 <NavigationItem link="/" exact>Project List</NavigationItem>
                 <NavigationItem link="/activity-log">Activity Log</NavigationItem>
                 <NavigationItem link="/weekly-report">Weekly Report</NavigationItem>
-                <NavigationItem link="/logout"> Logout </NavigationItem>
             </ul>
         )
     }

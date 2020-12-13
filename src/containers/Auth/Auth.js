@@ -89,7 +89,8 @@ class Auth extends Component {
                 password: this.state.controls.password.value
             }
             const response = await AJAX('login', 'POST', false, payload)
-            if (!response.token) throw new Error ('Bad Login')
+            console.log(response)
+            if (!response || !response.token) throw new Error ('Bad Login')
 
             localStorage.setItem('token', response.token)
             const expirationDate = new Date(new Date().getTime() + (response.expiration * 1000))

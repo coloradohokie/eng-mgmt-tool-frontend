@@ -4,9 +4,9 @@ import {BASE_URL} from './config'
 export const AJAX = async function(endpoint, method = 'GET', auth=true, body = null) {
     try {
         const token = localStorage.getItem('token')
+        if (!token && auth) throw new Error ('Not Authorized')
         const headers = {'Content-Type': 'application/json'}
         if (auth) headers['Authorization'] = `Bearer ${token}`
-        if (!token) return
         const payload = {
             method,
             headers
