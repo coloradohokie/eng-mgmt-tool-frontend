@@ -8,8 +8,17 @@
     width: 6rem;
     border: 1px solid rgb(68, 3, 25);
     cursor: pointer;
+    margin: 2rem 0 0 0;
     
     &:hover {
         color: white;
     }
+}
+
+
+@media (min-width: 500px) {
+    .Logout {
+        margin: 0;
+    }
+
 }

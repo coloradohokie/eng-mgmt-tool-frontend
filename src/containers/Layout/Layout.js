@@ -25,8 +25,10 @@ class Layout extends Component {
                 drawerToggleClicked={this.sideDrawerToggleHandler}
                 logout = {this.props.logout} />
             <SideDrawer
+                isAuthenticated={this.props.isAuthenticated}
                 open={this.state.showSideDrawer}
-                closed={this.sideDrawerClosedHandler} />
+                closed={this.sideDrawerClosedHandler}
+                logout = {this.props.logout} />
             <main className={classes.Content}>
                 {this.props.children}
             </main>

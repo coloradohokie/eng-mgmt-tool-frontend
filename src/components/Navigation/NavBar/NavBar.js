@@ -1,7 +1,7 @@
 import React from 'react'
 import classes from './NavBar.module.scss'
 import NavigationItems from '../NavigationItems/NavigationItems'
-import DrawerToggle from '../SideDrawer/DrawerToggle/DrawerToggle'
+import DrawerToggle from '../SideDrawer/DrawerToggle/DrawerToggleButton'
 import Logout from '../Logout/Logout'
 import Logo from '../../../assets/images/tasklist.png'
 
