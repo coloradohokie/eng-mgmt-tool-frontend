@@ -1,7 +1,7 @@
 import React from 'react'
 import unchecked from './checkboxes/unchecked_box.png'
 import checked from './checkboxes/checked_box.png'
-import classes from './TaskItem.module.css'
+import classes from './TaskItem.module.scss'
 
 const taskItem = (props) => {
     const handleClick = (event) => {

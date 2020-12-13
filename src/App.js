@@ -1,6 +1,6 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css'
-import './App.css';
+import './App.scss';
 import { Switch, Route } from 'react-router-dom'
 
 import Projects from './containers/Projects/Projects'

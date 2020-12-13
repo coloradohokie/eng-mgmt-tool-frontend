@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import classes from './Admin.module.css'
+import classes from './Admin.module.scss'
 import AdminValueTable from '../../components/AdminValueTable/AdminValueTable'
 
 class Admin extends Component {

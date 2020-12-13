@@ -1,5 +1,5 @@
 import React from 'react'
-import classes from './NavBar.module.css'
+import classes from './NavBar.module.scss'
 import NavigationItems from '../NavigationItems/NavigationItems'
 import DrawerToggle from '../SideDrawer/DrawerToggle/DrawerToggle'
 import Logout from '../Logout/Logout'

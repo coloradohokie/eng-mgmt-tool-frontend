@@ -1,6 +1,6 @@
 import React from 'react'
 import Form from 'react-bootstrap/Form'
-import classes from './ReportControls.module.css'
+import classes from './ReportControls.module.scss'
 import moment from 'moment'
 
 const reportControls = (props) => (

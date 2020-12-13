@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import TaskItem from './TaskItem/TaskItem'
 import Table from 'react-bootstrap/Table'
-import classes from './TaskList.module.css'
+import classes from './TaskList.module.scss'
 
 class TaskList extends Component {
 //props: tasks, group, project_id, addTaskToProject(), toggleTaskCompleted()

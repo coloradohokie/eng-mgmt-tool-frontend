@@ -4,7 +4,7 @@ import Table from 'react-bootstrap/Table'
 import Moment from 'react-moment'
 import { AJAX } from '../../../../shared/utility'
 import ActivityItem from './ActivityItem/ActivityItem'
-import classes from './ActivityTable.module.css'
+import classes from './ActivityTable.module.scss'
 
 class ActivityTable extends Component {
     state = {

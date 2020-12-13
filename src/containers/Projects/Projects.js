@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import ProjectList from '../../components/ProjectList/ProjectList'
 import FilterProjects from '../../components/FilterProjects/FilterProjects'
-import classes from './Projects.module.css'
+import classes from './Projects.module.scss'
 
 class Projects extends Component {
 

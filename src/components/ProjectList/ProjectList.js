@@ -2,7 +2,7 @@ import React from 'react'
 import ProjectItem from './ProjectItem/ProjectItem'
 import Button from 'react-bootstrap/Button'
 import {Link} from 'react-router-dom'
-import classes from './ProjectList.module.css'
+import classes from './ProjectList.module.scss'
 
 
 const ProjectList = (props) => {

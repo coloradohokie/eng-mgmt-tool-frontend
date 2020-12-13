@@ -1,6 +1,5 @@
 import React from 'react'
-import NavigationItem from '../NavigationItems/NavigationItem/NavigationItem'
-import classes from './Logout.module.css'
+import classes from './Logout.module.scss'
 
 const logout = (props) => {
     return (

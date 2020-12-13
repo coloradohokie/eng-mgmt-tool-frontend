@@ -4,7 +4,7 @@ import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
 import Moment from 'react-moment'
 import CurrencyFormat from 'react-currency-format'
-import classes from './ProjectInformation.module.css'
+import classes from './ProjectInformation.module.scss'
 
 class ProjectInformation extends Component {
    

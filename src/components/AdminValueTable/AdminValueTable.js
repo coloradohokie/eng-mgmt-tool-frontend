@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Table from 'react-bootstrap/Table'
 import Button from 'react-bootstrap/Button'
-import classes from './AdminValueTable.module.css'
+import classes from './AdminValueTable.module.scss'
 import AdminDisplayValue from './AdminDisplayValue/AdminDisplayValue'
 import { AJAX } from '../../shared/utility'
 
