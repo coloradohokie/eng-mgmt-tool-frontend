@@ -1,6 +1,6 @@
 import React from 'react'
 import Table from 'react-bootstrap/Table'
-import ActivityItem from '../../components/ProjectList/ProjectItem/ActivityTable/ActivityItem/ActivityItem' 
+import ActivityItem from '../ProjectList/ProjectItem/ActivityTable/ActivityItem/ActivityItem' 
 
 const activityLog = (props) => {
 
@@ -14,8 +14,19 @@ const activityLog = (props) => {
     
     const showActivities = () => {
         props.projectActivities.sort(function (a,b) {return b.id - a.id})
-        console.log(props)
-        return (props.projectActivities.map(activity => <ActivityItem key={activity.id} activity={activity} activityName={getActivityName(activity.activity_id)} projectAddress={getProjectAddress(activity.project_id)} showProject /> ))
+        return (
+            props.projectActivities.map(activity => {
+                return (
+                    <ActivityItem 
+                        key={activity.id} 
+                        activity={activity} 
+                        activityName={getActivityName(activity.activity_id)} 
+                        projectAddress={getProjectAddress(activity.project_id)} 
+                        showProject 
+                    /> 
+                )
+            })
+        )
     }
 
 

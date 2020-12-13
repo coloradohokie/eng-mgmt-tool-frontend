@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import classes from './Layout.module.css'
-import NavBar from '../Navigation/NavBar/NavBar'
-import SideDrawer from '../Navigation/SideDrawer/SideDrawer'
+import NavBar from '../../components/Navigation/NavBar/NavBar'
+import SideDrawer from '../../components/Navigation/SideDrawer/SideDrawer'
 
 class Layout extends Component {
 

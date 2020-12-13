@@ -4,7 +4,7 @@ import Moment from 'react-moment'
 import Table from 'react-bootstrap/Table'
 import ActivityItem from '../../components/ProjectList/ProjectItem/ActivityTable/ActivityItem/ActivityItem'
 import Card from 'react-bootstrap/Card'
-import ProjectProgress from '../../components/ProjectProgress/ProjectProgress'
+import ProjectProgress from '../../components/UI/ProjectProgress/ProjectProgress'
 import classes from './WeeklyReport.module.css'
 import moment from 'moment'
 

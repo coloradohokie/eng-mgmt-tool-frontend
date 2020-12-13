@@ -4,11 +4,11 @@ import './App.css';
 import { Switch, Route } from 'react-router-dom'
 
 import Projects from './containers/Projects/Projects'
-import ActivityLog from './containers/ActivityLog/ActivityLog'
+import ActivityLog from './components/ActivityLog/ActivityLog'
 import NewProject from './containers/NewProject/NewProject'
 import WeeklyReport from './containers/WeeklyReport/WeeklyReport'
 import Admin from './containers/Admin/Admin'
-import Layout from './components/Layout/Layout'
+import Layout from './containers/Layout/Layout'
 import Auth from './containers/Auth/Auth'
 import Logout from './components/Navigation/Logout/Logout'
 import { AJAX } from './shared/utility'
