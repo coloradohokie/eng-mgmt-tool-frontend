@@ -10,7 +10,6 @@ import WeeklyReport from './containers/WeeklyReport/WeeklyReport'
 import Admin from './containers/Admin/Admin'
 import Layout from './containers/Layout/Layout'
 import Auth from './containers/Auth/Auth'
-import Logout from './components/Navigation/Logout/Logout'
 import { AJAX } from './shared/utility'
 
 var moment = require('moment');

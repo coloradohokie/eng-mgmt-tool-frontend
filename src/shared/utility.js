@@ -13,6 +13,7 @@ export const AJAX = async function(endpoint, method = 'GET', auth=true, body = n
         }
         if (body) payload.body = JSON.stringify(body)
         const response = await fetch(BASE_URL + endpoint, payload)
+        if(!response.ok) throw new Error ('Invalid Response')
         const result = await response.json()
         return result
     } catch (error) {
