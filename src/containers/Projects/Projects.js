@@ -2,6 +2,9 @@ import React, {Component} from 'react'
 import ProjectList from '../../components/ProjectList/ProjectList'
 import FilterProjects from '../../components/FilterProjects/FilterProjects'
 import classes from './Projects.module.scss'
+import { AJAX } from '../../shared/utility'
+import { connect } from 'react-redux'
+import * as actions from '../../store/actions/index'
 
 class Projects extends Component {
 
@@ -21,7 +24,55 @@ class Projects extends Component {
         }        
     }
 
-    selectedProjectList = (projects) => {
+    componentDidMount() {
+        this.props.onFetchProjects()
+    }
+
+    toggleTaskCompleted = async (projectId, taskId, taskName) => {
+        try {
+            const selectedProject = this.props.projects.find(project => project.id === projectId)
+            const projectTask = selectedProject.tasks.find(element => element.id === taskId)
+            if (projectTask.done === true) { 
+                projectTask.done = false
+                selectedProject.last_action = `${taskName} task marked not completed`
+            } else {
+                projectTask.done = true
+                selectedProject.last_action = `${taskName} task marked completed`
+            }
+            this.props.onUpdateProject(projectId, selectedProject)
+            this.setState(projectTask) //this is used to trigger re-render
+            this.props.onToggleTask(taskId, projectTask)
+        } catch (error) {
+            console.error(error)
+        }
+    }
+
+    addTaskToProject = async (project_id, group, taskName) => {
+        try {
+          const newTask = {
+            name: taskName,
+            project_id: project_id,
+            template_name: group,
+            active: true,
+            done: false
+          }
+          const selectedProject = this.props.projects.find(project => project.id === project_id)
+          selectedProject.tasks.push(newTask)
+          selectedProject.last_action = `${taskName} task added to project`
+          this.setState(selectedProject)
+          this.props.onUpdateProject(project_id, selectedProject)
+          AJAX('tasks', 'POST', false , newTask)
+    
+        } catch (error) {
+          console.error(error)
+        }
+    }
+
+    updateProjectActivities = (newValue) => {
+        this.setState({projectActivities: [...this.props.projectActivities, newValue]})
+      }
+
+    selectedProjectList = () => {
         const filterValues = []
         this.state.filters.map( filter => {
             if (filter.show) {
@@ -94,10 +145,10 @@ class Projects extends Component {
                     projectActivities={this.props.projectActivities}
                     activities={this.props.activities} 
                     statuses={this.props.statuses}
-                    toggleTaskCompleted={this.props.toggleTaskCompleted}
-                    updateProject={this.props.updateProject}
-                    addTaskToProject={this.props.addTaskToProject}
-                    updateProjectActivities={this.props.updateProjectActivities}
+                    toggleTaskCompleted={this.toggleTaskCompleted}
+                    updateProject={this.props.onUpdateProject}
+                    addTaskToProject={this.addTaskToProject}
+                    updateProjectActivities={this.updateProjectActivities}
                     />
             </div>
         )
@@ -107,4 +158,22 @@ class Projects extends Component {
 
 }
 
-export default Projects
+const mapStateToProps = state => {
+    return {
+        projects: state.projects.projects,
+        projectActivities: state.projects.projectActivities,
+        statuses: state.projects.statuses,
+        activities: state.projects.activities,
+        taskTemplates: state.projects.taskTemplates
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        onFetchProjects: () => dispatch(actions.fetchProjects()),
+        onUpdateProject: (id, updatedProject) => dispatch(actions.updateProject(id, updatedProject)),
+        onToggleTask: (taskId, projectTask) => dispatch(actions.toggleTask(taskId, projectTask))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Projects)

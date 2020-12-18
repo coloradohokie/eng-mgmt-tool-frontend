@@ -18,11 +18,6 @@ moment().format();
 export default class App extends React.Component {
   
   state = {
-    projects: [],
-    projectActivities: [],
-    statuses: [],
-    activities: [],
-    taskTemplates: [],
     isAuthenticated: false
   }
 
@@ -31,25 +26,11 @@ export default class App extends React.Component {
     this.checkAuthState()
   }
 
-  fetchProjects = async () => {
-    try {
-      const endpoint = 'projects'
-      const response = await AJAX(endpoint)
-      this.setState({
-        projects: response.projects,
-        projectActivities: response.project_activities,
-        statuses: response.statuses,
-        activities: response.activities,
-        taskTemplates: response.task_templates,
-      })
-    } catch (error) {
-      console.error(error)
-    }
-  }
+
 
   componentDidMount = () => {
     this.checkAuthState()
-    this.fetchProjects()
+   // this.fetchProjects()
   }
 
   checkAuthState = () => {
@@ -80,48 +61,6 @@ export default class App extends React.Component {
   }
 
 
-  addTaskToProject = async (project_id, group, taskName) => {
-    try {
-      const newTask = {
-        name: taskName,
-        project_id: project_id,
-        template_name: group,
-        active: true,
-        done: false
-      }
-      const selectedProject = this.state.projects.find(project => project.id === project_id)
-      selectedProject.tasks.push(newTask)
-      selectedProject.last_action = `${taskName} task added to project`
-      this.setState(selectedProject)
-      this.updateProject(project_id, selectedProject)
-      AJAX('tasks', 'POST', false , newTask)
-
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
-  toggleTaskCompleted = async (project_id, task_id, taskName) => {
-    try {
-      const selectedProject = this.state.projects.find(project => project.id === project_id)
-      const projectTask = selectedProject.tasks.find(element => element.id === task_id)
-      if (projectTask.done === true) { 
-        projectTask.done = false
-        selectedProject.last_action = `${taskName} task marked not completed`
-      } else {
-        projectTask.done = true
-        selectedProject.last_action = `${taskName} task marked completed`
-      }
-      this.setState(selectedProject)
-      this.updateProject(project_id, selectedProject)
-      this.setState(projectTask)
-      const endpoint = `tasks/${task_id}`
-      await AJAX(endpoint, 'PATCH', false, projectTask)
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
   addProject = async (newProject) => {
     try {
       const project = await AJAX('projects', 'POST', false, newProject)
@@ -131,16 +70,6 @@ export default class App extends React.Component {
       console.error(error)
     }
   }
-
-  updateProject = async (project_id, updatedProject) => {
-    try {
-      const endpoint = `projects/${project_id}`
-      await AJAX(endpoint, 'PATCH', false, updatedProject)
-    } catch (error) {
-      console.error(error)
-    }
-  }
-  
 
   addActivity = async (newActivity) => {
     try {
@@ -164,10 +93,6 @@ export default class App extends React.Component {
     }
   }
 
-  updateProjectActivities = (newValue) => {
-    this.setState({projectActivities: [...this.state.projectActivities, newValue]})
-  }
-
   render() {
 
     let routes = (
@@ -181,14 +106,14 @@ export default class App extends React.Component {
         <Switch>
           <Route exact path='/'>
             <Projects
-              projects={this.state.projects}
-              projectActivities={this.state.projectActivities}
-              activities={this.state.activities} 
-              statuses={this.state.statuses}
-              toggleTaskCompleted={this.toggleTaskCompleted}
-              updateProject={this.updateProject}
-              addTaskToProject={this.addTaskToProject}
-              updateProjectActivities={this.updateProjectActivities}
+              // projects={this.state.projects}
+              // projectActivities={this.state.projectActivities}
+              // activities={this.state.activities} 
+              // statuses={this.state.statuses}
+              // toggleTaskCompleted={this.toggleTaskCompleted}
+              // updateProject={this.updateProject}
+              // addTaskToProject={this.addTaskToProject}
+              // updateProjectActivities={this.updateProjectActivities}
             />
           </Route>
 
@@ -224,16 +149,15 @@ export default class App extends React.Component {
       )
     }
 
-    let returnValue = (<Auth />)
     if (this.state.isAuthenticated) {
-      returnValue = (
+      return (
         <Layout isAuthenticated={this.state.isAuthenticated} logout={this.logout}>
           {routes}
         </Layout>
       )
     }
 
-    return (returnValue)
+    return <Auth />
   }
 }
 
