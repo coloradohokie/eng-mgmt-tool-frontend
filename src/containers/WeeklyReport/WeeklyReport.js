@@ -7,6 +7,7 @@ import Card from 'react-bootstrap/Card'
 import ProjectProgress from '../../components/UI/ProjectProgress/ProjectProgress'
 import classes from './WeeklyReport.module.scss'
 import moment from 'moment'
+import { connect } from 'react-redux'
 
 class WeeklyReport extends Component {
     
@@ -126,5 +127,12 @@ class WeeklyReport extends Component {
     }
 }
 
+const mapStateToProps = state => {
+    return {
+        projects: state.projects.projects,
+        projectActivities: state.projects.projectActivities
+    }
+}
 
-export default WeeklyReport
+
+export default connect(mapStateToProps)(WeeklyReport)

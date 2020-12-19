@@ -32,10 +32,7 @@ const reducer = (state = initialState, action) => {
 function fetchProjectsSuccess (state, action) {
     const projects = action.projects
     const projectActivities = action.projectActivities
-    const statuses = action.statuses
-    const activities = action.activities
-    const taskTemplates = action.taskTemplates
-    return updateObject(state, {projects, projectActivities, statuses, activities, taskTemplates})
+    return updateObject(state, {projects, projectActivities})
 }
 
 function fetchProjectsFail (state, action) {

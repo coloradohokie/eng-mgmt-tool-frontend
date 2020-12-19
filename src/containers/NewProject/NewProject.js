@@ -218,7 +218,7 @@ class NewProject extends Component {
 
 const mapStateToProps = state => {
     return {
-        statuses: state.projects.statuses
+        statuses: state.config.statuses
     }
 }
 

@@ -98,9 +98,9 @@ const projectDetails = props => {
 
 const mapStateToProps = state => {
     return {
-        statuses: state.projects.statuses,
+        statuses: state.config.statuses,
         projectActivities: state.projects.projectActivities,
-        activities: state.projects.activities
+        activities: state.config.activities
 
     }
 }

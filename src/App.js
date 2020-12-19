@@ -4,10 +4,10 @@ import './App.scss';
 import { Switch, Route } from 'react-router-dom'
 
 import Projects from './containers/Projects/Projects'
-import ActivityLog from './components/ActivityLog/ActivityLog'
+import ActivityLog from './containers/ActivityLog/ActivityLog'
 import NewProject from './containers/NewProject/NewProject'
 import WeeklyReport from './containers/WeeklyReport/WeeklyReport'
-import Admin from './containers/Config/Config'
+import Config from './containers/Config/Config'
 import Layout from './containers/Layout/Layout'
 import Auth from './containers/Auth/Auth'
 
@@ -72,32 +72,19 @@ export default class App extends React.Component {
           </Route>
 
           <Route path='/create-new-project'>
-            <NewProject
-              statuses={this.state.statuses} 
-              addProject={this.addProject} />
+            <NewProject />
           </Route>
               
           <Route exact path='/activity-log'>
-            <ActivityLog 
-              projects={this.state.projects}
-              projectActivities={this.state.projectActivities}
-              activities={this.state.activities}
-            />
+            <ActivityLog />
           </Route>
 
           <Route exact path='/weekly-report'>
-            <WeeklyReport 
-              projects={this.state.projects}
-              projectActivities={this.state.projectActivities} />
+            <WeeklyReport />
           </Route> 
 
           <Route exact path='/config'>
-            <Admin 
-              statuses={this.state.statuses}
-              activities={this.state.activities}
-              taskTemplates={this.state.taskTemplates}
-              updateValues={this.updateValues}
-            />
+            <Config />
           </Route>
         </Switch>
       )

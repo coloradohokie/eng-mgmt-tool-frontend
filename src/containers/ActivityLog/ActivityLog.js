@@ -1,8 +1,10 @@
 import React from 'react'
 import Table from 'react-bootstrap/Table'
-import ActivityItem from '../ProjectList/ProjectItem/ActivityTable/ActivityItem/ActivityItem' 
+import ActivityItem from '../../components/ProjectList/ProjectItem/ActivityTable/ActivityItem/ActivityItem' 
+import { connect } from 'react-redux'
 
 const activityLog = (props) => {
+    console.log(props)
 
     const getProjectAddress = (projectId) => {
         return props.projects.find( project => project.id === projectId).address1
@@ -50,4 +52,12 @@ const activityLog = (props) => {
     )
 }
 
-export default activityLog
+const mapStateToProps = state => {
+    return {
+        projects: state.projects.projects,
+        projectActivities: state.projects.projectActivities,
+        activities: state.config.activities
+    }
+}
+
+export default connect(mapStateToProps)(activityLog)

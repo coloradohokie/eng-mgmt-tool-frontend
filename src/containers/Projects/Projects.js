@@ -154,9 +154,9 @@ const mapStateToProps = state => {
     return {
         projects: state.projects.projects,
         projectActivities: state.projects.projectActivities,
-        statuses: state.projects.statuses,
-        activities: state.projects.activities,
-        taskTemplates: state.projects.taskTemplates
+        statuses: state.config.statuses,
+        activities: state.config.activities,
+        taskTemplates: state.config.taskTemplates
     }
 }
 
