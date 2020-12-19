@@ -57,17 +57,6 @@ export default class App extends React.Component {
     localStorage.removeItem('userId')
   }
 
-
-  addActivity = async (newActivity) => {
-    try {
-      const activity = await AJAX('project_activities', 'POST', false, newActivity)
-      this.setState([...this.state.projectActivities, activity])
-      window.location.href = `/item-details/${newActivity.project_id}`
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
   updateValues = (valueList, newValue) => {
     if (valueList === "Task Templates") {
         this.setState({taskTemplates: [...this.state.taskTemplates, newValue]})
