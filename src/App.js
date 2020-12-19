@@ -30,7 +30,6 @@ export default class App extends React.Component {
 
   componentDidMount = () => {
     this.checkAuthState()
-   // this.fetchProjects()
   }
 
   checkAuthState = () => {
@@ -60,16 +59,6 @@ export default class App extends React.Component {
     localStorage.removeItem('userId')
   }
 
-
-  addProject = async (newProject) => {
-    try {
-      const project = await AJAX('projects', 'POST', false, newProject)
-      this.setState({projects: [...this.state.projects, project]})
-      window.location.href = '/'
-    } catch (error) {
-      console.error(error)
-    }
-  }
 
   addActivity = async (newActivity) => {
     try {

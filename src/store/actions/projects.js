@@ -129,3 +129,30 @@ export const updateProjectActivities = (newValue) => {
         newValue
     }
 }
+
+export const addProject = (newProject) => {
+    const addProjectSuccess = (newProject) => {
+        return {
+            type: actionTypes.ADD_PROJECT_SUCCESS,
+            newProject
+        }
+    }
+
+    const addProjectFail = (error) => {
+        return {
+            type: actionTypes.ADD_PROJECT_FAIL,
+            error
+        }
+    }
+
+    return async dispatch => {
+        try {
+            const project = await AJAX('projects', 'POST', false, newProject)
+            dispatch(addProjectSuccess(project))
+            window.location.href = '/'
+        } catch (error) {
+            dispatch(addProjectFail(error))
+        }
+
+    }
+}

@@ -3,5 +3,6 @@ export {
     toggleTask,
     updateProject,
     addTaskToProject,
-    updateProjectActivities
+    updateProjectActivities,
+    addProject
 } from './projects'

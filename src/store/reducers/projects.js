@@ -22,6 +22,7 @@ const reducer = (state = initialState, action) => {
         case actionTypes.ADD_TASK_TO_PROJECT_SUCCESS: return addTaskToProjectSuccess(state, action)
         case actionTypes.ADD_TASK_TO_PROJECT_FAIL: return addTaskToProjectFail(state, action)
         case actionTypes.UPDATE_PROJECT_ACTIVITIES: return updateProjectActivities(state, action)
+        case actionTypes.ADD_PROJECT: return addProject(state, action)
         default: return state
     }
 }
@@ -73,6 +74,11 @@ function addTaskToProjectFail(state, action) {
 
 function updateProjectActivities(state, action) {
     return updateObject(state.projectActivities, action.newValue)
+}
+
+function addProject(state, action) {
+    const updatedProjects = updateObject(state.projects, action.newProject)
+    return updateObject(state, updatedProjects)
 }
 
 

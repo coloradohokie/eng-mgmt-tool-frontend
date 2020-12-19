@@ -1,15 +1,23 @@
-import React, {Component} from 'react'
+import React from 'react'
 import CreateNewProject from '../../components/CreateNewProject/CreateNewProject'
+import { connect } from 'react-redux'
+import * as actions from '../../store/actions/index'
 
 
-class NewProject extends Component {
-    
-    render() {
-        return(
-            <CreateNewProject statuses={this.props.statuses} addProject={this.props.addProject} />
-        )
+const newProject = props => (
+    <CreateNewProject statuses={props.statuses} addProject={props.addProject} />
+)
+
+const mapStateToProps = state => {
+    return {
+        statuses: state.projects.statuses
     }
-
 }
 
-export default NewProject
+const mapDispatchToProps = dispatch => {
+    return {
+        addProject: (newProject) => dispatch(actions.addProject(newProject))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(newProject)
