@@ -10,26 +10,26 @@ import {connect} from 'react-redux'
 import * as actions from '../../../../store/actions/index'
 
 
-class ProjectDetails extends Component {
+const projectDetails = props => {
 
-    setStatusHandler (event) {
-        const updatedStatus = this.props.statuses.find(status => status.id === +event.target.value)
-        const updatedProject = {...this.props.project, status_id: +event.target.value, status: updatedStatus}
-        this.props.setProjectStatusId(+event.target.value)
-        this.props.onUpdateProject(this.props.project.id, updatedProject)
+    const setStatusHandler = (event) => {
+        const updatedStatus = props.statuses.find(status => status.id === +event.target.value)
+        const updatedProject = {...props.project, status_id: +event.target.value, status: updatedStatus}
+        props.setProjectStatusId(+event.target.value)
+        props.onUpdateProject(props.project.id, updatedProject)
     }
 
-    getStatusValues () {
-        return this.props.statuses.map(
+    const getStatusValues = () => {
+        return props.statuses.map(
             status => <option key={status.id} value={status.id}>{status.value}</option>)
     }
 
-    filterUniqueValues (taskArray) {
+    const filterUniqueValues = (taskArray) => {
         return [...new Set(taskArray.map(item => item.template_name))]
     }
 
-    getTasks (projectId) {
-        const taskGroups = this.filterUniqueValues(this.props.project.tasks)
+    const getTasks = (projectId) => {
+        const taskGroups = filterUniqueValues(props.project.tasks)
         return (
             <div className={classes.TasksSection}>
                 {taskGroups.map(group => {
@@ -37,11 +37,11 @@ class ProjectDetails extends Component {
                         <div key={group} className={classes.TasksTable}>
                             <h2>{group}</h2> 
                             <TaskList 
-                                tasks={this.props.project.tasks}
+                                tasks={props.project.tasks}
                                 group={group} 
                                 project_id={projectId} 
-                                addTaskToProject={this.props.addTaskToProject}
-                                toggleTaskCompleted={this.props.toggleTaskCompleted} />
+                                addTaskToProject={props.addTaskToProject}
+                                toggleTaskCompleted={props.toggleTaskCompleted} />
                         </div>
                     )
                 })}
@@ -49,52 +49,51 @@ class ProjectDetails extends Component {
         )
     }
 
-    render() {
-        return (
-            <Modal size="xl" centered show={this.props.show} onHide={this.props.handleClose}>
-                <Modal.Header className={classes.ModalHeader} closeButton>
-                    <Modal.Title>{this.props.displayTitle}</Modal.Title>
-                </Modal.Header>
-    
-                <Modal.Body className={classes.ModelBody}>
-                    <div className={classes.ModalStatusBar}>
-                        <label>Status</label>
-                        <select name="status" value={this.props.projectStatusId} onChange={this.setStatusHandler}>
-                            {this.getStatusValues()}
-                        </select>
-                    </div>
-                    <div className={classes.ModalContentsContainer}>
-                        <ProjectInformation 
-                            project={this.props.project} 
-                            updateProject={this.props.onUpdateProject} 
-                        />
-                        {this.getTasks(this.props.project.id)}
-                    </div>
-                    <ActivityTable 
-                        project={this.props.project} 
-                        projectActivities={this.props.projectActivities}
-                        activities={this.props.activities}
-                        updateProjectActivities={this.props.updateProjectActivities} 
+    return (
+        <Modal size="xl" centered show={props.show} onHide={props.handleClose}>
+            <Modal.Header className={classes.ModalHeader} closeButton>
+                <Modal.Title>{props.displayTitle}</Modal.Title>
+            </Modal.Header>
+
+            <Modal.Body className={classes.ModelBody}>
+                <div className={classes.ModalStatusBar}>
+                    <label>Status</label>
+                    <select name="status" value={props.projectStatusId} onChange={setStatusHandler}>
+                        {getStatusValues()}
+                    </select>
+                </div>
+                <div className={classes.ModalContentsContainer}>
+                    <ProjectInformation 
+                        project={props.project} 
+                        updateProject={props.onUpdateProject} 
                     />
-                </Modal.Body>
-    
-                <Modal.Footer className={classes.ModalFooter}>
-                    <div className={classes.ModalFooterContainer}>
-                        <div>
-                            <p>Project Created: {<Moment format="MM-DD-YYYY">{this.props.project.created_at}</Moment>}</p>
-                            <p>Last Updated: <Moment format="MM-DD-YYYY">{this.props.project.updated_at}</Moment></p>
-    
-                        </div>
-                        <div>
-                            <Button variant="secondary" onClick={this.props.handleClose}>
-                                Close
-                            </Button>
-                        </div>
+                    {getTasks(props.project.id)}
+                </div>
+                <ActivityTable 
+                    project={props.project} 
+                    // projectActivities={props.projectActivities}
+                    activities={props.activities}
+                    updateProjectActivities={props.updateProjectActivities} 
+                />
+            </Modal.Body>
+
+            <Modal.Footer className={classes.ModalFooter}>
+                <div className={classes.ModalFooterContainer}>
+                    <div>
+                        <p>Project Created: {<Moment format="MM-DD-YYYY">{props.project.created_at}</Moment>}</p>
+                        <p>Last Updated: <Moment format="MM-DD-YYYY">{props.project.updated_at}</Moment></p>
+
                     </div>
-                </Modal.Footer>
-            </Modal>
-        )
-    }
+                    <div>
+                        <Button variant="secondary" onClick={props.handleClose}>
+                            Close
+                        </Button>
+                    </div>
+                </div>
+            </Modal.Footer>
+        </Modal>
+    )
+    
 }
 
 const mapStateToProps = state => {
@@ -112,4 +111,4 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProjectDetails)
+export default connect(mapStateToProps, mapDispatchToProps)(projectDetails)

@@ -5,6 +5,7 @@ import Moment from 'react-moment'
 import { AJAX } from '../../../../shared/utility'
 import ActivityItem from './ActivityItem/ActivityItem'
 import classes from './ActivityTable.module.scss'
+import { connect } from 'react-redux'
 
 class ActivityTable extends Component {
     state = {
@@ -36,7 +37,7 @@ class ActivityTable extends Component {
     getActivityOptions = () => {
         return this.props.activities.map(activity => {
             return (
-            <option value={activity.id}>{activity.value}</option>
+            <option key={activity.id} value={activity.id}>{activity.value}</option>
             )
         })
     }
@@ -99,7 +100,6 @@ class ActivityTable extends Component {
     }
 
     render() {
-        console.log(this.props)
         return(
             <div className={classes.ActivitySection}>
                 <div className={classes.ActivitySectionHeader}>
@@ -126,4 +126,10 @@ class ActivityTable extends Component {
     }
 }
 
-export default ActivityTable
+const mapStateToProps = state => {
+    return {
+        projectActivities: state.projects.projectActivities
+    }
+}
+
+export default connect(mapStateToProps)(ActivityTable)

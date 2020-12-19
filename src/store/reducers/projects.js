@@ -1,4 +1,3 @@
-import { addTaskToProject } from '../actions'
 import * as actionTypes from '../actions/actionTypes'
 import { updateObject } from '../utility'
 
@@ -22,6 +21,7 @@ const reducer = (state = initialState, action) => {
         case actionTypes.UPDATE_PROJECT_FAIL: return updateProjectFail(state, action)
         case actionTypes.ADD_TASK_TO_PROJECT_SUCCESS: return addTaskToProjectSuccess(state, action)
         case actionTypes.ADD_TASK_TO_PROJECT_FAIL: return addTaskToProjectFail(state, action)
+        case actionTypes.UPDATE_PROJECT_ACTIVITIES: return updateProjectActivities(state, action)
         default: return state
     }
 }
@@ -70,5 +70,10 @@ function addTaskToProjectFail(state, action) {
     console.error(action.error)
     return state
 }
+
+function updateProjectActivities(state, action) {
+    return updateObject(state.projectActivities, action.newValue)
+}
+
 
 export default reducer

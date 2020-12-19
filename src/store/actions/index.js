@@ -2,5 +2,6 @@ export {
     fetchProjects,
     toggleTask,
     updateProject,
-    addTaskToProject
+    addTaskToProject,
+    updateProjectActivities
 } from './projects'

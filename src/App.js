@@ -105,16 +105,7 @@ export default class App extends React.Component {
       routes = (
         <Switch>
           <Route exact path='/'>
-            <Projects
-              // projects={this.state.projects}
-              // projectActivities={this.state.projectActivities}
-              // activities={this.state.activities} 
-              // statuses={this.state.statuses}
-              // toggleTaskCompleted={this.toggleTaskCompleted}
-              // updateProject={this.updateProject}
-              // addTaskToProject={this.addTaskToProject}
-              // updateProjectActivities={this.updateProjectActivities}
-            />
+            <Projects />
           </Route>
 
           <Route path='/create-new-project'>

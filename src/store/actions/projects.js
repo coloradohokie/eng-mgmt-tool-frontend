@@ -122,3 +122,10 @@ export const addTaskToProject = (projectId, taskGroup, taskName) => {
         }
     }
 }
+
+export const updateProjectActivities = (newValue) => {
+    return {
+        type: actionTypes.UPDATE_PROJECT_ACTIVITIES,
+        newValue
+    }
+}

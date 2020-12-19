@@ -10,31 +10,31 @@ const ProjectList = (props) => {
         switch (props.sort.selectedMethod) {
             case "Job Number":
                 props.sort.ascending ? 
-                    props.projects.sort(function (a,b) {return b.job_number - a.job_number}) :
-                    props.projects.sort(function (a,b) {return a.job_number - b.job_number})
+                    props.projects.sort((a,b) => b.job_number - a.job_number) :
+                    props.projects.sort((a,b) => a.job_number - b.job_number)
                 break
             case "Status":
                 props.sort.ascending ? 
-                    props.projects.sort(function (a,b) {return b.status.sort_id - a.status.sort_id}) :
-                    props.projects.sort(function (a,b) {return a.status.sort_id - b.status.sort_id})
+                    props.projects.sort((a,b) => b.status.sort_id - a.status.sort_id) :
+                    props.projects.sort((a,b) => a.status.sort_id - b.status.sort_id)
                 break
             case "Address":
                 props.sort.ascending ? 
-                    props.projects.sort(function (a,b) {return b.address1 - a.address1}) :
-                    props.projects.sort(function (a,b) {return a.address1 - b.address1})
+                    props.projects.sort((a,b) => b.address1 - a.address1) :
+                    props.projects.sort((a,b) => a.address1 - b.address1)
                 break
             case "City":
                 props.sort.ascending ? 
-                    props.projects.sort(function (a,b) {return b.city - a.city}) :
-                    props.projects.sort(function (a,b) {return a.city - b.city})
+                    props.projects.sort((a,b) => b.city - a.city) :
+                    props.projects.sort((a,b) => a.city - b.city)
                 break
             case "% Complete":
                 props.sort.ascending ? 
-                    props.projects.sort(function (a,b) {return b.percent_complete - a.percent_complete}) :
-                    props.projects.sort(function (a,b) {return a.percent_complete - b.percent_complete})
+                    props.projects.sort((a,b) => b.percent_complete - a.percent_complete) :
+                    props.projects.sort((a,b) => a.percent_complete - b.percent_complete)
                 break
             default:
-                props.projects.sort(function (a,b) {return b.job_number - a.job_number})
+                props.projects.sort((a,b) => b.job_number - a.job_number)
         }
 
         return (props.projects.map(project =>

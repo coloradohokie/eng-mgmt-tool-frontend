@@ -68,9 +68,9 @@ class Projects extends Component {
         }
     }
 
-    updateProjectActivities = (newValue) => {
-        this.setState({projectActivities: [...this.props.projectActivities, newValue]})
-      }
+    // updateProjectActivities = (newValue) => {
+    //     this.setState({projectActivities: [...this.props.projectActivities, newValue]})
+    //   }
 
     selectedProjectList = () => {
         const filterValues = []
@@ -121,12 +121,8 @@ class Projects extends Component {
 
     handleChange = (event) => {
         let updatedSort = this.state.sort
-        if (event.target.name === "selectedMethod") {
-            updatedSort.selectedMethod = event.target.value 
-        }
-        if (event.target.name === "ascending") {
-            updatedSort.ascending = updatedSort.ascending ? false : true
-        }
+        if (event.target.name === "selectedMethod") updatedSort.selectedMethod = event.target.value 
+        if (event.target.name === "ascending") updatedSort.ascending = !updatedSort.ascending
         this.setState({sort: updatedSort})
     }
 
@@ -148,7 +144,7 @@ class Projects extends Component {
                     toggleTaskCompleted={this.toggleTaskCompleted}
                     updateProject={this.props.onUpdateProject}
                     addTaskToProject={this.addTaskToProject}
-                    updateProjectActivities={this.updateProjectActivities}
+                    updateProjectActivities={this.props.onUpdateProjectActivities}
                     />
             </div>
         )
@@ -172,7 +168,8 @@ const mapDispatchToProps = dispatch => {
     return {
         onFetchProjects: () => dispatch(actions.fetchProjects()),
         onUpdateProject: (id, updatedProject) => dispatch(actions.updateProject(id, updatedProject)),
-        onToggleTask: (taskId, projectTask) => dispatch(actions.toggleTask(taskId, projectTask))
+        onToggleTask: (taskId, projectTask) => dispatch(actions.toggleTask(taskId, projectTask)),
+        onUpdateProjectActivities: (newValue) => dispatch(actions.updateProjectActivities(newValue))
     }
 }
 
