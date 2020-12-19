@@ -47,20 +47,20 @@ class Projects extends Component {
         }
     }
 
-    addTaskToProject = async (project_id, group, taskName) => {
+    addTaskToProject = async (projectId, group, taskName) => {
         try {
           const newTask = {
             name: taskName,
-            project_id: project_id,
+            project_id: projectId,
             template_name: group,
             active: true,
             done: false
           }
-          const selectedProject = this.props.projects.find(project => project.id === project_id)
+          const selectedProject = this.props.projects.find(project => project.id === projectId)
           selectedProject.tasks.push(newTask)
           selectedProject.last_action = `${taskName} task added to project`
           this.setState(selectedProject)
-          this.props.onUpdateProject(project_id, selectedProject)
+          this.props.onUpdateProject(projectId, selectedProject)
           AJAX('tasks', 'POST', false , newTask)
     
         } catch (error) {

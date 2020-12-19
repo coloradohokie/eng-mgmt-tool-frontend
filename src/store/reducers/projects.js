@@ -1,3 +1,4 @@
+import { addTaskToProject } from '../actions'
 import * as actionTypes from '../actions/actionTypes'
 import { updateObject } from '../utility'
 
@@ -7,6 +8,7 @@ const initialState = {
     statuses: [],
     activities: [],
     taskTemplates: [],
+    selectedProject: {}
 }
 
 
@@ -18,6 +20,8 @@ const reducer = (state = initialState, action) => {
         case actionTypes.TOGGLE_TASK_FAIL: return  toggleTaskFail(state, action)
         case actionTypes.UPDATE_PROJECT_SUCCESS: return updateProjectSuccess(state, action)
         case actionTypes.UPDATE_PROJECT_FAIL: return updateProjectFail(state, action)
+        case actionTypes.ADD_TASK_TO_PROJECT_SUCCESS: return addTaskToProjectSuccess(state, action)
+        case actionTypes.ADD_TASK_TO_PROJECT_FAIL: return addTaskToProjectFail(state, action)
         default: return state
     }
 }
@@ -53,6 +57,16 @@ function updateProjectSuccess(state, action) {
 }
 
 function updateProjectFail(state, action) {
+    console.error(action.error)
+    return state
+}
+
+function addTaskToProjectSuccess(state, action) {
+    return state
+
+}
+
+function addTaskToProjectFail(state, action) {
     console.error(action.error)
     return state
 }

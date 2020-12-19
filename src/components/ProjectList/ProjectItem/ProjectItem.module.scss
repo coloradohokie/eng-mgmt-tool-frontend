@@ -40,18 +40,7 @@
   text-align: right;
 }
 
-.ModalHeader {
-  background-color: hsl(240, 20%, 20%);
-  color: whitesmoke
-}
 
-.ModalBody {
-  background-color: hsl(240, 20%, 90%);
-}
-
-.ModalFooter {
-  background-color: hsl(240, 20%, 90%);
-}
 
 .modal-tasks-container {
   margin-left: 20px;
@@ -61,19 +50,6 @@
 .modal-task-list {
   background-color: yellow;
 }
-
-.ModalFooterContainer {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-}
-
-.ModalStatusBar {
-  display: flex;
-  justify-content: flex-end;
-  margin: 10px;
-}
-
 
 
 .StatusBadge {

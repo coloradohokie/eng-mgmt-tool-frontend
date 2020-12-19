@@ -1,0 +1,25 @@
+.ModalHeader {
+    background-color: hsl(240, 20%, 20%);
+    color: whitesmoke
+}
+
+.ModalBody {
+    background-color: hsl(240, 20%, 90%);
+}
+
+.ModalFooter {
+    background-color: hsl(240, 20%, 90%);
+}
+
+.ModalFooterContainer {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+  
+.ModalStatusBar {
+    display: flex;
+    justify-content: flex-end;
+    margin: 10px;
+}
+  

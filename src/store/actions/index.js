@@ -1,5 +1,6 @@
 export {
     fetchProjects,
     toggleTask,
-    updateProject
+    updateProject,
+    addTaskToProject
 } from './projects'

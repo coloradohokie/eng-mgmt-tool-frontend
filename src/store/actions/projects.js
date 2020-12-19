@@ -2,7 +2,6 @@ import * as actionTypes from './actionTypes'
 import {AJAX} from '../../shared/utility'
 
 const fetchProjectsSuccess = (response) => {
-    console.log(response)
     return {
         type: actionTypes.FETCH_PROJECTS_SUCCESS,
         projects: response.projects,
@@ -83,6 +82,43 @@ export const updateProject = (id, project) => {
             dispatch(updateProjectSuccess(id, project))
         } catch (error) {
             dispatch(updateProjectFail(error))
+        }
+    }
+}
+
+const addTaskToProjectSuccess = (newTask) => {
+    return {
+        type: actionTypes.ADD_TASK_TO_PROJECT_SUCCESS,
+        newTask
+    }
+}
+
+const addTaskToProjectFail = (error) => {
+    return {
+        type: actionTypes.ADD_TASK_TO_PROJECT_FAIL,
+        error
+    }
+}
+
+export const addTaskToProject = (projectId, taskGroup, taskName) => {
+    return async dispatch => {
+        try {
+            const newTask = {
+                name: taskName,
+                project_id: projectId,
+                template_name: taskGroup,
+                active: true,
+                done: false
+            }
+            const selectedProject = this.props.projects.find(project => project.id === projectId)
+            selectedProject.tasks.push(newTask)
+            selectedProject.last_action = `${taskName} task added to project`
+            this.setState(selectedProject)
+            this.props.onUpdateProject(projectId, selectedProject)
+
+            dispatch(addTaskToProjectSuccess(newTask))
+        } catch (error) {
+            dispatch(addTaskToProjectFail(error))
         }
     }
 }

@@ -4,7 +4,6 @@ import Button from 'react-bootstrap/Button'
 import {Link} from 'react-router-dom'
 import classes from './ProjectList.module.scss'
 
-
 const ProjectList = (props) => {
 
     const showProjects = () => {
@@ -38,7 +37,7 @@ const ProjectList = (props) => {
                 props.projects.sort(function (a,b) {return b.job_number - a.job_number})
         }
 
-        return (props.projects.map(project => 
+        return (props.projects.map(project =>
             <ProjectItem 
                 key={project.id} 
                 project={project}
