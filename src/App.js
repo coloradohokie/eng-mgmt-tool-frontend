@@ -7,10 +7,9 @@ import Projects from './containers/Projects/Projects'
 import ActivityLog from './components/ActivityLog/ActivityLog'
 import NewProject from './containers/NewProject/NewProject'
 import WeeklyReport from './containers/WeeklyReport/WeeklyReport'
-import Admin from './containers/Admin/Admin'
+import Admin from './containers/Config/Config'
 import Layout from './containers/Layout/Layout'
 import Auth from './containers/Auth/Auth'
-import { AJAX } from './shared/utility'
 
 var moment = require('moment');
 moment().format();
@@ -57,18 +56,6 @@ export default class App extends React.Component {
     localStorage.removeItem('userId')
   }
 
-  updateValues = (valueList, newValue) => {
-    if (valueList === "Task Templates") {
-        this.setState({taskTemplates: [...this.state.taskTemplates, newValue]})
-    }
-    if (valueList === "Project Statuses") {
-        this.setState({statuses: [...this.state.statuses, newValue]})
-    }
-    if (valueList === "Activity Values") {
-        this.setState({activities: [...this.state.activities, newValue]})
-    }
-  }
-
   render() {
 
     let routes = (
@@ -104,7 +91,7 @@ export default class App extends React.Component {
               projectActivities={this.state.projectActivities} />
           </Route> 
 
-          <Route exact path='/admin'>
+          <Route exact path='/config'>
             <Admin 
               statuses={this.state.statuses}
               activities={this.state.activities}

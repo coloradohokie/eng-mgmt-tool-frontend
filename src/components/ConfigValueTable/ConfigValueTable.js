@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
 import Table from 'react-bootstrap/Table'
 import Button from 'react-bootstrap/Button'
-import classes from './AdminValueTable.module.scss'
-import AdminDisplayValue from './AdminDisplayValue/AdminDisplayValue'
+import classes from './ConfigValueTable.module.scss'
+import ConfigDisplayValue from './ConfigDisplayValue/ConfigDisplayValue'
 import { AJAX } from '../../shared/utility'
 
 
-class AdminValueTable extends Component {
+class ConfigValueTable extends Component {
     
     state = {
         addNewValue: false,
@@ -30,7 +30,7 @@ class AdminValueTable extends Component {
     }
 
     renderTable = (values) => {
-        return values.map(value => <AdminDisplayValue key={value.id} {...value} />)
+        return values.map(value => <ConfigDisplayValue key={value.id} {...value} />)
     }
 
     addValueInputHandler = (event) => {
@@ -97,14 +97,14 @@ class AdminValueTable extends Component {
 
     render() {
         return(
-            <div>
-                <div className={classes.AdminTableHeader}>
+            <div className={classes.ConfigValueTable}>
+                <div className={classes.ConfigValueTableHeader}>
                     <h2>{this.props.title}</h2>
                     <div className={classes.AddValueButton}>
                         <Button size='sm' variant="secondary" onClick={() => this.addValueClicked(this.props.title)}>Add Value</Button>
                     </div>
                 </div>
-                <Table striped bordered size="sm" className={classes.AdminValueTable}>
+                <Table striped bordered size="sm">
                     <thead>
                         <tr>
                             <td>Value</td>
@@ -122,4 +122,4 @@ class AdminValueTable extends Component {
     }
 }
 
-export default AdminValueTable
+export default ConfigValueTable

@@ -1,6 +1,6 @@
 import React from 'react'
 
-const adminDisplayValue = (props) => (
+const configDisplayValue = (props) => (
         <tr>
             <td>{props.value}</td>
             <td>{props.sort_id}</td> 
@@ -8,4 +8,4 @@ const adminDisplayValue = (props) => (
         </tr>
     )
 
-export default adminDisplayValue
+export default configDisplayValue

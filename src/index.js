@@ -8,12 +8,14 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import projectsReducer from './store/reducers/projects'
+import configReducer from './store/reducers/config'
 
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 
 const rootReducer = combineReducers({
-  projects: projectsReducer
+  projects: projectsReducer,
+  config: configReducer
 })
 
 const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)))

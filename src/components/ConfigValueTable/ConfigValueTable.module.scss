@@ -1,0 +1,21 @@
+.ConfigValueTable {
+    display: flex;
+    flex-direction: column;
+    max-width: 800px;
+    background-color: hsl(240, 20%, 90%);
+    margin-bottom: 15px;
+    box-shadow: 5px 5px 10px gray;
+    padding: 0.5rem 1rem;
+}
+
+.ConfigValueTableHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 0.5rem;
+}
+
+.ConfigValueTableCard {
+    
+    min-height: 80px;
+}

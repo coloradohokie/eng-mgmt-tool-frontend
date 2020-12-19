@@ -5,5 +5,9 @@ export {
     addTaskToProject,
     updateProjectActivities,
     addProject,
-    addActivity
 } from './projects'
+
+export {
+    addActivity,
+    updateValues
+} from './config'

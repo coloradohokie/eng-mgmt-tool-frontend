@@ -4,9 +4,9 @@ import { updateObject } from '../utility'
 const initialState = {
     projects: [],
     projectActivities: [],
-    statuses: [],
-    activities: [],
-    taskTemplates: [],
+    // statuses: [],
+    // activities: [],
+    // taskTemplates: [],
     selectedProject: {}
 }
 
