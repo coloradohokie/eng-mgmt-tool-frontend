@@ -4,5 +4,6 @@ export {
     updateProject,
     addTaskToProject,
     updateProjectActivities,
-    addProject
+    addProject,
+    addActivity
 } from './projects'

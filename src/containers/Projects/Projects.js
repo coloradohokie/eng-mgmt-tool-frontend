@@ -68,10 +68,6 @@ class Projects extends Component {
         }
     }
 
-    // updateProjectActivities = (newValue) => {
-    //     this.setState({projectActivities: [...this.props.projectActivities, newValue]})
-    //   }
-
     selectedProjectList = () => {
         const filterValues = []
         this.state.filters.map( filter => {
