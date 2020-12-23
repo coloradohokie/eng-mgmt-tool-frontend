@@ -22,7 +22,7 @@ export const AJAX = async function(endpoint, method = 'GET', auth=true, body = n
 }
 
 
-export const checkValiditity = (value, rules) => {
+export const checkValidity = (value, rules) => {
     let isValid = true
 
     if(rules.required) {
