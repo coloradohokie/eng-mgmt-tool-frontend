@@ -11,3 +11,9 @@ export {
     addActivity,
     updateValues
 } from './config'
+
+export {
+    checkAuthState,
+    loginStart,
+    logOut
+} from './auth'

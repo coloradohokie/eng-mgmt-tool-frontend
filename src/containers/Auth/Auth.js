@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import Input from '../../components/UI/Input/Input'
 import Button from '../../components/UI/Button/Button'
 import classes from './Auth.module.scss'
-import { AJAX } from '../../shared/utility'
+import * as actions from '../../store/actions/index'
+import { connect } from 'react-redux'
 
 class Auth extends Component {
     state = {
@@ -88,24 +89,11 @@ class Auth extends Component {
                 username: this.state.controls.username.value, 
                 password: this.state.controls.password.value
             }
-            const response = await AJAX('login', 'POST', false, payload)
-            console.log(response)
-            if (!response || !response.token) throw new Error ('Bad Login')
-
-            localStorage.setItem('token', response.token)
-            const expirationDate = new Date(new Date().getTime() + (response.expiration * 1000))
-            localStorage.setItem('expirationDate', expirationDate)
-            localStorage.setItem('username', response.username)
-            localStorage.setItem('userId', response.user_id)
-            window.location.href = "/"
-    
+            this.props.onSubmitLogin(payload)
         } catch (error) {
             console.error(error)
         }
     }
-
-
-
 
     render() {
         const formElementsArray = []
@@ -148,4 +136,10 @@ class Auth extends Component {
     }
 }
 
-export default Auth
+const mapDispatchToProps = dispatch => {
+    return {
+        onSubmitLogin: (payload) => dispatch(actions.loginStart(payload))
+    }
+}
+
+export default connect(null, mapDispatchToProps)(Auth)

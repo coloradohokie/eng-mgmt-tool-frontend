@@ -9,13 +9,15 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import projectsReducer from './store/reducers/projects'
 import configReducer from './store/reducers/config'
+import authReducer from './store/reducers/auth'
 
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 
 const rootReducer = combineReducers({
   projects: projectsReducer,
-  config: configReducer
+  config: configReducer,
+  auth: authReducer
 })
 
 const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)))

@@ -30,3 +30,11 @@ export const ADD_ACTIVITY_FAIL = 'ADD_ACTIVITY_FAIL'
 
 // CONFIG
 export const UPDATE_VALUES = 'UPDATE_VALUES'
+
+// AUTH
+export const LOGOUT = 'LOGOUT'
+export const CHECK_AUTH_STATE = 'CHECK_AUTH_STATE'
+
+export const LOGIN_START = 'LOGIN_START'
+export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
+export const LOGIN_FAIL = 'LOGIN_FAIL'
