@@ -47,25 +47,20 @@ class Projects extends Component {
         }
     }
 
-    addTaskToProject = async (projectId, group, taskName) => {
-        try {
-          const newTask = {
+    addTaskToProject = (projectId, group, taskName) => {
+        const newTask = {
             name: taskName,
             project_id: projectId,
             template_name: group,
             active: true,
             done: false
-          }
-          const selectedProject = this.props.projects.find(project => project.id === projectId)
-          selectedProject.tasks.push(newTask)
-          selectedProject.last_action = `${taskName} task added to project`
-          this.setState(selectedProject)
-          this.props.onUpdateProject(projectId, selectedProject)
-          AJAX('tasks', 'POST', false , newTask)
-    
-        } catch (error) {
-          console.error(error)
         }
+        this.props.onAddTaskToProject(newTask)
+        
+        const selectedProject = this.props.projects.find(project => project.id === projectId)
+        selectedProject.tasks.push(newTask)
+        selectedProject.last_action = `${taskName} task added to project`
+        this.props.onUpdateProject(projectId, selectedProject)
     }
 
     selectedProjectList = () => {
@@ -165,7 +160,8 @@ const mapDispatchToProps = dispatch => {
         onFetchProjects: () => dispatch(actions.fetchProjects()),
         onUpdateProject: (id, updatedProject) => dispatch(actions.updateProject(id, updatedProject)),
         onToggleTask: (taskId, projectTask) => dispatch(actions.toggleTask(taskId, projectTask)),
-        onUpdateProjectActivities: (newValue) => dispatch(actions.updateProjectActivities(newValue))
+        onUpdateProjectActivities: (newValue) => dispatch(actions.updateProjectActivities(newValue)),
+        onAddTaskToProject: (task) => dispatch(actions.addTaskToProject(task))
     }
 }
 

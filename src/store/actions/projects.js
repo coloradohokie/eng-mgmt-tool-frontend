@@ -100,22 +100,10 @@ const addTaskToProjectFail = (error) => {
     }
 }
 
-export const addTaskToProject = (projectId, taskGroup, taskName) => {
+export const addTaskToProject = (newTask) => {
     return async dispatch => {
         try {
-            const newTask = {
-                name: taskName,
-                project_id: projectId,
-                template_name: taskGroup,
-                active: true,
-                done: false
-            }
-            const selectedProject = this.props.projects.find(project => project.id === projectId)
-            selectedProject.tasks.push(newTask)
-            selectedProject.last_action = `${taskName} task added to project`
-            this.setState(selectedProject)
-            this.props.onUpdateProject(projectId, selectedProject)
-
+            await AJAX('tasks', 'POST', true , newTask)
             dispatch(addTaskToProjectSuccess(newTask))
         } catch (error) {
             dispatch(addTaskToProjectFail(error))

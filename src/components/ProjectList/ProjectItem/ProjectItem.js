@@ -43,6 +43,8 @@ const ProjectItem = (props) => {
                 handleClose={handleClose}
                 project={props.project}
                 updateProjectActivities={props.updateProjectActivities}
+                addTaskToProject={props.addTaskToProject}
+                toggleTaskCompleted={props.toggleTaskCompleted}
             />
         </>
     )
