@@ -40,26 +40,31 @@ class ConfigValueTable extends Component {
     submitNewValue = async (title) => {
         try {
             if (this.state.value && this.state.sort_id) {
-                const newValue = {
-                    value: this.state.value,
-                    sort_id: this.state.sort_id,
-                    active: true
-                }
-                let endpoint = ""
+                let endpoint, obj
                 switch (title) {
                     case "Task Templates":
+                        obj = "task_template"
                         endpoint = "task_templates"
                         break
                     case "Project Statuses":
+                        obj = "status"
                         endpoint = "statuses"
                         break
                     case "Activity Values":
+                        obj = "activity"
                         endpoint = "activities"
                         break
                     default:
                         endpoint = ""
                 }
-                const response = await AJAX(endpoint, 'POST', false, newValue)
+                const newValue = {
+                    [obj] : {
+                        value: this.state.value,
+                        sort_id: this.state.sort_id,
+                        active: true
+                    }
+                }
+                const response = await AJAX(endpoint, 'POST', true, newValue)
                 this.props.updateValues(title, response)
                 this.setState({
                     addNewValue: false,

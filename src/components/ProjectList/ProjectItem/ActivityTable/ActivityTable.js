@@ -47,14 +47,14 @@ class ActivityTable extends Component {
     }
 
     submitActivityInformation = async () => {
-        const newActivity = {
+        const newActivity = {project_activity: {
             activity_id: this.state.activityTypeId,
             project_id: this.props.project.id,
             activity_date: new Date(),
             notes: this.state.notes,
             important: false,
             archived: false
-        }
+        }}
         const response = await AJAX('project_activities', 'POST', false, newActivity )
         this.props.updateProjectActivities(response)
         this.setState({

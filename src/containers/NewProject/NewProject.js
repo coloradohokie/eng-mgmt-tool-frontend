@@ -55,7 +55,55 @@ class NewProject extends Component {
 
     handleSubmit = (event) => {
         event.preventDefault()
-        this.props.addProject(this.state)
+        const {
+            jobNumber,
+            client,
+            status,
+            address1,
+            address2,
+            city,
+            projectDescription,
+            budget,
+            paymentMethodValue,
+            contractDate,
+            stContractReceivedDate,
+            trussesReceivedDate,
+            framingDueDate,
+            foundationDueDate,
+            emailFromDwgReceivedDate,
+            contractProposalSentDate,
+            readyToBeInvoiced,
+            proposalTemplate,
+            framingTemplate,
+            foundationTemplate
+        } = this.state
+
+        const newProject = {project: {
+            job_number: jobNumber,
+            client,
+            status,
+            address1,
+            address2,
+            city,
+            project_description: projectDescription,
+            budget,
+            payment_method_value:  paymentMethodValue,
+            contract_date: contractDate,
+            st_contract_received_date: stContractReceivedDate,
+            trusses_received_date: trussesReceivedDate,
+            framing_due_date: framingDueDate,
+            foundation_due_date: foundationDueDate,
+            email_from_dwg_received_date: emailFromDwgReceivedDate,
+            contract_proposal_sent_date: contractProposalSentDate,
+            ready_to_be_invoiced: readyToBeInvoiced,
+            proposal_template: proposalTemplate,
+            foundation_template: foundationTemplate,
+            framing_template: framingTemplate,
+            last_action: "Project Created"
+        }}
+        console.log(newProject)
+
+        this.props.addProject(newProject)
     }
 
     listStatusOptions = () => {

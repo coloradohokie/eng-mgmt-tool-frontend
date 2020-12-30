@@ -39,9 +39,9 @@ class Projects extends Component {
                 projectTask.done = true
                 selectedProject.last_action = `${taskName} task marked completed`
             }
-            this.props.onUpdateProject(projectId, selectedProject)
+            this.props.onUpdateProject(projectId, {project: selectedProject})
             this.setState(projectTask) //this is used to trigger re-render
-            this.props.onToggleTask(taskId, projectTask)
+            this.props.onToggleTask(taskId, {task: projectTask})
         } catch (error) {
             console.error(error)
         }

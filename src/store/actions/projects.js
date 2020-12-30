@@ -51,7 +51,7 @@ export const toggleTask = (taskId, projectTask) => {
     return async dispatch => {
         try {
             const endpoint = `tasks/${taskId}`
-            await AJAX(endpoint, 'PATCH', false, projectTask)
+            await AJAX(endpoint, 'PATCH', true, projectTask)
             dispatch(toggleTaskSuccess())
         } catch (error) {
             dispatch(toggleTaskFail(error))
@@ -78,7 +78,7 @@ export const updateProject = (id, project) => {
     return async dispatch => {
         try {
             const endpoint = `projects/${id}`
-            await AJAX(endpoint, 'PATCH', false, project)
+            await AJAX(endpoint, 'PATCH', true, project)
             dispatch(updateProjectSuccess(id, project))
         } catch (error) {
             dispatch(updateProjectFail(error))
@@ -100,6 +100,7 @@ const addTaskToProjectFail = (error) => {
     }
 }
 
+// fix this!!!
 export const addTaskToProject = (projectId, taskGroup, taskName) => {
     return async dispatch => {
         try {
@@ -147,7 +148,7 @@ export const addProject = (newProject) => {
 
     return async dispatch => {
         try {
-            const project = await AJAX('projects', 'POST', false, newProject)
+            const project = await AJAX('projects', 'POST', true, newProject)
             dispatch(addProjectSuccess(project))
             window.location.href = '/'
         } catch (error) {
