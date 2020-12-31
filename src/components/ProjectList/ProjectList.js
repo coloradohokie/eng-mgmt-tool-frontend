@@ -48,6 +48,7 @@ const ProjectList = (props) => {
                 updateProject={props.updateProject}
                 addTaskToProject={props.addTaskToProject}
                 updateProjectActivities={props.updateProjectActivities}
+                addProjectActivity={props.addProjectActivity}
             /> ))
     }
 

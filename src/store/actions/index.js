@@ -3,12 +3,12 @@ export {
     toggleTask,
     updateProject,
     addTaskToProject,
+    addProjectActivity,
     updateProjectActivities,
     addProject,
 } from './projects'
 
 export {
-    addActivity,
     updateValues
 } from './config'
 

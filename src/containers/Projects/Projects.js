@@ -116,6 +116,7 @@ class Projects extends Component {
                     updateProject={this.props.onUpdateProject}
                     addTaskToProject={this.props.onAddTaskToProject}
                     updateProjectActivities={this.props.onUpdateProjectActivities}
+                    addProjectActivity={this.props.onAddProjectActivity}
                     />
             </div>
         )
@@ -138,7 +139,8 @@ const mapDispatchToProps = dispatch => {
         onUpdateProject: (id, updatedProject) => dispatch(actions.updateProject(id, updatedProject)),
         onToggleTask: (taskId, projectTask) => dispatch(actions.toggleTask(taskId, projectTask)),
         onUpdateProjectActivities: (newValue) => dispatch(actions.updateProjectActivities(newValue)),
-        onAddTaskToProject: (taskName, projectId, group) => dispatch(actions.addTaskToProject(taskName, projectId, group))
+        onAddTaskToProject: (taskName, projectId, group) => dispatch(actions.addTaskToProject(taskName, projectId, group)),
+        onAddProjectActivity: (projectActivity) => dispatch(actions.addProjectActivity(projectActivity))
     }
 }
 

@@ -6,6 +6,7 @@ import { AJAX } from '../../../../shared/utility'
 import ActivityItem from './ActivityItem/ActivityItem'
 import classes from './ActivityTable.module.scss'
 import { connect } from 'react-redux'
+import * as actions from '../../../../store/actions/index'
 
 class ActivityTable extends Component {
     state = {
@@ -26,9 +27,9 @@ class ActivityTable extends Component {
     }
 
     showActivities = (id) => {
-        this.state.projectActivities.sort(function (a,b) {return b.id - a.id})
+        this.props.projectActivities.sort(function (a,b) {return b.id - a.id})
         return (
-            this.state.projectActivities.map(activity => activity.project_id === id ? 
+            this.props.projectActivities.map(activity => activity.project_id === id ? 
                  <ActivityItem key={activity.id} activity={activity} activityName={this.getActivityName(activity.activity_id)} /> : null
             )                
         )
@@ -56,13 +57,11 @@ class ActivityTable extends Component {
             important: false,
             archived: false
         }
-        const response = await AJAX('project_activities', 'POST', true, newActivity )
-        this.props.updateProjectActivities(response)
+        this.props.addProjectActivity(newActivity)
         this.setState({
             showAddActivity: false,
             notes: "",
             activityTypeId: 0,
-            disabled: true
         })
     }
 
@@ -133,5 +132,11 @@ const mapStateToProps = state => {
         projectActivities: state.projects.projectActivities
     }
 }
+
+// const mapDispatchToProps = dispatch => {
+//     return {
+        
+//     }
+// }
 
 export default connect(mapStateToProps)(ActivityTable)

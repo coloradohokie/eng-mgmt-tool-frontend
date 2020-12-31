@@ -155,4 +155,28 @@ export const addProject = (newProject) => {
 }
 
 
+export const addProjectActivity = (newActivity) => {
+    const addProjectActivitySuccess = (newProjectActivity) => {
+        return {
+            type: actionTypes.ADD_PROJECT_ACTIVITY_SUCCESS,
+            newProjectActivity
+        }
+    }
 
+    const addProjectActivityFail = (error) => {
+        return {
+            type: actionTypes.ADD_PROJECT_ACTIVITY_FAIL,
+            error
+        }
+    }
+
+    return async dispatch => {
+        try {
+            const project_activity = newActivity
+            const newProjectActivity = await AJAX('project_activities', 'POST', true, {project_activity})
+            dispatch(addProjectActivitySuccess({...newActivity, id:newProjectActivity.id}))
+        } catch (error) {
+            dispatch(addProjectActivityFail(error))
+        }
+    }
+}

@@ -73,7 +73,8 @@ const projectDetails = props => {
                     project={props.project} 
                     // projectActivities={props.projectActivities}
                     activities={props.activities}
-                    updateProjectActivities={props.updateProjectActivities} 
+                    updateProjectActivities={props.updateProjectActivities}
+                    addProjectActivity={props.addProjectActivity} 
                 />
             </Modal.Body>
 

@@ -1,5 +1,5 @@
 import * as actionTypes from '../actions/actionTypes'
-import { updateObject } from '../utility'
+import { insertItemIntoArray, updateObject } from '../utility'
 
 const initialState = {
     projects: [],
@@ -18,8 +18,10 @@ const reducer = (state = initialState, action) => {
         case actionTypes.UPDATE_PROJECT_FAIL: return updateProjectFail(state, action)
         case actionTypes.ADD_TASK_TO_PROJECT_SUCCESS: return addTaskToProjectSuccess(state, action)
         case actionTypes.ADD_TASK_TO_PROJECT_FAIL: return addTaskToProjectFail(state, action)
-        case actionTypes.UPDATE_PROJECT_ACTIVITIES: return updateProjectActivities(state, action)
+        case actionTypes.UPDATE_PROJECT_ACTIVITIES: return updateProjectActivities(state, action) //retired??
         case actionTypes.ADD_PROJECT: return addProject(state, action)
+        case actionTypes.ADD_PROJECT_ACTIVITY_SUCCESS: return addProjectActivitySuccess(state, action)
+        case actionTypes.ADD_PROJECT_ACTIVITY_FAIL: return addProjectActivityFail(state, action)
         default: return state
     }
 }
@@ -35,7 +37,6 @@ function fetchProjectsSuccess (state, action) {
 function fetchProjectsFail (state, action) {
     console.error(action.error)
     return state
-
 }
 
 function toggleTaskSuccess (state, action) {
@@ -58,7 +59,6 @@ function updateProjectFail(state, action) {
 
 function addTaskToProjectSuccess(state, action) {
     return state
-
 }
 
 function addTaskToProjectFail(state, action) {
@@ -66,6 +66,7 @@ function addTaskToProjectFail(state, action) {
     return state
 }
 
+//I think this one has been retired.
 function updateProjectActivities(state, action) {
     return updateObject(state.projectActivities, action.newValue)
 }
@@ -75,5 +76,14 @@ function addProject(state, action) {
     return updateObject(state, updatedProjects)
 }
 
+function addProjectActivitySuccess(state, action) {
+    const updatedProjectActivities = insertItemIntoArray(state.projectActivities, {index: state.projectActivities.length, item: action.newProjectActivity})
+    return updateObject(state, {projectActivities: updatedProjectActivities})
+}
+
+function addProjectActivityFail(state, action) {
+    console.error(action.error)
+    return state
+}
 
 export default reducer

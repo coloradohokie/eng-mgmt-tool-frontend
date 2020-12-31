@@ -45,6 +45,7 @@ const ProjectItem = (props) => {
                 updateProjectActivities={props.updateProjectActivities}
                 addTaskToProject={props.addTaskToProject}
                 toggleTaskCompleted={props.toggleTaskCompleted}
+                addProjectActivity={props.addProjectActivity}
             />
         </>
     )
