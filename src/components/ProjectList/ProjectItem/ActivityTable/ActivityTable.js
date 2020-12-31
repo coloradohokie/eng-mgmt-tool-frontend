@@ -12,7 +12,7 @@ class ActivityTable extends Component {
         projectActivities: [],
         showAddActivity: false,
         notes: "",
-        activityTypeId: 0
+        activityTypeId: 0,
     }
 
     static getDerivedStateFromProps(props, state) {
@@ -43,6 +43,7 @@ class ActivityTable extends Component {
     }
 
     inputHandler = (event) => {
+        if (event.target.name === 'notes' && event.target.value.length > 500) return
         this.setState({[event.target.name]: event.target.value})
     }
 
@@ -55,12 +56,13 @@ class ActivityTable extends Component {
             important: false,
             archived: false
         }
-        const response = await AJAX('project_activities', 'POST', false, newActivity )
+        const response = await AJAX('project_activities', 'POST', true, newActivity )
         this.props.updateProjectActivities(response)
         this.setState({
             showAddActivity: false,
             notes: "",
-            activityTypeId: 0
+            activityTypeId: 0,
+            disabled: true
         })
     }
 
@@ -78,7 +80,7 @@ class ActivityTable extends Component {
                         <Moment format="MMM Do, YYYY"/>
                     </td>
                     <td style={{textAlign: "right"}}>
-                        <textarea style={{width: "100%", height: "150px"}} name="notes" value={this.state.notes} onChange={this.inputHandler} />
+                        <textarea style={{width: "100%", height: "150px"}} name="notes" placeholder={"500 characters max."} value={this.state.notes} onChange={this.inputHandler} />
                         <button style={{display: "inline-block"}} onClick={this.submitActivityInformation}>Add</button>
                     </td>
                 </tr>

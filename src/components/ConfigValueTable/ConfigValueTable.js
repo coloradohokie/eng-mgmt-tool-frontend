@@ -3,15 +3,13 @@ import Table from 'react-bootstrap/Table'
 import Button from 'react-bootstrap/Button'
 import classes from './ConfigValueTable.module.scss'
 import ConfigDisplayValue from './ConfigDisplayValue/ConfigDisplayValue'
-import { AJAX } from '../../shared/utility'
-
 
 class ConfigValueTable extends Component {
-    
     state = {
         addNewValue: false,
         value: "",
-        sort_id: 99
+        sort_id: 99,
+        disabled: true
     }
 
 
@@ -34,64 +32,46 @@ class ConfigValueTable extends Component {
     }
 
     addValueInputHandler = (event) => {
-        this.setState({[event.target.name]: event.target.value})
+        this.setState({
+            [event.target.name]: event.target.value,
+            disabled: event.target.value.length <= 0
+        })
     }
 
-    submitNewValue = async (title) => {
-        try {
-            if (this.state.value && this.state.sort_id) {
-                const newValue = {
-                    value: this.state.value,
-                    sort_id: this.state.sort_id,
-                    active: true
-                }
-                let endpoint = ""
-                switch (title) {
-                    case "Task Templates":
-                        endpoint = "task_templates"
-                        break
-                    case "Project Statuses":
-                        endpoint = "statuses"
-                        break
-                    case "Activity Values":
-                        endpoint = "activities"
-                        break
-                    default:
-                        endpoint = ""
-                }
-                const response = await AJAX(endpoint, 'POST', false, newValue)
-                this.props.updateValues(title, response)
-                this.setState({
-                    addNewValue: false,
-                    value: "",
-                    sort_id: 99
-                })
-            }
-
-        } catch (error) {
-            console.error(error)
+    submitNewValue = () => {
+        if (!this.state.value || !this.state.sort_id) throw new Error('Fields cannot be blank')
+        const newValue = {
+            value: this.state.value,
+            sort_id: this.state.sort_id,
+            active: true
         }
+        this.props.updateValues(this.props.title, newValue)
+        this.setState({
+            addNewValue: false,
+            value: "",
+            sort_id: 99,
+            disabled: true
+        })
+        
     }
 
     addNewValue = () => {
-        if (this.state.addNewValue) {
-            return(
-                <>
+        if (!this.state.addNewValue) return 
+        return(
+            <>
                 <tr>
                     <td> <input name="value" type="text" value={this.state.value} onChange={this.addValueInputHandler} placeholder="Name" /> </td>
                     <td> <input name="sort_id" value={this.state.sort_id} onChange={this.addValueInputHandler} type="number" /> </td>
                     <td> Yes </td>
                 </tr>
                 <tr>
-                    <td colSpan="3"><button onClick={() => this.submitNewValue(this.props.title)}>Add</button></td>
+                    <td colSpan="3"><button disabled={this.state.disabled} onClick={() => this.submitNewValue()}>Add</button></td>
                 </tr>
-                </>
-            )
-        }
-        return null
+            </>
+        )
     }
     
-    addValueClicked = (title) => {
+    addValueClicked = () => {
         this.setState({addNewValue: true})
     }
 
@@ -101,7 +81,7 @@ class ConfigValueTable extends Component {
                 <div className={classes.ConfigValueTableHeader}>
                     <h2>{this.props.title}</h2>
                     <div className={classes.AddValueButton}>
-                        <Button size='sm' variant="secondary" onClick={() => this.addValueClicked(this.props.title)}>Add Value</Button>
+                        <Button size='sm' variant="secondary" onClick={() => this.addValueClicked()}>Add Value</Button>
                     </div>
                 </div>
                 <Table striped bordered size="sm">

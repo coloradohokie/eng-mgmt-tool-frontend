@@ -29,7 +29,8 @@ class NewProject extends Component {
         readyToBeInvoicedDate: "",
         proposalTemplate: null,
         foundationTemplate: null,
-        framingTemplate: null
+        framingTemplate: null,
+        disabled: true
     }
 
     constructor() {
@@ -49,7 +50,10 @@ class NewProject extends Component {
         }
         else {
             const {name, value} = event.target
-            this.setState({[name]:value})
+            this.setState({
+                [name]:value,
+                disabled: this.state.jobNumber === null || this.state.address1 === null
+            })
         }
     }
 
@@ -204,7 +208,7 @@ class NewProject extends Component {
                         </div>
                         
                         <div className={classes.FormExitButtons}>
-                            <Button variant="primary" type="submit">
+                            <Button disabled={this.state.disabled} variant="primary" type="submit">
                                 Submit
                             </Button>
                         </div>

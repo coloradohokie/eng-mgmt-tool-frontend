@@ -44,7 +44,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onUpdateValues: (sourceObject, updatedProperty) => dispatch(actions.updateValues(sourceObject, updatedProperty))
+        onUpdateValues: (title, updatedValue) => dispatch(actions.updateValues(title, updatedValue))
     }
 }
 
