@@ -31,7 +31,7 @@ class TaskList extends Component {
 
     handleEnter = (event) => {
         if (event.key === "Enter" && this.state.newTask !== "") {
-            this.props.addTaskToProject(this.props.project_id, this.props.group, this.state.newTask)
+            this.props.addTaskToProject(this.state.newTask, this.props.project_id, this.props.group)
             this.setState({newTask: ""})
         }
     }

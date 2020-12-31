@@ -2,7 +2,6 @@ import React, {Component} from 'react'
 import ProjectList from '../../components/ProjectList/ProjectList'
 import FilterProjects from '../../components/FilterProjects/FilterProjects'
 import classes from './Projects.module.scss'
-import { AJAX } from '../../shared/utility'
 import { connect } from 'react-redux'
 import * as actions from '../../store/actions/index'
 
@@ -39,28 +38,11 @@ class Projects extends Component {
                 projectTask.done = true
                 selectedProject.last_action = `${taskName} task marked completed`
             }
-            this.props.onUpdateProject(projectId, selectedProject)
             this.setState(projectTask) //this is used to trigger re-render
             this.props.onToggleTask(taskId, projectTask)
         } catch (error) {
             console.error(error)
         }
-    }
-
-    addTaskToProject = (projectId, group, taskName) => {
-        const newTask = {
-            name: taskName,
-            project_id: projectId,
-            template_name: group,
-            active: true,
-            done: false
-        }
-        this.props.onAddTaskToProject(newTask)
-        
-        const selectedProject = this.props.projects.find(project => project.id === projectId)
-        selectedProject.tasks.push(newTask)
-        selectedProject.last_action = `${taskName} task added to project`
-        this.props.onUpdateProject(projectId, selectedProject)
     }
 
     selectedProjectList = () => {
@@ -117,8 +99,6 @@ class Projects extends Component {
         this.setState({sort: updatedSort})
     }
 
-
-
     render() {
         return (
             <div className={classes.Projects}>
@@ -134,15 +114,12 @@ class Projects extends Component {
                     statuses={this.props.statuses}
                     toggleTaskCompleted={this.toggleTaskCompleted}
                     updateProject={this.props.onUpdateProject}
-                    addTaskToProject={this.addTaskToProject}
+                    addTaskToProject={this.props.onAddTaskToProject}
                     updateProjectActivities={this.props.onUpdateProjectActivities}
                     />
             </div>
         )
-        
-
     }
-
 }
 
 const mapStateToProps = state => {
@@ -161,7 +138,7 @@ const mapDispatchToProps = dispatch => {
         onUpdateProject: (id, updatedProject) => dispatch(actions.updateProject(id, updatedProject)),
         onToggleTask: (taskId, projectTask) => dispatch(actions.toggleTask(taskId, projectTask)),
         onUpdateProjectActivities: (newValue) => dispatch(actions.updateProjectActivities(newValue)),
-        onAddTaskToProject: (task) => dispatch(actions.addTaskToProject(task))
+        onAddTaskToProject: (taskName, projectId, group) => dispatch(actions.addTaskToProject(taskName, projectId, group))
     }
 }
 
