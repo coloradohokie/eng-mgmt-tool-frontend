@@ -49,3 +49,7 @@ export const checkValidity = (value, rules) => {
 
     return isValid
 }
+
+export const snakeToCamel = (str) => str.replace(/([-_]\w)/g, (g) => g[1].toUpperCase())
+
+export const camelToSnake = (str) => str.split(/(?=[A-Z])/).join('_').toLowerCase()

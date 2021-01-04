@@ -9,6 +9,7 @@ export {
 } from './projects'
 
 export {
+    fetchValues,
     updateValues
 } from './config'
 

@@ -1,5 +1,5 @@
 import * as actionTypes from './actionTypes'
-import {AJAX} from '../../shared/utility'
+import {AJAX, snakeToCamel} from '../../shared/utility'
 
 export const updateValues = (title, newValue) => {
     const updateValuesSuccess = (valueList, newValue) => {
@@ -37,6 +37,32 @@ export const updateValues = (title, newValue) => {
             dispatch(updateValuesSuccess(title, response))
         } catch (error) {
             dispatch(updateValuesFail(error))
+        }
+    }
+}
+
+export const fetchValues = (endpoint) => {
+    const fetchValuesSuccess = (endpoint, data) => {
+        return {
+            type: actionTypes.FETCH_VALUES_SUCCESS,
+            key: snakeToCamel(endpoint),
+            values: data
+        }
+    }
+
+    const fetchValuesFail = (error) => {
+        return {
+            type: actionTypes.FETCH_VALUES_FAIL,
+            error
+        }
+    }
+
+    return async dispatch => {
+        try {
+            const response = await AJAX(endpoint)
+            dispatch(fetchValuesSuccess(endpoint, response))
+        } catch (error) {
+            dispatch(fetchValuesFail(error))
         }
     }
 }

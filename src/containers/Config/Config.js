@@ -5,22 +5,20 @@ import { connect } from 'react-redux'
 import * as actions from '../../store/actions/index'
 
 class Config extends Component {
+    state = {
+        stateChecked: false
+    }
 
-    // state = {
-    //     taskTemplates: [],
-    //     statuses: [],
-    //     activities: []
-    // }
-
-    // static getDerivedStateFromProps(props, state) {
-    //     return {
-    //         taskTemplates: props.taskTemplates,
-    //         statuses: props.statuses,
-    //         activities: props.activities
-    //     }
-    // }
+    loadState() {
+        if (this.props.statuses.length === 0) this.props.onFetchValues('statuses')
+        if (this.props.taskTemplates.length === 0) this.props.onFetchValues('task_templates')
+        if (this.props.activities.length === 0) this.props.onFetchValues('activities')
+        this.setState({stateChecked: true})
+    }
 
     render() {
+        if (!this.state.stateChecked && (!this.props.statuses.length || !this.props.taskTemplates.length || !this.props.activities.length)) this.loadState()
+
         return (
             <div className={classes.ConfigTable}>
                 <h1>System Configuration</h1>
@@ -44,6 +42,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
+        onFetchValues: (endpoint) => dispatch(actions.fetchValues(endpoint)),
         onUpdateValues: (title, updatedValue) => dispatch(actions.updateValues(title, updatedValue))
     }
 }

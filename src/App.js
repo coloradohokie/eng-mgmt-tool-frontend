@@ -18,11 +18,6 @@ var moment = require('moment');
 moment().format();
 
 class App extends Component {
-  // constructor(props) {
-  //   super()
-  //   this.props.onCheckAuthState()
-  // }
-
   componentDidMount = () => {
     this.props.onCheckAuthState()
   }

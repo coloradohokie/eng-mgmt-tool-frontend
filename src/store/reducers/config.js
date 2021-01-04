@@ -11,6 +11,7 @@ const reducer = (state = initialState, action) => {
     switch(action.type) {
         case actionTypes.FETCH_PROJECTS_SUCCESS: return fetchProjectsSuccess(state, action)
         case actionTypes.UPDATE_VALUES_SUCCESS: return updateValuesSuccess(state, action)
+        case actionTypes.FETCH_VALUES_SUCCESS: return fetchValuesSuccess(state, action)
         default: return state
     }
 
@@ -31,6 +32,10 @@ function fetchProjectsSuccess(state, action) {
     const activities = action.activities
     const taskTemplates = action.taskTemplates
     return updateObject(state, {statuses, activities, taskTemplates})
+}
+
+function fetchValuesSuccess(state, action) {
+    return updateObject(state, {[action.key]: action.values})
 }
 
 export default reducer
