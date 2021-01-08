@@ -1,5 +1,7 @@
 export {
     fetchProjects,
+    fetchProjectDetails,
+    clearSelectedProject,
     toggleTask,
     updateProject,
     addTaskToProject,

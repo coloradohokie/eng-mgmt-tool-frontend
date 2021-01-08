@@ -49,7 +49,11 @@ const ProjectList = (props) => {
                 addTaskToProject={props.addTaskToProject}
                 updateProjectActivities={props.updateProjectActivities}
                 addProjectActivity={props.addProjectActivity}
-            /> ))
+                fetchProjectDetails={props.fetchProjectDetails}
+                clearSelectedProject={props.clearSelectedProject}
+                selectedProject={props.selectedProject}
+            /> 
+        ))
     }
 
     return (

@@ -5,33 +5,15 @@ import Form from 'react-bootstrap/Form'
 import Moment from 'react-moment'
 import CurrencyFormat from 'react-currency-format'
 import classes from './ProjectInformation.module.scss'
+import { connect } from 'react-redux'
+import { updateObject } from '../../../../store/utility'
 
 class ProjectInformation extends Component {
    
     state = {
         projectInformationValues: [],
-        editing: false
-    }
-    componentDidMount() {
-        const projectInfoArray = [
-            {name: "Budget", value: this.props.project.budget, fieldType: "money-field" },
-            {name: "Contract Date", value: this.props.project.contract_date, fieldType: "date-field"},
-            {name: "ST Contract Received", value: this.props.project.st_contract_received_date, fieldType: "date-field"},
-            {name: "Trusses Received", value: this.props.project.trusses_received_date, fieldType: "date-field"},
-            {name: "Framing Due", value: this.props.project.framing_due_date, fieldType: "date-field"},
-            {name: "Foundation Due", value: this.props.project.foundation_due_date, fieldType: "date-field"},
-            {name: "Email from DWG Received", value: this.props.project.email_from_dwg_received_date, fieldType: "date-field"},
-            {name: "Contract Proposal Sent Date", value: this.props.project.contract_proposal_sent_date, fieldType: "date-field"},
-            {name: "Ready to be Invoiced Date", value: this.props.project.ready_to_be_invoiced_date, fieldType: "date-field"}
-        ]
-
-        projectInfoArray.map(info => {
-            if (info.value === null && info.fieldType === "date-field") {
-                return info.value = " "
-            } return null
-        })
-
-        this.setState({projectInformationValues: projectInfoArray})
+        editing: false,
+        loaded: false
     }
 
     renderProjectInformationRow = (name, value, fieldType) => {
@@ -97,26 +79,26 @@ class ProjectInformation extends Component {
     }
 
     addProjectInformationToProject = () => {
-        this.state.projectInformationValues.map( infoValue => {
-            switch (infoValue.name) {
+        this.state.projectInformationValues.map( info => {
+            switch (info.name) {
                 case "Budget":
-                    return this.props.project.budget = infoValue.value
+                    return this.props.project.budget = info.value
                 case "Contract Date":
-                    return this.props.project.contract_date = infoValue.value
+                    return this.props.project.contract_date = info.value
                 case "ST Contract Received":
-                    return this.props.project.st_contract_received_date = infoValue.value
+                    return this.props.project.st_contract_received_date = info.value
                 case "Trusses Received":
-                    return this.props.project.trusses_received_date = infoValue.value
+                    return this.props.project.trusses_received_date = info.value
                 case "Framing Due":
-                    return this.props.project.framing_due_date = infoValue.value
+                    return this.props.project.framing_due_date = info.value
                 case "Foundation Due":
-                    return this.props.project.foundation_due_date = infoValue.value
+                    return this.props.project.foundation_due_date = info.value
                 case "Email from DWG Received":
-                    return this.props.project.email_from_dwg_received_date = infoValue.value
+                    return this.props.project.email_from_dwg_received_date = info.value
                 case "Contract Proposal Sent Date":
-                    return this.props.project.contract_proposal_sent_date = infoValue.value
+                    return this.props.project.contract_proposal_sent_date = info.value
                 case "Ready to be Invoiced Date":
-                    return this.props.project.ready_to_be_invoiced_date = infoValue.value
+                    return this.props.project.ready_to_be_invoiced_date = info.value
                 default: return null
             }
         })
@@ -135,18 +117,42 @@ class ProjectInformation extends Component {
     handleChange = (event) => {
         const {name, value} = event.target
         let newState = this.state.projectInformationValues
-        newState.map( info => {
-            if (info.name === name) {
-                if (info.fieldType === "money-field") { info.value = +value }
-                else if (info.fieldType === "date-field" && info.value === " ") { info.value = "" }
-                else {info.value = value }
-            }
-            return info.value
-        })
+        let newValue = newState.find(info => info.name === name)
+        newValue.value = (newValue.fieldType === 'money-field') ? +value : value
+        updateObject(newState, newValue)
         this.setState({projectInformationValues: newState})
     }
 
+    loadInitialValues() {
+        if (this.props.project.id && !this.state.loaded) {
+
+                const projectInfoArray = [
+                    {name: "Budget", value: this.props.project.budget, fieldType: "money-field" },
+                    {name: "Contract Date", value: this.props.project.contract_date, fieldType: "date-field"},
+                    {name: "ST Contract Received", value: this.props.project.st_contract_received_date, fieldType: "date-field"},
+                    {name: "Trusses Received", value: this.props.project.trusses_received_date, fieldType: "date-field"},
+                    {name: "Framing Due", value: this.props.project.framing_due_date, fieldType: "date-field"},
+                    {name: "Foundation Due", value: this.props.project.foundation_due_date, fieldType: "date-field"},
+                    {name: "Email from DWG Received", value: this.props.project.email_from_dwg_received_date, fieldType: "date-field"},
+                    {name: "Contract Proposal Sent Date", value: this.props.project.contract_proposal_sent_date, fieldType: "date-field"},
+                    {name: "Ready to be Invoiced Date", value: this.props.project.ready_to_be_invoiced_date, fieldType: "date-field"}
+                ]
+        
+                projectInfoArray.map(info => {
+                    if (info.value === null && info.fieldType === "date-field") {
+                        return info.value = " "
+                    } 
+                })
+        
+                this.setState({
+                    loaded: true,
+                    projectInformationValues: projectInfoArray 
+                })    
+        }
+    }
+
     render() {
+        this.loadInitialValues()
         return(
             <div className={classes.ProjectInformation}>
                 <div className={classes.ProjectInformationHeader}>                            

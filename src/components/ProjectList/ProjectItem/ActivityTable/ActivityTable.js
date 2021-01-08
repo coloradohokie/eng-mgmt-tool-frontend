@@ -100,6 +100,7 @@ class ActivityTable extends Component {
     }
 
     render() {
+        console.log('ACTIVITY', this.props.project)
         return(
             <div className={classes.ActivitySection}>
                 <div className={classes.ActivitySectionHeader}>

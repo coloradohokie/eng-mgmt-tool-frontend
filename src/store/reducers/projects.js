@@ -12,6 +12,9 @@ const reducer = (state = initialState, action) => {
     switch (action.type) {
         case actionTypes.FETCH_PROJECTS_SUCCESS: return fetchProjectsSuccess(state, action)
         case actionTypes.FETCH_PROJECTS_FAIL: return fetchProjectsFail(state, action)
+        case actionTypes.FETCH_PROJECT_DETAILS_SUCCESS: return fetchProjectDetailsSuccess(state, action)
+        case actionTypes.FETCH_PROJECT_DETAILS_FAIL: return fetchProjectDetailsFail(state, action)
+        case actionTypes.CLEAR_SELECTED_PROJECT: return clearSelectedProject(state, action)
         case actionTypes.TOGGLE_TASK_SUCCESS: return toggleTaskSuccess(state, action)
         case actionTypes.TOGGLE_TASK_FAIL: return  toggleTaskFail(state, action)
         case actionTypes.UPDATE_PROJECT_SUCCESS: return updateProjectSuccess(state, action)
@@ -39,6 +42,21 @@ function fetchProjectsFail (state, action) {
     return state
 }
 
+function fetchProjectDetailsSuccess (state, action) {
+    const selectedProject = action.selectedProject
+    return updateObject(state, {selectedProject})
+}
+
+function fetchProjectDetailsFail (state, action) {
+    console.error(action.error)
+    return state
+}
+
+function clearSelectedProject (state, action) {
+    const selectedProject = {}
+    return updateObject(state, {selectedProject})
+}
+ 
 function toggleTaskSuccess (state, action) {
     return state
 }

@@ -5,23 +5,66 @@ import ProjectProgress from '../../UI/ProjectProgress/ProjectProgress'
 import Moment from 'react-moment'
 import classes from './ProjectItem.module.scss'
 import ProjectDetails from './ProjectDetails/ProjectDetails'
-
+import { connect } from 'react-redux'
+import * as actions from '../../../store/actions/index'
 
 const ProjectItem = (props) => {
     const [show, setShow] = useState(false)
-    const handleClose = () => setShow(false)
+    const [projectDeets, setProjectDeets] = useState()
+    const handleClose = () => {
+        setShow(false)
+        props.clearSelectedProject()
+    }
     const [projectStatusId, setProjectStatusId] = useState(props.project.status.id)
     
     const displayTitle = props.project.city ?
         `${props.project.address1}, ${props.project.city} \u2014 ${props.project.job_number}` :
         `${props.project.address1} \u2014 ${props.project.job_number}`
-    
+
+
+
+
+    const showProjectDetails = async (projectId) => {
+        setShow(true)
+        // try {
+            // const token = localStorage.getItem('token')
+            // const response = await fetch(`http://localhost:3000/projects/${projectId}`, {
+            //     method: 'GET',
+            //     headers: {
+            //         'Content-Type':'application/json',
+            //         'Authorization': `Bearer ${token}`
+            //     }
+            // })
+            // const selectedProject = await(response.json())
+            props.fetchProjectDetails(projectId)
+            // console.log(props.selectedProject)
+            setProjectDeets(
+                <ProjectDetails 
+                    show={show}
+                    displayTitle={displayTitle}
+                    projectStatusId={projectStatusId}
+                    setProjectStatusId = {setProjectStatusId}
+                    handleClose={handleClose}
+                    // selectedProject={props.selectedProject}
+                    statuses={props.statuses}
+                    updateProject={props.updateProject}
+                    updateProjectActivities={props.updateProjectActivities}
+                    addTaskToProject={props.addTaskToProject}
+                    toggleTaskCompleted={props.toggleTaskCompleted}
+                    addProjectActivity={props.addProjectActivity}
+                />
+            )
+        // } catch (error) {
+        //     console.error(error)
+        // }
+    }
+
     return(
         <>
             <Card className={classes.ItemCard}>
                 <Card.Body className={classes.CardContents}>
                     <div className={classes.CardMainBox}>
-                        <Card.Title onClick={() => setShow(true)}> {displayTitle} </Card.Title> 
+                        <Card.Title onClick={() => showProjectDetails(props.project.id)}> {displayTitle} </Card.Title> 
                             <p>{props.project.project_description}.</p>
                             <p style={{fontSize: "0.7em", paddingTop: "4px"}}>Last Action: {props.project.last_action} <Moment format="MMM Do, h:mm a">{props.project.updated_at}</Moment></p>
                     </div>
@@ -35,19 +78,9 @@ const ProjectItem = (props) => {
                     </div>
                 </Card.Body>
             </Card>
-            <ProjectDetails 
-                show={show}
-                displayTitle={displayTitle}
-                projectStatusId={projectStatusId}
-                setProjectStatusId = {setProjectStatusId}
-                handleClose={handleClose}
-                project={props.project}
-                updateProjectActivities={props.updateProjectActivities}
-                addTaskToProject={props.addTaskToProject}
-                toggleTaskCompleted={props.toggleTaskCompleted}
-                addProjectActivity={props.addProjectActivity}
-            />
+            {show ? projectDeets : ''}
         </>
     )
 }
+
 export default ProjectItem

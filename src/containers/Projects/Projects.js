@@ -39,6 +39,7 @@ class Projects extends Component {
                 selectedProject.last_action = `${taskName} task marked completed`
             }
             this.setState(projectTask) //this is used to trigger re-render
+            console.log(projectTask)
             this.props.onToggleTask(taskId, projectTask)
         } catch (error) {
             console.error(error)
@@ -117,6 +118,9 @@ class Projects extends Component {
                     addTaskToProject={this.props.onAddTaskToProject}
                     updateProjectActivities={this.props.onUpdateProjectActivities}
                     addProjectActivity={this.props.onAddProjectActivity}
+                    fetchProjectDetails={this.props.onFetchProjectDetails}
+                    clearSelectedProject={this.props.onClearSelectedProject}
+                    selectedProject={this.props.selectedProject}
                     />
             </div>
         )
@@ -129,13 +133,15 @@ const mapStateToProps = state => {
         projectActivities: state.projects.projectActivities,
         statuses: state.config.statuses,
         activities: state.config.activities,
-        taskTemplates: state.config.taskTemplates
+        selectedProject: state.projects.selectedProject
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
         onFetchProjects: () => dispatch(actions.fetchProjects()),
+        onFetchProjectDetails: (id) => dispatch(actions.fetchProjectDetails(id)),
+        onClearSelectedProject: () => dispatch(actions.clearSelectedProject()),
         onUpdateProject: (id, updatedProject) => dispatch(actions.updateProject(id, updatedProject)),
         onToggleTask: (taskId, projectTask) => dispatch(actions.toggleTask(taskId, projectTask)),
         onUpdateProjectActivities: (newValue) => dispatch(actions.updateProjectActivities(newValue)),

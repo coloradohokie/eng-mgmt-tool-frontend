@@ -7,8 +7,7 @@ const fetchProjectsSuccess = (response) => {
         projects: response.projects,
         projectActivities: response.project_activities,
         statuses: response.statuses,
-        activities: response.activities,
-        taskTemplates: response.task_templates
+        activities: response.activities
     }
 }
 
@@ -31,6 +30,38 @@ export const fetchProjects = () => {
             console.error(error)
             dispatch(fetchProjectsFail(error))
         }
+    }
+}
+
+export const fetchProjectDetails = (projectId) => {
+    const fetchProjectDetailsSuccess = (selectedProject) => {
+        return {
+            type: actionTypes.FETCH_PROJECT_DETAILS_SUCCESS,
+            selectedProject
+        }
+    }
+
+    const fetchProjectDetailsFail = (error) => {
+        return {
+            type: actionTypes.FETCH_PROJECT_DETAILS_FAIL,
+            error
+        }
+    }
+
+    return async (dispatch) => {
+        try {
+            const endpoint = `projects/${projectId}`
+            const response = await AJAX(endpoint)
+            dispatch(fetchProjectDetailsSuccess(response))
+        } catch (error) {
+            dispatch(fetchProjectDetailsFail(error))
+        }
+    }
+}
+
+export const clearSelectedProject = () => {
+    return {
+        type: actionTypes.CLEAR_SELECTED_PROJECT
     }
 }
 

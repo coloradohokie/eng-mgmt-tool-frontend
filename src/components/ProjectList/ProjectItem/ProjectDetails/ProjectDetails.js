@@ -1,35 +1,35 @@
-import React from 'react'
+import React, { Component } from 'react'
 import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'
 import TaskList from '../TaskList/TaskList'
 import ActivityTable from '../ActivityTable/ActivityTable'
 import ProjectInformation from '../ProjectInformation/ProjectInformation'
+import ProjectInfo from '../ProjectInformation/Temp'
 import Moment from 'react-moment'
 import classes from './ProjectDetails.module.scss'
-import {connect} from 'react-redux'
-import * as actions from '../../../../store/actions/index'
+import { connect } from 'react-redux'
 
 
-const projectDetails = props => {
-
-    const setStatusHandler = (event) => {
-        const updatedStatus = props.statuses.find(status => status.id === +event.target.value)
-        const updatedProject = {...props.project, status_id: +event.target.value, status: updatedStatus}
-        props.setProjectStatusId(+event.target.value)
-        props.onUpdateProject(props.project.id, updatedProject)
+class ProjectDetails extends Component {
+    setStatusHandler(event) {
+        const updatedStatus = this.props.statuses.find(status => status.id === +event.target.value)
+        const updatedProject = {...this.props.project, status_id: +event.target.value, status: updatedStatus}
+        this.props.setProjectStatusId(+event.target.value)
+        this.props.updateProject(this.props.project.id, updatedProject)
     }
 
-    const getStatusValues = () => {
-        return props.statuses.map(
+    getStatusValues() {
+        return this.props.statuses.map(
             status => <option key={status.id} value={status.id}>{status.value}</option>)
     }
 
-    const filterUniqueValues = (taskArray) => {
+    filterUniqueValues(taskArray) {
         return [...new Set(taskArray.map(item => item.template_name))]
     }
 
-    const getTasks = (projectId) => {
-        const taskGroups = filterUniqueValues(props.project.tasks)
+    getTasks() {
+        if (!this.props.selectedProject.tasks) return (<h2>No Task Information</h2>)
+        const taskGroups = this.filterUniqueValues(this.props.selectedProject.tasks)
         return (
             <div className={classes.TasksSection}>
                 {taskGroups.map(group => {
@@ -37,11 +37,11 @@ const projectDetails = props => {
                         <div key={group} className={classes.TasksTable}>
                             <h2>{group}</h2> 
                             <TaskList 
-                                tasks={props.project.tasks}
+                                tasks={this.props.selectedProject.tasks}
                                 group={group} 
-                                project_id={projectId} 
-                                addTaskToProject={props.addTaskToProject}
-                                toggleTaskCompleted={props.toggleTaskCompleted} />
+                                project_id={this.props.selectedProject.id} 
+                                addTaskToProject={this.props.addTaskToProject}
+                                toggleTaskCompleted={this.props.toggleTaskCompleted} />
                         </div>
                     )
                 })}
@@ -49,67 +49,62 @@ const projectDetails = props => {
         )
     }
 
-    return (
-        <Modal size="xl" centered show={props.show} onHide={props.handleClose}>
-            <Modal.Header className={classes.ModalHeader} closeButton>
-                <Modal.Title>{props.displayTitle}</Modal.Title>
-            </Modal.Header>
-
-            <Modal.Body className={classes.ModelBody}>
-                <div className={classes.ModalStatusBar}>
-                    <label>Status</label>
-                    <select name="status" value={props.projectStatusId} onChange={setStatusHandler}>
-                        {getStatusValues()}
-                    </select>
-                </div>
-                <div className={classes.ModalContentsContainer}>
-                    <ProjectInformation 
-                        project={props.project} 
-                        updateProject={props.onUpdateProject} 
-                    />
-                    {getTasks(props.project.id)}
-                </div>
-                <ActivityTable 
-                    project={props.project} 
-                    // projectActivities={props.projectActivities}
-                    activities={props.activities}
-                    updateProjectActivities={props.updateProjectActivities}
-                    addProjectActivity={props.addProjectActivity} 
-                />
-            </Modal.Body>
-
-            <Modal.Footer className={classes.ModalFooter}>
-                <div className={classes.ModalFooterContainer}>
-                    <div>
-                        <p>Project Created: {<Moment format="MM-DD-YYYY">{props.project.created_at}</Moment>}</p>
-                        <p>Last Updated: <Moment format="MM-DD-YYYY">{props.project.updated_at}</Moment></p>
-
+    render() {
+        return (
+            <Modal size="xl" centered show={true} onHide={this.props.handleClose}>
+            {/* <Modal size="xl" centered show={this.props.show} onHide={this.props.handleClose}> */}
+                <Modal.Header className={classes.ModalHeader} closeButton>
+                    <Modal.Title>{this.props.displayTitle}</Modal.Title>
+                </Modal.Header>
+    
+                <Modal.Body className={classes.ModelBody}>
+                    <div className={classes.ModalStatusBar}>
+                        <label>Status</label>
+                        <select name="status" value={this.props.projectStatusId} onChange={this.setStatusHandler}>
+                            {this.getStatusValues()}
+                        </select>
                     </div>
-                    <div>
-                        <Button variant="secondary" onClick={props.handleClose}>
-                            Close
-                        </Button>
+                    <div className={classes.ModalContentsContainer}>
+                        <ProjectInformation 
+                            project={this.props.selectedProject} 
+                            updateProject={this.props.updateProject} 
+                        />
+                        {this.getTasks()}
                     </div>
-                </div>
-            </Modal.Footer>
-        </Modal>
-    )
+                    {/* <ActivityTable 
+                        project={this.props.selectedProject} 
+                        // projectActivities={this.props.projectActivities}
+                        activities={this.props.activities}
+                        updateProjectActivities={this.props.updateProjectActivities}
+                        addProjectActivity={this.props.addProjectActivity} 
+                    /> */}
+                </Modal.Body>
+    
+                <Modal.Footer className={classes.ModalFooter}>
+                    <div className={classes.ModalFooterContainer}>
+                        <div>
+                            <p>Project Created: {<Moment format="MM-DD-YYYY">{this.props.selectedProject.created_at}</Moment>}</p>
+                            <p>Last Updated: <Moment format="MM-DD-YYYY">{this.props.selectedProject.updated_at}</Moment></p>
+    
+                        </div>
+                        <div>
+                            <Button variant="secondary" onClick={this.props.handleClose}>
+                                Close
+                            </Button>
+                        </div>
+                    </div>
+                </Modal.Footer>
+            </Modal>
+        )    
+    }
     
 }
 
+
 const mapStateToProps = state => {
     return {
-        statuses: state.config.statuses,
-        projectActivities: state.projects.projectActivities,
-        activities: state.config.activities
-
+        selectedProject: state.projects.selectedProject
     }
 }
 
-const mapDispatchToProps = dispatch => {
-    return {
-        onUpdateProject: (id, project) => dispatch(actions.updateProject(id, project))
-    }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(projectDetails)
+export default connect(mapStateToProps)(ProjectDetails)
