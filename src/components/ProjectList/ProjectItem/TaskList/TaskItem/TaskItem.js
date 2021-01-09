@@ -5,7 +5,7 @@ import classes from './TaskItem.module.scss'
 
 const taskItem = (props) => {
     const handleClick = (event) => {
-        props.toggleTaskCompleted(props.project_id, props.id, props.name)
+        props.toggleTaskCompleted(props.id)
     }
 
     if (props.done) {

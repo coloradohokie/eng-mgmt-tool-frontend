@@ -7,10 +7,9 @@ class TaskList extends Component {
 //props: tasks, group, project_id, addTaskToProject(), toggleTaskCompleted()
 
     state = {
-        tasks: this.props.tasks,
         newTask: ""
     }
-    
+
     showTask = (project_id, task) => {
         if (!task.id) {
             task.id = 1000

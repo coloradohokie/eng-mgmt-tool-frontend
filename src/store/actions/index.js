@@ -8,6 +8,7 @@ export {
     addProjectActivity,
     updateProjectActivities,
     addProject,
+    updateLastAction
 } from './projects'
 
 export {

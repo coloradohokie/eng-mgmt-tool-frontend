@@ -25,6 +25,7 @@ const reducer = (state = initialState, action) => {
         case actionTypes.ADD_PROJECT: return addProject(state, action)
         case actionTypes.ADD_PROJECT_ACTIVITY_SUCCESS: return addProjectActivitySuccess(state, action)
         case actionTypes.ADD_PROJECT_ACTIVITY_FAIL: return addProjectActivityFail(state, action)
+        case actionTypes.UPDATE_LAST_ACTION: return updateLastAction(state, action)
         default: return state
     }
 }
@@ -58,7 +59,17 @@ function clearSelectedProject (state, action) {
 }
  
 function toggleTaskSuccess (state, action) {
-    return state
+    const updatedTask = action.task
+    const selectedProject = state.selectedProject
+    selectedProject.tasks.map((item) => {
+        if (item.id !== updatedTask.id) return item
+        return {
+            ...item,
+            ...updatedTask
+        }
+    })
+
+    return updateObject(state, {selectedProject})
 }
 
 function toggleTaskFail (state, action) {
@@ -102,6 +113,11 @@ function addProjectActivitySuccess(state, action) {
 function addProjectActivityFail(state, action) {
     console.error(action.error)
     return state
+}
+
+function updateLastAction(state, action) {
+    const updatedSelectedProject = updateObject(state.selectedProject, {last_action: action.lastAction})
+    return updateObject(state, {selectedProject: updatedSelectedProject})
 }
 
 export default reducer

@@ -65,9 +65,10 @@ export const clearSelectedProject = () => {
     }
 }
 
-const toggleTaskSuccess = () => {
+const toggleTaskSuccess = (task) => {
     return {
         type: actionTypes.TOGGLE_TASK_SUCCESS,
+        task
     }
 }
 
@@ -78,12 +79,14 @@ const toggleTaskFail = (error) => {
     }
 }
 
-export const toggleTask = (taskId, projectTask) => {
+export const toggleTask = (task) => {
     return async dispatch => {
         try {
-            const endpoint = `tasks/${taskId}`
-            await AJAX(endpoint, 'PATCH', true, projectTask)
-            dispatch(toggleTaskSuccess())
+            console.log(task)
+            task.done = !task.done
+            const endpoint = `tasks/${task.id}`
+            await AJAX(endpoint, 'PATCH', true, task)
+            dispatch(toggleTaskSuccess(task))
         } catch (error) {
             dispatch(toggleTaskFail(error))
         }
@@ -209,5 +212,12 @@ export const addProjectActivity = (newActivity) => {
         } catch (error) {
             dispatch(addProjectActivityFail(error))
         }
+    }
+}
+
+export const updateLastAction = (lastAction) => {
+    return {
+        type: actionTypes.UPDATE_LAST_ACTION,
+        lastAction
     }
 }

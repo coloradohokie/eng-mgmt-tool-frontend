@@ -27,20 +27,16 @@ class Projects extends Component {
         this.props.onFetchProjects()
     }
 
-    toggleTaskCompleted = async (projectId, taskId, taskName) => {
+    toggleTaskCompleted = async (taskId) => {
         try {
-            const selectedProject = this.props.projects.find(project => project.id === projectId)
-            const projectTask = selectedProject.tasks.find(element => element.id === taskId)
-            if (projectTask.done === true) { 
-                projectTask.done = false
-                selectedProject.last_action = `${taskName} task marked not completed`
-            } else {
-                projectTask.done = true
-                selectedProject.last_action = `${taskName} task marked completed`
-            }
-            this.setState(projectTask) //this is used to trigger re-render
+            const projectTask = this.props.selectedProject.tasks.find(element => element.id === taskId)
+            const lastAction = projectTask.done ? 
+                `${projectTask.name} task marked not completed` :
+                `${projectTask.name} task marked completed`
             console.log(projectTask)
-            this.props.onToggleTask(taskId, projectTask)
+            this.props.onToggleTask(projectTask)
+            this.props.onUpdateLastAction(lastAction)
+            
         } catch (error) {
             console.error(error)
         }
@@ -143,10 +139,11 @@ const mapDispatchToProps = dispatch => {
         onFetchProjectDetails: (id) => dispatch(actions.fetchProjectDetails(id)),
         onClearSelectedProject: () => dispatch(actions.clearSelectedProject()),
         onUpdateProject: (id, updatedProject) => dispatch(actions.updateProject(id, updatedProject)),
-        onToggleTask: (taskId, projectTask) => dispatch(actions.toggleTask(taskId, projectTask)),
+        onToggleTask: (task) => dispatch(actions.toggleTask(task)),
         onUpdateProjectActivities: (newValue) => dispatch(actions.updateProjectActivities(newValue)),
         onAddTaskToProject: (taskName, projectId, group) => dispatch(actions.addTaskToProject(taskName, projectId, group)),
-        onAddProjectActivity: (projectActivity) => dispatch(actions.addProjectActivity(projectActivity))
+        onAddProjectActivity: (projectActivity) => dispatch(actions.addProjectActivity(projectActivity)),
+        onUpdateLastAction: (lastAction) => dispatch(actions.updateLastAction(lastAction))
     }
 }
 
