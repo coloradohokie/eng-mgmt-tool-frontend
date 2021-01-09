@@ -14,7 +14,7 @@ class ProjectDetails extends Component {
         const updatedStatus = this.props.statuses.find(status => status.id === +event.target.value)
         const updatedProject = {...this.props.project, status_id: +event.target.value, status: updatedStatus}
         this.props.setProjectStatusId(+event.target.value)
-        this.props.updateProject(this.props.project.id, updatedProject)
+        this.props.updateProject(updatedProject)
     }
 
     getStatusValues() {

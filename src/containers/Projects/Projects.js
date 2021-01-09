@@ -138,7 +138,7 @@ const mapDispatchToProps = dispatch => {
         onFetchProjects: () => dispatch(actions.fetchProjects()),
         onFetchProjectDetails: (id) => dispatch(actions.fetchProjectDetails(id)),
         onClearSelectedProject: () => dispatch(actions.clearSelectedProject()),
-        onUpdateProject: (id, updatedProject) => dispatch(actions.updateProject(id, updatedProject)),
+        onUpdateProject: (updatedProject) => dispatch(actions.updateProject(updatedProject)),
         onToggleTask: (task) => dispatch(actions.toggleTask(task)),
         onUpdateProjectActivities: (newValue) => dispatch(actions.updateProjectActivities(newValue)),
         onAddTaskToProject: (taskName, projectId, group) => dispatch(actions.addTaskToProject(taskName, projectId, group)),

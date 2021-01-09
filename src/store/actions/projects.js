@@ -93,10 +93,9 @@ export const toggleTask = (task) => {
     }
 }
 
-const updateProjectSuccess = (id, project) => {
+const updateProjectSuccess = (project) => {
     return {
         type: actionTypes.UPDATE_PROJECT_SUCCESS,
-        id,
         project
     }
 }
@@ -108,12 +107,12 @@ const updateProjectFail = (error) => {
     }
 }
 
-export const updateProject = (id, project) => {
+export const updateProject = (project) => {
     return async dispatch => {
         try {
-            const endpoint = `projects/${id}`
+            const endpoint = `projects/${project.id}`
             await AJAX(endpoint, 'PATCH', true, project)
-            dispatch(updateProjectSuccess(id, project))
+            dispatch(updateProjectSuccess(project))
         } catch (error) {
             dispatch(updateProjectFail(error))
         }

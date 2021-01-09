@@ -102,7 +102,7 @@ class ProjectInformation extends Component {
                 default: return null
             }
         })
-        this.props.updateProject(this.props.project.id, this.props.project)
+        this.props.updateProject(this.props.project)
     }
 
     toggleEditButton = () => {
