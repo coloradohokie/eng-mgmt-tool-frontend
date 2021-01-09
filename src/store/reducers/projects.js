@@ -78,7 +78,6 @@ function toggleTaskFail (state, action) {
 }
 
 function updateProjectSuccess(state, action) {
-    //project
     return updateObject(state, {selectedProject: action.project})
 }
 

@@ -5,8 +5,6 @@ import ProjectProgress from '../../UI/ProjectProgress/ProjectProgress'
 import Moment from 'react-moment'
 import classes from './ProjectItem.module.scss'
 import ProjectDetails from './ProjectDetails/ProjectDetails'
-import { connect } from 'react-redux'
-import * as actions from '../../../store/actions/index'
 
 const ProjectItem = (props) => {
     const [show, setShow] = useState(false)
@@ -26,18 +24,7 @@ const ProjectItem = (props) => {
 
     const showProjectDetails = async (projectId) => {
         setShow(true)
-        // try {
-            // const token = localStorage.getItem('token')
-            // const response = await fetch(`http://localhost:3000/projects/${projectId}`, {
-            //     method: 'GET',
-            //     headers: {
-            //         'Content-Type':'application/json',
-            //         'Authorization': `Bearer ${token}`
-            //     }
-            // })
-            // const selectedProject = await(response.json())
             props.fetchProjectDetails(projectId)
-            // console.log(props.selectedProject)
             setProjectDeets(
                 <ProjectDetails 
                     show={show}
@@ -45,7 +32,7 @@ const ProjectItem = (props) => {
                     projectStatusId={projectStatusId}
                     setProjectStatusId = {setProjectStatusId}
                     handleClose={handleClose}
-                    // selectedProject={props.selectedProject}
+                    activities={props.activities}
                     statuses={props.statuses}
                     updateProject={props.updateProject}
                     updateProjectActivities={props.updateProjectActivities}
@@ -54,9 +41,6 @@ const ProjectItem = (props) => {
                     addProjectActivity={props.addProjectActivity}
                 />
             )
-        // } catch (error) {
-        //     console.error(error)
-        // }
     }
 
     return(

@@ -5,7 +5,6 @@ import Moment from 'react-moment'
 import ActivityItem from './ActivityItem/ActivityItem'
 import classes from './ActivityTable.module.scss'
 import { connect } from 'react-redux'
-import * as actions from '../../../../store/actions/index'
 
 class ActivityTable extends Component {
     state = {

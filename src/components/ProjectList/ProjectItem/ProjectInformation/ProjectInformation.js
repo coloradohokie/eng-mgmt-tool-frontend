@@ -5,7 +5,6 @@ import Form from 'react-bootstrap/Form'
 import Moment from 'react-moment'
 import CurrencyFormat from 'react-currency-format'
 import classes from './ProjectInformation.module.scss'
-import { connect } from 'react-redux'
 import { updateObject } from '../../../../store/utility'
 
 class ProjectInformation extends Component {

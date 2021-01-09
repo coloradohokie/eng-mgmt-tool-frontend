@@ -51,7 +51,6 @@ class ProjectDetails extends Component {
     render() {
         return (
             <Modal size="xl" centered show={true} onHide={this.props.handleClose}>
-            {/* <Modal size="xl" centered show={this.props.show} onHide={this.props.handleClose}> */}
                 <Modal.Header className={classes.ModalHeader} closeButton>
                     <Modal.Title>{this.props.displayTitle}</Modal.Title>
                 </Modal.Header>
@@ -70,13 +69,13 @@ class ProjectDetails extends Component {
                         />
                         {this.getTasks()}
                     </div>
-                    {/* <ActivityTable 
+                    <ActivityTable 
                         project={this.props.selectedProject} 
                         // projectActivities={this.props.projectActivities}
                         activities={this.props.activities}
                         updateProjectActivities={this.props.updateProjectActivities}
                         addProjectActivity={this.props.addProjectActivity} 
-                    /> */}
+                    />
                 </Modal.Body>
     
                 <Modal.Footer className={classes.ModalFooter}>
