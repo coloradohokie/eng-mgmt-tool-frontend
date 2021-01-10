@@ -137,11 +137,7 @@ class ProjectInformation extends Component {
                     {name: "Ready to be Invoiced Date", value: this.props.project.ready_to_be_invoiced_date, fieldType: "date-field"}
                 ]
         
-                projectInfoArray.map(info => {
-                    if (info.value === null && info.fieldType === "date-field") {
-                        return info.value = " "
-                    } 
-                })
+                projectInfoArray.forEach(info => {if (info.value === null && info.fieldType === "date-field") info.value = " "})
         
                 this.setState({
                     loaded: true,
